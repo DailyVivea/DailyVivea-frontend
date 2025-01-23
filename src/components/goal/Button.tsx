@@ -1,10 +1,10 @@
 import React from "react";
 
-const Page = () => {
+const Button = () => {
     return (
       <div>
       </div>
     );
 }
 
-export default Page;
+export default Button;

@@ -1,11 +1,10 @@
 import React from "react";
 
-const Home = () => {
+const Bar = () => {
     return (
       <div>
-        대쉬보드
       </div>
     );
 }
 
-export default Home;
+export default Bar;
