@@ -1,10 +1,9 @@
 import React from "react";
+import RecordDatePage from "./record-date";
 
-const Page = () => {
-    return (
-      <div>
-      </div>
-    );
-}
 
-export default Page;
+const RecordPage = () => {
+  return <RecordDatePage />;
+};
+
+export default RecordPage;

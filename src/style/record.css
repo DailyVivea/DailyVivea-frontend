@@ -1,0 +1,19 @@
+.record-page {
+    display:flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: white;
+}
+
+/*사이즈 조정 필요*/
+.record-title {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-transform: capitalize;
+    text-align: center;
+    margin-top: 40px;
+}
