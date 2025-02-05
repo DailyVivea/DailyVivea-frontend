@@ -1,8 +1,8 @@
-"use client";
+"use client"
 
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // useNavigate 추가
 import Button from "./Button";
-import GoalCalendar from "./GoalCalendar";
 import "../../style/goal/GoalForm.css";
 
 const GoalForm: React.FC = () => {
@@ -13,7 +13,8 @@ const GoalForm: React.FC = () => {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
 
-  // 🟢 컴포넌트 마운트 시 로컬 스토리지에서 데이터 불러오기
+  const navigate = useNavigate(); 
+
   useEffect(() => {
     const savedGoal = localStorage.getItem("goal");
 
@@ -28,7 +29,6 @@ const GoalForm: React.FC = () => {
     }
   }, []);
 
-  // 🟢 임시저장 (로컬 스토리지 저장)
   const handleSaveLocal = () => {
     const goalData = {
       title,
@@ -41,7 +41,6 @@ const GoalForm: React.FC = () => {
     alert("목표가 임시 저장되었습니다!");
   };
 
-  // 🟢 완료하기 (서버 전송)
   const handleSubmit = async () => {
     const goalData = {
       title,
@@ -61,12 +60,17 @@ const GoalForm: React.FC = () => {
         const result = await response.json();
         alert(`목표가 성공적으로 저장되었습니다! ID: ${result.goalId}`);
         localStorage.removeItem("goal"); // 서버에 저장되면 로컬 데이터 삭제
+
+        // 성공적으로 저장 후 다른 페이지로 이동
+        navigate("/goal/createdGoal"); // 여기서 이동
       } else {
         alert("저장에 실패했습니다.");
       }
     } catch (error) {
       console.error("목표 저장 오류:", error);
       alert("서버 오류가 발생했습니다.");
+
+      navigate("/goal/createdGoal"); // 여기서 이동
     }
   };
 
@@ -95,27 +99,24 @@ const GoalForm: React.FC = () => {
       {/* 실행 간격 설정 */}
       <div className="goalForm__interval">
         <div className="label">실행 간격 설정</div>
-        
         <div className="goalForm__interval__control">
-        <div className="goalForm__interval__week">
-          <button onClick={() => setWeeks((prev) => Math.max(prev - 1, 0))}>-</button>
-          <span>{weeks}주</span>
-          <button onClick={() => setWeeks((prev) => prev + 1)}>+</button>
+          <div className="goalForm__interval__week">
+            <button onClick={() => setWeeks((prev) => Math.max(prev - 1, 0))}>-</button>
+            <span>{weeks}주</span>
+            <button onClick={() => setWeeks((prev) => prev + 1)}>+</button>
+          </div>
+          <div>마다</div>
+          <div className="goalForm__interval__count">
+            <button onClick={() => setTimes((prev) => Math.max(prev - 1, 0))}>-</button>
+            <span>{times}회</span>
+            <button onClick={() => setTimes((prev) => prev + 1)}>+</button>
+          </div>
         </div>
-        <div>마다</div>
-        <div className="goalForm__interval__count">
-          <button onClick={() => setTimes((prev) => Math.max(prev - 1, 0))}>-</button>
-          <span>{times}회</span>
-          <button onClick={() => setTimes((prev) => prev + 1)}>+</button>
-        </div>
-        </div>
-        
       </div>
 
       {/* 기간 설정 */}
       <div className="goalForm__date">
-
-      <div className="label">기간 설정</div>
+        <div className="label">기간 설정</div>
         <label>시작일</label>
         <input
           type="date"
