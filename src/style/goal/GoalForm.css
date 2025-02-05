@@ -1,0 +1,106 @@
+
+.goalForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+
+}
+
+.goalForm__title,
+.goalForm__detail,
+.goalForm__interval,
+.goalForm__date {
+
+}
+
+.goalForm__title textarea,
+.goalForm__detail textarea,
+.goalForm__date input {
+  width: 100%;
+  padding: 20px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+}
+
+.goalForm__title textarea {
+  height: 100px;
+}
+
+.goalForm__detail textarea {
+  height: 200px;
+}
+
+.label {
+  background-color: #f1f1f1;
+  border-radius: 20px;
+  padding: 8px 24px;
+  font-weight: bold;
+  width: fit-content;
+  margin: 10px 0px;
+}
+
+.goalForm__interval {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.goalForm__interval__control {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.goalForm__interval__week,
+.goalForm__interval__count {
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 5px 20px;
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.goalForm__interval__week span,
+.goalForm__interval__count span {
+  color: #ccc; 
+  font-size: 1.2rem;
+}
+
+.goalForm__interval__week button,
+.goalForm__interval__count button {
+  padding: 5px 10px;
+;
+}
+
+.goalForm__date input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.goalForm__btns {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.goalForm__btns button {
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.goalForm__btns button:first-child {
+  background-color: #dcdcdc;
+
+}
+
+.goalForm__btns button:last-child {
+  background-color: #95E757;
+
+}
