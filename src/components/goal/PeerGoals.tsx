@@ -47,9 +47,9 @@ const PeerGoals: React.FC<{ userId: string }> = ({ userId }) => {
         console.error("Error fetching peer goals:", error);
         setError("데이터를 불러오는 중 오류가 발생했습니다. 임시");
 
-        console.log("🔴 API 호출 실패! 임시 데이터를 설정합니다.");
+        console.log("API 호출 실패! 임시 데이터를 설정합니다.");
 
-        // api 완성 전까지 임시 데이터 사용해 ui 수정중
+        // 🔴 api 완성 전까지 임시 데이터 사용해 ui 수정중
         setPeerGoals(TEMP_PEER_GOALS); 
         // error 상태를 초기화하여 데이터가 화면에 표시되도록 함
         setTimeout(() => setError(null), 1000);

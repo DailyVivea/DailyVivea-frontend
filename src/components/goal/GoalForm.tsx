@@ -1,7 +1,6 @@
 "use client"
-
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // useNavigate 추가
+import { useRouter } from "next/navigation"; 
 import Button from "./Button";
 import "../../style/goal/GoalForm.css";
 
@@ -13,7 +12,7 @@ const GoalForm: React.FC = () => {
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
 
-  const navigate = useNavigate(); 
+  const router = useRouter(); // useRouter 훅 사용
 
   useEffect(() => {
     const savedGoal = localStorage.getItem("goal");
@@ -61,16 +60,17 @@ const GoalForm: React.FC = () => {
         alert(`목표가 성공적으로 저장되었습니다! ID: ${result.goalId}`);
         localStorage.removeItem("goal"); // 서버에 저장되면 로컬 데이터 삭제
 
-        // 성공적으로 저장 후 다른 페이지로 이동
-        navigate("/goal/createdGoal"); // 여기서 이동
+        // 완료 후 목표 생성 페이지로 이동 (next/link 사용)
+        router.push("/goal/createdGoal"); // 페이지 이동
       } else {
         alert("저장에 실패했습니다.");
+
+        // 🔴서버 api 미완 - 임시로 완료 페이지 ui 수정중
+        router.push("/goal/createdGoal");
       }
     } catch (error) {
       console.error("목표 저장 오류:", error);
       alert("서버 오류가 발생했습니다.");
-
-      navigate("/goal/createdGoal"); // 여기서 이동
     }
   };
 
