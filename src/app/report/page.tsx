@@ -8,6 +8,8 @@ import {
   GreenButton, GrayButton
 } from "./style";
 
+import EmotionBar from "@/components/report/EmotionBar";
+
 import Image from "next/image";
 import tempIcon from "@/assets/임시스티커.svg";
 
@@ -51,7 +53,12 @@ const ReportPage = () => {
 
           <div className="flex-1">
             <BlockComponent className="mb-4">
-              <BlockTitle>이번 주 감정 분포</BlockTitle>
+              <BlockTitle className="mb-4">이번 주 감정 분포</BlockTitle>
+              <EmotionBar text="두려움" emotion="😨" barColor="bg-[#95E757]" barState="w-[100%] "/>
+              <EmotionBar text="행복함" emotion="😊" barColor="bg-[#FFDFFC]" barState="w-[80%] "/>
+              <EmotionBar text="우울함" emotion="😔" barColor="bg-[#DEFFFC]" barState="w-[70%]"/>
+              <EmotionBar text="무덤덤" emotion="😐" barColor="bg-[#FFFFAA]" barState="w-[70%]"/>
+              <EmotionBar text="분노" emotion="😡" barColor="bg-[#E6E6E6]" barState="w-[50%]"/>
             </BlockComponent>
 
             <BlockComponent>
