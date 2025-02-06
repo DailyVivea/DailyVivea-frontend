@@ -71,3 +71,13 @@ export const calendarDates = (date: Date) => {  // 기준으로 할 날짜(달�
 
     return dates;
 };
+
+
+
+// 1~9월을 01~09로 변환
+export const calendarMonth = (date: Date) => {
+    const month = date.getMonth() + 1; // 0부터 11까지의 값이므로 1을 더해 1부터 12로 맞춤
+    const formattedMonth = String(month).padStart(2, '0'); // 두 자릿수로 포맷팅 (1 -> '01', 9 -> '09', 10 -> '10')
+    
+    return formattedMonth;
+}
