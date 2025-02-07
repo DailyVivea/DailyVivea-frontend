@@ -29,6 +29,6 @@ export const ProgressText = styled.p`
 `;
 export const DescriptionText = styled.p`
   color: #B6B6B6;
-  font-weight: medium;
+  font-weight: 500; //medium;
   font-size: 13px;
 `;

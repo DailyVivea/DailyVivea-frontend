@@ -21,12 +21,12 @@ export const BlockTitle = styled.p`
 `;
 export const BlockMiddleTitle = styled.p`
   color: #545454;
-  font-weight: semibold;
+  font-weight: 600; //semibold;
   font-size: 18px;
 `;
 export const BlockText = styled.p`
   color: #545454;
-  font-weight: medium;
+  font-weight: 500; //medium;
   font-size: 16px;
 `;
 
@@ -40,7 +40,7 @@ export const GreenButton = styled.div`
   padding-right: 20px;
 
   color: #212121;
-  font-weight: semibold;
+  font-weight: 600; //semibold;
   font-size: 18px;
 `;
 export const GrayButton = styled.div`
@@ -52,6 +52,6 @@ export const GrayButton = styled.div`
   padding-right: 20px;
 
   color: #212121;
-  font-weight: semibold;
+  font-weight: 600; //semibold;
   font-size: 18px;
 `;
