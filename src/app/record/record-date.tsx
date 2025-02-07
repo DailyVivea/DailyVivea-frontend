@@ -6,7 +6,7 @@ import Calendar from "@/components/Global/Calendar";
 import ProgressBar from "@/components/record/ProgressBar";
 import { ArrowRight } from "lucide-react";
 import "@/style/record.css";
-
+import "@/style/ProgressBar.css";
 
 const RecordDatePage = () => {
     const [activeStep, setActiveStep] = useState(0);
