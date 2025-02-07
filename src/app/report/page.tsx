@@ -15,6 +15,7 @@ import Image from "next/image";
 import tempIcon from "@/assets/임시스티커.svg";
 import GoalListItem from "@/components/report/GoalListItem";
 import DiamondProgressBar from "@/components/report/DiamondProgressBar";
+import TextLinkItem from "@/components/report/TextLinkItem";
 
 const ReportPage = () => {
     return (
@@ -55,8 +56,13 @@ const ReportPage = () => {
                 <CircularProgressBar size={200} strokeWidth={20} progress={75} description="01 . 07 . 수요일" />
               </div>
               <div>
+                <TextLinkItem text="주 3회, 하루 30분 이상 걷기 또는 조깅하기"/>
                 <DiamondProgressBar/>
+
+                <TextLinkItem text="주 1회 발표 연습하기"/>
                 <DiamondProgressBar/>
+
+                <TextLinkItem text="Python 강의 수료 후 간단한 프로젝트 완성"/>
                 <DiamondProgressBar/>
               </div>
             </BlockComponent>
