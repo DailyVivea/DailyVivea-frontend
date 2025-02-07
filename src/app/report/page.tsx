@@ -14,6 +14,7 @@ import EmotionBar from "@/components/report/EmotionBar";
 import Image from "next/image";
 import tempIcon from "@/assets/임시스티커.svg";
 import GoalListItem from "@/components/report/GoalListItem";
+import DiamondProgressBar from "@/components/report/DiamondProgressBar";
 
 const ReportPage = () => {
     return (
@@ -52,6 +53,11 @@ const ReportPage = () => {
               <BlockTitle className="mb-7">이번 주 목표 달성률</BlockTitle>
               <div className="flex justify-center">
                 <CircularProgressBar size={200} strokeWidth={20} progress={75} description="01 . 07 . 수요일" />
+              </div>
+              <div>
+                <DiamondProgressBar/>
+                <DiamondProgressBar/>
+                <DiamondProgressBar/>
               </div>
             </BlockComponent>
           </div>
