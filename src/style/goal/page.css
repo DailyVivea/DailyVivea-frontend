@@ -1,0 +1,21 @@
+.newGoal {
+  padding: 0px 100px;
+}
+
+.newGoal h1 {
+  font-size: 30px;
+  margin-top: 30px;
+}
+
+.newGoal-page {
+  display: flex;
+
+}
+
+.newGoal-page div:first-child {
+  flex: 2;
+}
+
+.newGoal-page div:last-child {
+  flex: 1;
+}

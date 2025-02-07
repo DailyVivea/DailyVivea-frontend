@@ -1,0 +1,60 @@
+.peerGoals__container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.peerGoals__title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.peerGoals__goal-box {
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  padding: 40px 20px;
+}
+
+.peerGoals__goal-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.peerGoals__goal-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.peerGoals__goal-item:last-child {
+  border-bottom: none;
+}
+
+.peerGoals__goal-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.peerGoals__goal-title {
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.peerGoals__goal-subtitle {
+  font-size: 14px;
+  color: #666;
+}
+
+.peerGoals__goal-owner {
+  font-size: 14px;
+  color: #666;
+}
+
+.peerGoals__error {
+  color: red;
+  text-align: center;
+}
