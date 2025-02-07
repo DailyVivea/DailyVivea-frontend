@@ -70,20 +70,22 @@ const ReportPage = () => {
 
           <div className="flex-1">
             <BlockComponent className="mb-4">
-              <BlockTitle className="mb-4">이번 주 감정 분포</BlockTitle>
+              <BlockTitle className="mt-5 mb-4">이번 주 감정 분포</BlockTitle>
               <EmotionBar text="두려움" emotion="😨" barColor="bg-[#95E757]" barState="w-[100%] "/>
               <EmotionBar text="행복함" emotion="😊" barColor="bg-[#FFDFFC]" barState="w-[80%] "/>
               <EmotionBar text="우울함" emotion="😔" barColor="bg-[#DEFFFC]" barState="w-[70%]"/>
               <EmotionBar text="무덤덤" emotion="😐" barColor="bg-[#FFFFAA]" barState="w-[70%]"/>
               <EmotionBar text="분노" emotion="😡" barColor="bg-[#E6E6E6]" barState="w-[50%]"/>
+              <div className="mb-10"/> {/*컴포넌트크기임시조정*/}
             </BlockComponent>
 
             <BlockComponent>
-              <BlockTitle className="mb-5">이번 주의 내 또래 친구들의 목표에요</BlockTitle>
+              <BlockTitle className="mt-5 mb-5">이번 주의 내 또래 친구들의 목표에요</BlockTitle>
               <GoalListItem goal="일주일에 5개 단어씩 외국어 단어장에 추가 후 복습" name="안OO"></GoalListItem>
               <GoalListItem goal="월 1회 지역 봉사활동 참여하기" name="박OO"></GoalListItem>
               <GoalListItem goal="주 1회, 외식비 5만 원 이하로 제한하기" name="최OO"></GoalListItem>
               <GoalListItem goal="매일 자기계발 서적 10페이지 읽기" name="김OO"></GoalListItem>
+              <div className="mb-7"/> {/*컴포넌트크기임시조정*/}
             </BlockComponent>
           </div>
         </div>
