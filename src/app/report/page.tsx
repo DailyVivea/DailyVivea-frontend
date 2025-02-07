@@ -8,6 +8,7 @@ import {
   GreenButton, GrayButton
 } from "./style";
 
+import CircularProgressBar from "@/components/report/CircleProgressBar";
 import EmotionBar from "@/components/report/EmotionBar";
 
 import Image from "next/image";
@@ -48,7 +49,10 @@ const ReportPage = () => {
         <div className="flex justify-between gap-4 mb-[70px]">
           <div className="flex-1">
             <BlockComponent>
-              <BlockTitle>이번 주 목표 달성률</BlockTitle>
+              <BlockTitle className="mb-7">이번 주 목표 달성률</BlockTitle>
+              <div className="flex justify-center">
+                <CircularProgressBar size={200} strokeWidth={20} progress={75} description="01 . 07 . 수요일" />
+              </div>
             </BlockComponent>
           </div>
 
