@@ -12,6 +12,7 @@ import EmotionBar from "@/components/report/EmotionBar";
 
 import Image from "next/image";
 import tempIcon from "@/assets/임시스티커.svg";
+import GoalListItem from "@/components/report/GoalListItem";
 
 const ReportPage = () => {
     return (
@@ -62,7 +63,11 @@ const ReportPage = () => {
             </BlockComponent>
 
             <BlockComponent>
-              <BlockTitle>이번 주의 내 또래 친구들의 목표에요</BlockTitle>
+              <BlockTitle className="mb-5">이번 주의 내 또래 친구들의 목표에요</BlockTitle>
+              <GoalListItem goal="일주일에 5개 단어씩 외국어 단어장에 추가 후 복습" name="안OO"></GoalListItem>
+              <GoalListItem goal="월 1회 지역 봉사활동 참여하기" name="박OO"></GoalListItem>
+              <GoalListItem goal="주 1회, 외식비 5만 원 이하로 제한하기" name="최OO"></GoalListItem>
+              <GoalListItem goal="매일 자기계발 서적 10페이지 읽기" name="김OO"></GoalListItem>
             </BlockComponent>
           </div>
         </div>
