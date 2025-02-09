@@ -2,42 +2,54 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; 
 import Button from "./Button";
+import Calendar from "../Global/Calendar";
 import "../../style/goal/GoalForm.css";
+import { subtle } from "crypto";
 
 const GoalForm: React.FC = () => {
   const [title, setTitle] = useState<string>("");
   const [details, setDetails] = useState<string>("");
   const [weeks, setWeeks] = useState<number>(0);
   const [times, setTimes] = useState<number>(0);
-  const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
+  const [date, setDate] = useState<Date | null>(null); // ✅ 선택한 날짜 저장
 
-  const router = useRouter(); // useRouter 훅 사용
+  // 🔹 Calendar와 연결할 상태들
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [currentDate, setCurrentDate] = useState<Date>(new Date());
+  const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const savedGoal = localStorage.getItem("goal");
-
     if (savedGoal) {
       const parsedGoal = JSON.parse(savedGoal);
       setTitle(parsedGoal.title || "");
       setDetails(parsedGoal.details || "");
       setWeeks(parsedGoal.interval?.week || 0);
       setTimes(parsedGoal.interval?.times || 0);
-      setStartDate(parsedGoal.term?.start || "");
-      setEndDate(parsedGoal.term?.end || "");
+      setDate(parsedGoal.term?.date ? new Date(parsedGoal.term.date) : null);
     }
   }, []);
+
+  // 🔹 선택한 날짜를 GoalForm의 date 상태로 동기화
+  useEffect(() => {
+    if (selectedDate) {
+      setDate(selectedDate);
+    }
+  }, [selectedDate]);
 
   const handleSaveLocal = () => {
     const goalData = {
       title,
       details,
       interval: { week: weeks, times },
-      term: { start: startDate, end: endDate },
+      date,
     };
 
     localStorage.setItem("goal", JSON.stringify(goalData));
     alert("목표가 임시 저장되었습니다!");
+    // console.log("제목",title,"세부내용",details,"실행간격",weeks,times,"날짜",date)
   };
 
   const handleSubmit = async () => {
@@ -45,8 +57,10 @@ const GoalForm: React.FC = () => {
       title,
       detail: details,
       interval: { week: weeks, times },
-      term: { start: startDate, end: endDate },
+      date,
     };
+
+    console.log(goalData)
 
     try {
       const response = await fetch("/api/goals", {
@@ -55,17 +69,16 @@ const GoalForm: React.FC = () => {
         body: JSON.stringify(goalData),
       });
 
+      
+
       if (response.ok) {
         const result = await response.json();
         alert(`목표가 성공적으로 저장되었습니다! ID: ${result.goalId}`);
-        localStorage.removeItem("goal"); // 서버에 저장되면 로컬 데이터 삭제
-
-        // 완료 후 목표 생성 페이지로 이동 (next/link 사용)
-        router.push("/goal/createdGoal"); // 페이지 이동
+        console.log("저장완료:","제목",title,"세부내용",details,"실행간격",weeks,times,"날짜",date)
+        localStorage.removeItem("goal");
+        router.push("/goal/createdGoal");
       } else {
         alert("저장에 실패했습니다.");
-
-        // 🔴서버 api 미완 - 임시로 완료 페이지 ui 수정중
         router.push("/goal/createdGoal");
       }
     } catch (error) {
@@ -117,19 +130,14 @@ const GoalForm: React.FC = () => {
       {/* 기간 설정 */}
       <div className="goalForm__date">
         <div className="label">기간 설정</div>
-        <label>시작일</label>
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-      </div>
-      <div className="goalForm__date">
-        <label>종료일</label>
-        <input
-          type="date"
-          value={endDate}
-          onChange={(e) => setEndDate(e.target.value)}
+        <Calendar
+          componentName="GoalForm"
+          currentDate={currentDate}
+          selectedDate={selectedDate}
+          hoveredDate={hoveredDate}
+          setCurrentDate={setCurrentDate}
+          setSelectedDate={setSelectedDate}
+          setHoveredDate={setHoveredDate}
         />
       </div>
 
