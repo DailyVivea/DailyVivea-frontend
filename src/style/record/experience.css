@@ -1,0 +1,127 @@
+/* 경험 기록 & 감정 기록 섹션 */
+.experience-section, .emotion-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* 기록 유형 선택 버튼 */
+.type-button {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: #888;
+    transition: color 0.3s ease-in-out;
+}
+
+.type-button.active {
+    color: #212121;
+    border-bottom: 3px solid #A1E075;
+}
+
+/* 경험 입력 필드 */
+.experience-textare {
+    width: 90%;
+    height: 150px;
+    padding: 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    resize: none;
+    outline: none;
+    font-family: "Pretendard", sans-serif;
+    background: white;
+    margin-top: 10px;
+}
+
+.experience-textare::placeholder {
+    color: #aaa;
+}
+
+/* ℹ️ 아이콘 및 Tip */
+.info-icon {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: #eee;
+    transition: background 0.3s ease-in-out;
+    margin-top: 10px;
+}
+
+.info-icon:hover {
+    background: #ddd;
+}
+
+.tip-container {
+    position: absolute;
+    bottom: -45px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 280px;
+    padding: 10px;
+    background: #212121;
+    color: #fff;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.info-icon:hover .tip-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 감정 선택 카드 */
+.emotion-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.emotion-card {
+    width: 150px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 2px solid transparent;
+}
+
+.emotion-card.selected {
+    transform: scale(1.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    border: 2px solid #212121;
+}
+
+.emotion-icon {
+    font-size: 40px;
+}
+
+.emotion-label {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+}
