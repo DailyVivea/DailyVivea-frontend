@@ -8,7 +8,7 @@ import "@/style/header.css";
 
 const navItems = [
   { name: "Home", path: "/dashboard" },
-  { name: "Daily", path: "/goal" },
+  { name: "Daily", path: "/record" },
   { name: "Report", path: "/report" },
   { name: "Todo", path: "/list" },
 ];
