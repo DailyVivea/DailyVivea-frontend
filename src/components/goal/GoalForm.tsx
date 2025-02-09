@@ -148,7 +148,7 @@ const GoalForm: React.FC = () => {
             <span>{weeks}주</span>
             <button onClick={() => setWeeks((prev) => prev + 1)}>+</button>
           </div>
-          <div>마다</div>
+          <div className="goalForm__interval__between">마다</div>
           <div className="goalForm__interval__count">
             <button onClick={() => setTimes((prev) => Math.max(prev - 1, 0))}>-</button>
             <span>{times}회</span>
