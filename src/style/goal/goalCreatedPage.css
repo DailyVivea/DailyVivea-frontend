@@ -47,3 +47,23 @@
   color: black;
   border-radius: 9999px;
 }
+
+.goalCard {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border: 2px solid #ddd;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.goalCard__title,
+.goalCard__interval,
+.goalCard__term {
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+strong {
+  font-weight: bold;
+}
