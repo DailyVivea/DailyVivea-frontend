@@ -6,8 +6,11 @@ const ProgressBar = ({ activeStep }: { activeStep: number }) => {
   return (
     <div className="progress-bar-container">
       <div className="progress-track">
-        {/* ✅ 기존 방식 유지하면서 동적 width 적용 */}
-        <div className="progress-fill" style={{ width: `${(activeStep + 1) * 25}%` }}></div>
+        {/* ✅ 기존의 --active-step을 사용하지 않고 직접 width 설정 */}
+        <div 
+          className="progress-fill" 
+          style={{ width: `${(activeStep + 1) * 25}%` }}
+        />
       </div>
       <div className="progress-step-container">
         {steps.map((step, index) => (
