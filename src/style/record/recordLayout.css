@@ -14,6 +14,11 @@
     padding: 20px 0;
 }
 
+.button-container{
+    display: flex;
+    gap: 37px
+}
+
 .record-title {
   color: #000;
   font-family: "Pretendard";
@@ -45,7 +50,7 @@
 }
 
 /* 클릭 효과 */
-.nav-button:active {
+.nav-button:active, .back-button:active {
   transform: scale(0.95);
 }
 
@@ -54,6 +59,18 @@
   height: 32px;
   color: #212121; 
 }
+
+.back-button svg{
+  width: 32px;
+  height: 32px;
+  color: #b6b6b6
+}
+
+.back-button svg:hover {
+  color: #212121
+}
+
+.back
   
 .calender-container {
     display: flex;
