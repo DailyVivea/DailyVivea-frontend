@@ -6,45 +6,63 @@
     padding: 20px 120px;
 }
 
-/*record-date*/
-.record-title {
-    color: #000;
-    font-family: "Pretendard";
-    font-size: 48px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: normal;
-    text-transform: capitalize;
-    text-align: left;
-    margin-top: 60px;
+.title-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* 좌우 정렬 */
+    width: 100%;
+    padding: 20px 0;
 }
 
-@media (max-width: 768px) {
-    .record-title {
-      font-size: 36px;
-      margin-top: 40px; 
-    }
-  }
+.record-title {
+  color: #000;
+  font-family: "Pretendard";
+  font-size: 48px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: capitalize;
+  text-align: left;
+}
+
+/* 화살표 버튼 스타일 */
+.nav-button {
+  width: 64px;
+  height: 64px;
+  background-color: #A1E075; /* 연한 초록색 */
+  border-radius: 50%; /* 원형 버튼 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+
+/* 호버 효과 */
+.nav-button:hover {
+  background-color: #95E757; 
+}
+
+/* 클릭 효과 */
+.nav-button:active {
+  transform: scale(0.95);
+}
+
+.nav-button svg {
+  width: 32px;
+  height: 32px;
+  color: #212121; 
+}
   
 .calender-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 772px;
+    
     margin-top: 65px;
-    max-width: 650px;
 }
 
-@media (max-width: 768px) {
-    .calendar-container {
-      max-width: 90%; 
-      margin-top: 15px; 
-    }
-  }
 
-  @media (max-width: 768px) {
-    .record-page {
-        padding: 20px 20px;
-    }
-}
 

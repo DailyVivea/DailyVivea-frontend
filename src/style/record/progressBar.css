@@ -1,4 +1,3 @@
-
 .progress-bar-container {
     position: fixed;
     bottom: 99px;
@@ -17,20 +16,18 @@
     background-color: #e6e6e6;
     height: 5px;
     border-radius: 999px;
-    margin-bottom: 13px;  /* 진행바와 스텝 텍스트 사이의 간격 */
+    margin-bottom: 13px;
     position: relative;
+    overflow: hidden; /* ✅ 초과 부분 가리기 */
 }
 
-.progress-track::before {
-    content: "";
-    position: absolute;
+/* ✅ 진행 바 채우기 (JS에서 width 변경) */
+.progress-fill {
     height: 5px;
-    width: calc(25% * (var(--active-step) + 1));
     background-color: #95e757;
     border-radius: 999px;
     transition: width 0.3s ease-in-out;
 }
-
 
 .progress-step-container {
     width: 90%;
@@ -41,7 +38,7 @@
 
 .progress-step {
     display: flex;
-    flex-direction: column; /* 텍스트가 아래쪽에 쌓이도록 */
+    flex-direction: column;
     align-items: center;
 }
 
