@@ -22,12 +22,15 @@ const GoalForm: React.FC = () => {
     const savedGoal = localStorage.getItem("goal");
     if (savedGoal) {
       const parsedGoal = JSON.parse(savedGoal);
+
+      console.log(parsedGoal);
+
       setTitle(parsedGoal.title || "");
-      setDetails(parsedGoal.details || "");
-      setWeeks(parsedGoal.interval?.week || 0);
-      setTimes(parsedGoal.interval?.times || 0);
-      setStartDate(parsedGoal.term?.startDate ? new Date(parsedGoal.term.startDate) : null);
-      setEndDate(parsedGoal.term?.endDate ? new Date(parsedGoal.term.endDate) : null);
+      setDetails(parsedGoal.content || "");
+      setWeeks(parsedGoal.interval?.interval_weeks || 0);
+      setTimes(parsedGoal.interval?.interval_times || 0);
+      setStartDate(parsedGoal.term?.start_date ? new Date(parsedGoal.term.start_date) : null);
+      setEndDate(parsedGoal.term?.end_date ? new Date(parsedGoal.term.end_date) : null);
     }
   }, []);
 
