@@ -3,18 +3,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  background-color: white;
+  min-height: 80vh;
+  margin-top: 40px;
   padding: 1.5rem;
   gap: 1.5rem;
+
 }
+
+
 
 /* 제목 스타일 */
 .createdGoal__title {
-  font-size: 1.875rem;
+  font-size: 48px;
   font-weight: bold;
   color: black;
+  margin-bottom: 40px;
 }
 
 /* 버튼 스타일 */
@@ -22,6 +25,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 40px;
   padding: 0.75rem 1.5rem;
   background-color: #95E757; 
   color: black;
@@ -48,22 +52,7 @@
   border-radius: 9999px;
 }
 
-.goalCard {
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  border: 2px solid #ddd;
-  border-radius: 20px;
-  margin-bottom: 20px;
-}
-
-.goalCard__title,
-.goalCard__interval,
-.goalCard__term {
-  margin-bottom: 10px;
-  font-size: 16px;
-}
-
-strong {
-  font-weight: bold;
+.createdGoal__background {
+  position: absolute;
+  z-index: -1;
 }

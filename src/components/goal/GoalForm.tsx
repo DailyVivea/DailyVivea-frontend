@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -11,25 +11,10 @@ const GoalForm: React.FC = () => {
   const [details, setDetails] = useState<string>("");
   const [weeks, setWeeks] = useState<number>(0);
   const [times, setTimes] = useState<number>(0);
-  const [startDate, setStartDate] = useState<Date | null>(null); 
-  const [endDate, setEndDate] = useState<Date | null>(null); 
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
-
-  const handleDateSelect = (date: Date | null) => {
-    if (!startDate || (startDate && endDate)) {
-
-      setStartDate(date);
-      setEndDate(null);
-    } else if (startDate && !endDate) {
-
-      if (date && date < startDate) {
-
-        setStartDate(date);
-      } else {
-        setEndDate(date);
-      }
-    }
-  };
+  const [error, setError] = useState<string>("");
 
   const router = useRouter();
 
@@ -46,25 +31,48 @@ const GoalForm: React.FC = () => {
     }
   }, []);
 
+  const handleDateSelect = (date: Date | null) => {
+    if (!startDate || (startDate && endDate)) {
+      setStartDate(date);
+      setEndDate(null);
+    } else if (startDate && !endDate) {
+      if (date && date < startDate) {
+        setStartDate(date);
+      } else {
+        setEndDate(date);
+      }
+    }
+  };
+
   const handleSaveLocal = () => {
     const goalData = {
       title,
       details,
       interval: { week: weeks, times },
       term: { startDate, endDate },
+      isTemporary: true, // 임시 저장일 경우 isTemporary는 true로 설정
     };
 
     localStorage.setItem("goal", JSON.stringify(goalData));
     alert("목표가 임시 저장되었습니다!");
-    console.log("제목", title, "세부내용", details, "실행간격", weeks, times, "시작일", startDate, "종료일", endDate);
+    console.log(goalData);
   };
 
   const handleSubmit = async () => {
+    // 종료일이 시작일 이후인지 확인
+    if (startDate && endDate && endDate < startDate) {
+      setError("종료 날짜는 시작 날짜 이후여야 합니다.");
+      return;
+    }
+
     const goalData = {
       title,
-      detail: details,
-      interval: { week: weeks, times },
-      term: { startDate, endDate },
+      content: details,
+      interval_weeks: weeks,
+      interval_times: times,
+      start_date: startDate ? startDate.toISOString().split("T")[0] : "",
+      end_date: endDate ? endDate.toISOString().split("T")[0] : "",
+      isTemporary: false, // 서버에 보낼 데이터로 임시 저장 여부를 false로 설정
     };
 
     console.log(goalData);
@@ -78,18 +86,33 @@ const GoalForm: React.FC = () => {
 
       if (response.ok) {
         const result = await response.json();
-        alert(`목표가 성공적으로 저장되었습니다! ID: ${result.goalId}`);
-        console.log("저장완료:", "제목", title, "세부내용", details, "실행간격", weeks, times, "시작일", startDate, "종료일", endDate);
+        alert("목표가 성공적으로 저장되었습니다!");
+        console.log("저장완료:", result);
         localStorage.removeItem("goal");
         router.push("/goal/createdGoal");
       } else {
-        alert("서버 저장에 실패했습니다. 임시 저장합니다.");
-        localStorage.setItem("goal", JSON.stringify(goalData)); // 🔴api 완성 전까지 임시로 로컬 스토리지에 저장
-        router.push("/goal/createdGoal");
+        const result = await response.json();
+        if (result.message === "사용자를 찾을 수 없습니다.") {
+          alert("사용자를 찾을 수 없습니다.");
+        } else if (result.message === "입력 하지 않은 필드가 있습니다.") {
+          alert("모든 필드를 작성해주세요.");
+        } else {
+          alert("서버 저장에 실패했습니다. 임시 저장합니다.");
+          const goalDataWithTemp = {
+            ...goalData,
+            isTemporary: true, // 서버 오류 발생 시 임시 저장으로 처리
+          };
+          localStorage.setItem("goal", JSON.stringify(goalDataWithTemp));
+          router.push("/goal/createdGoal");
+        }
       }
     } catch (error) {
       alert("서버 오류가 발생했습니다. 임시 저장합니다.");
-      localStorage.setItem("goal", JSON.stringify(goalData)); // 🔴api 완성 전까지 서버 오류 시 로컬 스토리지에 저장
+      const goalDataWithTemp = {
+        ...goalData,
+        isTemporary: true, // 서버 오류 발생 시 임시 저장으로 처리
+      };
+      localStorage.setItem("goal", JSON.stringify(goalDataWithTemp));
       router.push("/goal/createdGoal");
     }
   };
@@ -140,14 +163,16 @@ const GoalForm: React.FC = () => {
         <Calendar
           componentName="GoalDate"
           currentDate={startDate || new Date()}
-          selectedDate={startDate} // 기존 selectedDate에는 startDate 전달
-          hoveredDate={endDate} // 종료일을 hoveredDate로 전달하여 UI에서 표시 가능
-          setCurrentDate={() => {}} // 기존 로직 유지
-          setSelectedDate={handleDateSelect} // 날짜 선택 시 `handleDateSelect` 실행
-          setHoveredDate={setHoveredDate} // 필요하면 hover된 날짜 UI 반영 가능
+          selectedDate={startDate}
+          hoveredDate={endDate}
+          setCurrentDate={() => {}}
+          setSelectedDate={handleDateSelect}
+          setHoveredDate={setHoveredDate}
         />
-        <p>선택된 기간: {startDate?.toLocaleDateString()} ~ {endDate?.toLocaleDateString()}</p>
       </div>
+
+      {/* 에러 메시지 */}
+      {error && <div className="error-message">{error}</div>}
 
       {/* 버튼 영역 */}
       <div className="goalForm__btns">
