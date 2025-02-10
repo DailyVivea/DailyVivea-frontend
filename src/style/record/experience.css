@@ -69,7 +69,7 @@
 .tip-container {
     position: absolute;
     left: 50%;
-    transform: translateX(-100%); /* ✅ 오른쪽으로 20px 이동 */
+    transform: translateX(-120%) translateY(50%); 
     width: 280px;
     padding: 10px 20px;
     background: #95E757;
@@ -92,13 +92,13 @@
 .emotion-container {
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-top: 10px;
+    gap: 16px;
+    margin-top: 32px;
 }
 
 .emotion-card {
-    width: 140px;
-    height: 180px;
+    width: 269px;
+    height: 417px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -110,8 +110,32 @@
     text-align: center;
 }
 
-.emotion-card.selected {
-    transform: scale(1.1);
+.emotion-image {
+    width: 300px;  /* 이미지 크기 */
+    height: auto;  /* 비율 유지 */
+    object-fit: contain; /* 이미지 비율 유지 */
+    margin-bottom: 10px;
+}
+
+.emotion-label {
+    color: #212121;
+    opacity: 0.2;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+.emotion-card.selected,
+.emotion-card:hover  {
+    transform: translateY(-32px);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-    border: 2px solid #212121;
+}
+
+.emotion-card.selected .emotion-label,
+.emotion-card:hover .emotion-label {
+    opacity: 0.5;
 }

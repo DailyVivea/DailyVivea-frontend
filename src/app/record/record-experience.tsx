@@ -7,9 +7,9 @@ import "@/style/record/recordLayout.css";
 import "@/style/record/experience.css";
 
 const emotions = [
-    { id: 1, label: "행복했어요", icon: "❤️", color: "#FCE4EC" },
-    { id: 2, label: "우울했어요", icon: "🌧", color: "#E3F2FD" },
-    { id: 3, label: "그냥 그랬어요", icon: "😐", color: "#FFF3E0" },
+    { id: 1, label: "행복했어요", image: "/images/happy.png", color: "#FFDFFC" },
+    { id: 2, label: "우울했어요", image: "/images/sad.png", color: "#DEFFFC" },
+    { id: 3, label: "그냥 그랬어요", image: "/images/soso.png", color: "#FFFFAA" },
 ];
 
 const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: { 
@@ -73,10 +73,10 @@ const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: {
                                 style={{ backgroundColor: emotion.color }}
                                 onClick={() => setSelectedEmotion(emotion.id)}
                             >
-                                <span className="emotion-icon">{emotion.icon}</span>
+                                <img src={emotion.image} alt={emotion.label} className="emotion-image" />
                                 <span className="emotion-label">{emotion.label}</span>
                             </div>
-                        ))} 
+                        ))}
                     </div>
                 </div>
             </div>
