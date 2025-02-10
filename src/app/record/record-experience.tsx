@@ -22,72 +22,71 @@ const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: {
 
     return (
         <div className="record-page">
+            {/* 제목 & 네비게이션 */}
             <div className="title-container">
-                <div className="record-title">
-                    오늘의 경험을 작성해주세요
-                </div>
+                <div className="record-title">오늘의 경험을 작성해주세요</div>
                 <div className="button-container">
-                    <button 
-                        className="back-button" 
-                        onClick={() => {
-                            setActiveStep(0); // ✅ ProgressBar 업데이트
-                            setStep(0); // ✅ 이전 페이지로 이동
-                        }}>
+                    <button className="back-button" onClick={() => setStep(0)}>
                         <ArrowLeft size={32} />
                     </button>
-                    <button
-                        className="nav-button" 
-                        onClick={() => {
-                            setActiveStep(2); // ✅ ProgressBar 업데이트
-                            setStep(2); // ✅ 다음 페이지로 이동
-                        }}>
+                    <button className="nav-button" onClick={() => setStep(2)}>
                         <ArrowRight size={32} />
                     </button>
                 </div>
             </div>
-            
-            {/*경험 기록 섹션 - 버튼, 기록, 가이드*/}
-            <div className="experience-section">
-                <button className="type-button">경험 기록</button>
-                <textarea  
-                    className="experience-textare"
-                    placeholder="오늘 어떤 경험을 했나요"
-                /> 
 
-                <div 
-                    className="info-icon"
-                    onMouseEnter={() => setShowTip(true)}
-                    onMouseLeave={() => setShowTip(false)}
-                >
-                    <Info size={20} />
-                    {showTip && (
-                        <div className="tip-container">
-                            [Tip] 6하 원칙(누가, 언제, 어디서, 무엇을, 어떻게, 왜) 을 사용하면 좀 더 명확한 경험을 작성할 수 있어요!
-                        </div>
-                    )}
+            {/* 상단 버튼 */}
+            <div className="type-button-container">
+                <button className="type-button active">경험 기록</button>
+                <button className="type-button">감정 기록</button>
+            </div>
+
+            <div className="record-container">
+
+                {/* 경험 기록 */}
+                <div className="experience-section">
+                    <textarea  
+                        className="experience-textarea"
+                        placeholder="오늘 어떤 경험을 했나요?"
+                    />
+                    <div 
+                        className="info-icon"
+                        onMouseEnter={() => setShowTip(true)}
+                        onMouseLeave={() => setShowTip(false)}
+                    >
+                        <Info size={20} />
+                        {showTip && (
+                            <div className="tip-container">
+                                [Tip] 육하 원칙(누가, 언제, 어디서, 무엇을, 어떻게, 왜)를 사용하면 좀 더 명확한 경험을 작성할 수 있어요!
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* 감정 기록 */}
+                <div className="emotion-section">
+                    <div className="emotion-container">
+                        {emotions.map((emotion) => (
+                            <div
+                                key={emotion.id}
+                                className={`emotion-card ${selectedEmotion === emotion.id ? "selected" : ""}`}
+                                style={{ backgroundColor: emotion.color }}
+                                onClick={() => setSelectedEmotion(emotion.id)}
+                            >
+                                <span className="emotion-icon">{emotion.icon}</span>
+                                <span className="emotion-label">{emotion.label}</span>
+                            </div>
+                        ))} 
+                    </div>
                 </div>
             </div>
 
-            {/*감정기록 - 버튼, 카드*/}
-            <div className="emotion-selection">
-                <button className="type-button">감정 기록</button>
-                {emotions.map((emotion) => (
-                    <div
-                        key={emotion.id}
-                        className={`emotion-card ${selectedEmotion === emotion.id ? "selected" : ""}`}
-                        style={{ backgroundColor: emotion.color }}
-                        onClick={() => setSelectedEmotion(emotion.id)}
-                    >
-                        <span className="emotion-icon">{emotion.icon}</span>
-                        <span className="emotion-label">{emotion.label}</span>
-                    </div>
-                ))} 
-            </div>
 
+
+            {/* 진행 상태 바 */}
             <div className="progress-bar-container">
                 <ProgressBar activeStep={activeStep} />
             </div>  
- 
         </div>
     );
 };

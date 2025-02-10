@@ -1,81 +1,80 @@
-/* 경험 기록 & 감정 기록 섹션 */
-.experience-section, .emotion-selection {
+/* 경험 & 감정 기록을 포함하는 컨테이너 */
+.record-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 80%;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+    justify-content: flex-start; /* 상단 정렬 */
+    align-items: flex-start; 
+    gap: 72px; /* 경험 기록 & 감정 기록 간격 */
+    width: 100%;
+    margin: 0 auto; /* 가운데 정렬 */
 }
 
-/* 기록 유형 선택 버튼 */
+/* 경험 기록 & 감정 기록 버튼 컨테이너 */
+.type-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 464px; /* 버튼 간격 조정 */
+    margin-bottom: 16px;
+}
+
+/* 경험 기록 & 감정 기록 선택 버튼 */
 .type-button {
-    font-size: 18px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    color: #888;
-    transition: color 0.3s ease-in-out;
-}
-
-.type-button.active {
+    display: inline-flex;
+    padding: 8px 24px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 999px;
+    background: #F0F0F0;
     color: #212121;
-    border-bottom: 3px solid #A1E075;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    width: auto; /* 내용에 맞게 크기 조정 */
 }
 
-/* 경험 입력 필드 */
-.experience-textare {
-    width: 90%;
-    height: 150px;
-    padding: 15px;
+/* 경험 기록 & 감정 기록 섹션 */
+.experience-section, .emotion-section {
+    flex: 0 0 auto;
+}
+
+/* 경험 기록 텍스트 박스 */
+.experience-textarea {
+    width: 500px;
+    height: 417px;
+    padding: 32px;
     font-size: 16px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    border-radius: 20px;
     resize: none;
     outline: none;
     font-family: "Pretendard", sans-serif;
     background: white;
     margin-top: 10px;
-}
-
-.experience-textare::placeholder {
-    color: #aaa;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 /* ℹ️ 아이콘 및 Tip */
-.info-icon {
-    position: relative;
+.info-icon svg {
+    color: #b6b6b6;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: #eee;
-    transition: background 0.3s ease-in-out;
-    margin-top: 10px;
+    position: absolute;
+    right: 826px;
 }
 
-.info-icon:hover {
-    background: #ddd;
+.info-icon svg:hover {
+    color: #212121;
 }
 
 .tip-container {
     position: absolute;
-    bottom: -45px;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-100%); /* ✅ 오른쪽으로 20px 이동 */
     width: 280px;
-    padding: 10px;
-    background: #212121;
-    color: #fff;
-    font-size: 12px;
+    padding: 10px 20px;
+    background: #95E757;
+    color: #212121;
+    font-size: 10px;
     text-align: center;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
@@ -89,16 +88,16 @@
     visibility: visible;
 }
 
-/* 감정 선택 카드 */
+/* 감정 기록 카드 */
 .emotion-container {
     display: flex;
     justify-content: center;
     gap: 20px;
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .emotion-card {
-    width: 150px;
+    width: 140px;
     height: 180px;
     display: flex;
     flex-direction: column;
@@ -108,20 +107,11 @@
     cursor: pointer;
     transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
     border: 2px solid transparent;
+    text-align: center;
 }
 
 .emotion-card.selected {
     transform: scale(1.1);
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
     border: 2px solid #212121;
-}
-
-.emotion-icon {
-    font-size: 40px;
-}
-
-.emotion-label {
-    font-size: 16px;
-    font-weight: bold;
-    margin-top: 10px;
 }
