@@ -1,18 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Header from "@/components/Layout/Header";
 import Calendar from "@/components/Global/Calendar";
 import ProgressBar from "@/components/record/ProgressBar";
 import { ArrowRight } from "lucide-react";
 import "@/style/record/recordLayout.css";
-import "@/style/record/ProgressBar.css";
+import "@/style/record/progressBar.css";
 
 const RecordDatePage = ({ setStep, activeStep, setActiveStep }: { 
     setStep: (step: number) => void;
     activeStep: number;
     setActiveStep: (step: number) => void;
 }) => {
+
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState<Date| null>(null);
+    const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
+
+
     return (
         <div className="record-page">
             <div className="title-container">
@@ -30,7 +36,15 @@ const RecordDatePage = ({ setStep, activeStep, setActiveStep }: {
             </div>
 
             <div>
-                <Calendar componentName="recordCalendar" />
+                <Calendar 
+                    componentName="RecordDate"
+                    currentDate={currentDate}
+                    selectedDate={selectedDate}
+                    hoveredDate={hoveredDate}
+                    setCurrentDate={setCurrentDate}
+                    setSelectedDate={setSelectedDate}
+                    setHoveredDate={setHoveredDate}
+                />
             </div>
 
             <div className="progress-bar-container">
