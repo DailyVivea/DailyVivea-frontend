@@ -4,7 +4,6 @@ import "@/style/globals.css";
 
 import Header from "@/components/Layout/Header";
 
-
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -29,7 +28,11 @@ export default function RootLayout({
     <html lang="ko">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Header />
-        <main>{children}</main>
+        <main>
+          {/* 항상 record 페이지가 먼저 렌더링되도록 설정 */}
+          <div id="record">{children}</div>
+          <div id="goal">{children}</div>
+        </main>
       </body>
     </html>
   );

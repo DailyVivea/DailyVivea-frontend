@@ -1,0 +1,141 @@
+/* 경험 & 감정 기록을 포함하는 컨테이너 */
+.record-container {
+    display: flex;
+    justify-content: flex-start; /* 상단 정렬 */
+    align-items: flex-start; 
+    gap: 72px; /* 경험 기록 & 감정 기록 간격 */
+    width: 100%;
+    margin: 0 auto; /* 가운데 정렬 */
+}
+
+/* 경험 기록 & 감정 기록 버튼 컨테이너 */
+.type-button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 464px; /* 버튼 간격 조정 */
+    margin-bottom: 16px;
+}
+
+/* 경험 기록 & 감정 기록 선택 버튼 */
+.type-button {
+    display: inline-flex;
+    padding: 8px 24px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 999px;
+    background: #F0F0F0;
+    color: #212121;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    width: auto; /* 내용에 맞게 크기 조정 */
+}
+
+/* 경험 기록 & 감정 기록 섹션 */
+.experience-section, .emotion-section {
+    flex: 0 0 auto;
+}
+
+/* 경험 기록 텍스트 박스 */
+.experience-textarea {
+    width: 500px;
+    height: 417px;
+    padding: 32px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    resize: none;
+    outline: none;
+    font-family: "Pretendard", sans-serif;
+    background: white;
+    margin-top: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* ℹ️ 아이콘 및 Tip */
+.info-icon svg {
+    color: #b6b6b6;
+    cursor: pointer;
+    position: absolute;
+    right: 826px;
+}
+
+.info-icon svg:hover {
+    color: #212121;
+}
+
+.tip-container {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-120%) translateY(50%); 
+    width: 280px;
+    padding: 10px 20px;
+    background: #95E757;
+    color: #212121;
+    font-size: 10px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.info-icon:hover .tip-container {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 감정 기록 카드 */
+.emotion-container {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 32px;
+}
+
+.emotion-card {
+    width: 269px;
+    height: 417px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.emotion-image {
+    width: 300px;  /* 이미지 크기 */
+    height: auto;  /* 비율 유지 */
+    object-fit: contain; /* 이미지 비율 유지 */
+    margin-bottom: 10px;
+}
+
+.emotion-label {
+    color: #212121;
+    opacity: 0.2;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+.emotion-card.selected,
+.emotion-card:hover  {
+    transform: translateY(-32px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.emotion-card.selected .emotion-label,
+.emotion-card:hover .emotion-label {
+    opacity: 0.5;
+}
