@@ -44,10 +44,10 @@
 .box-container {
     display: flex;
     flex-wrap: wrap;
-    flex-direction: row;
-    justify-content: center;
-    gap: 18px;
-    margin-top: 16px;
+    justify-content: space-between; /* 좌우 정렬 */
+    gap: 24px;
+    margin-top: 24px;
+    align-items: flex-start; /* 상단 정렬 */
 }
 
 /* 피드백 페이지 컨테이너 */
@@ -66,8 +66,9 @@
     max-width: 400px;
     background-color: #F8F8F8;
     border-radius: 16px;
-    padding: 24px;
+    padding: 37px 33px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
+    gap: 16px;
 }
 
 /* 피드백 카드 제목 */

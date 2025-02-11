@@ -6,7 +6,7 @@ import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
 import "@/style/record/feedback.css";
 
-const RecordFeedbackPage = ({ setStep, activeStep, setActiveStep }: { 
+const FeedbackPage = ({ setStep, activeStep, setActiveStep }: { 
     setStep: (step: number) => void;
     activeStep: number;
     setActiveStep: (step: number) => void;
@@ -80,13 +80,15 @@ const RecordFeedbackPage = ({ setStep, activeStep, setActiveStep }: {
                     <p>
                         오늘의 발표가 마음에 들지 않았을 수도 있지만, 그 경험 자체가 이미 성장의 한 
                         걸음이에요. 낯설었던 일일수록 당신이 많이 있어요. 조금씩 나아가는 당신을 믿어요.
+                        다음 발표는 오늘의 경험 덕분에 더 나아질 거예요. 🌟
+                        오늘의 경험을 나눠줘서 고마워요. 함께 성장해 나가요! 😊
                     </p>
-                    <img src="/images/emotion-chart.png" alt="감정 분석 차트" className="feedback-image" />
+                    {/* <img src="/images/emotion-chart.png" alt="감정 분석 차트" className="feedback-image" /> */}
                 </div>
 
                 {/* 성장 포인트 */}
                 <div className="feedback-card">
-                    <h2>🚀 성장 포인트</h2>
+                    <h2>성장 포인트</h2>
                     <p>
                         발표 내용 복기: 어떤 부분에서 어려움을 겪었는지 구체적으로 되돌아보세요. 
                         내용 이해 부족, 긴장감, 준비 부족 등 원인을 파악하면 개선할 수 있습니다.
@@ -108,6 +110,7 @@ const RecordFeedbackPage = ({ setStep, activeStep, setActiveStep }: {
                     </div>
                 </div>
             </div>
+
             {/* 진행 상태 바 */}
             <div className="progress-bar-container">
                 <ProgressBar activeStep={activeStep} />
@@ -117,4 +120,4 @@ const RecordFeedbackPage = ({ setStep, activeStep, setActiveStep }: {
     );
 };
 
-export default RecordFeedbackPage;
+export default FeedbackPage;

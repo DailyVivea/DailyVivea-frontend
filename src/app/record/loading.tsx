@@ -6,7 +6,7 @@ import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
 import "@/style/record/loading.css"
 
-const RecordLoadingPage = ({ setStep, activeStep, setActiveStep }: { 
+const LoadingPage = ({ setStep, activeStep, setActiveStep }: { 
     setStep: (step: number) => void;
     activeStep: number; 
     setActiveStep: (step: number) => void;
@@ -51,4 +51,4 @@ const RecordLoadingPage = ({ setStep, activeStep, setActiveStep }: {
     );
 };
 
-export default RecordLoadingPage;
+export default LoadingPage;
