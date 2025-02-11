@@ -12,13 +12,62 @@ const emotions = [
     { id: 3, label: "그냥 그랬어요", image: "/images/soso.png", color: "#FFFFAA" },
 ];
 
-const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: { 
+const RecordExperiencePage = ({
+    setStep,
+    activeStep,
+    setActiveStep,
+}: {
     setStep: (step: number) => void;
     activeStep: number;
     setActiveStep: (step: number) => void;
 }) => {
     const [selectedEmotion, setSelectedEmotion] = useState<number | null>(null);
     const [showTip, setShowTip] = useState(false);
+    const [experienceText, setExperienceText] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const experienceId = 123; // 🔴실제 경험 ID로 변경 필요
+
+    const handleSubmit = async () => {
+        if (!experienceText.trim()) {
+            alert("경험 내용을 입력해주세요.");
+            return;
+        }
+        if (selectedEmotion === null) {
+            alert("감정을 선택해주세요.");
+            return;
+        }
+
+        setLoading(true);
+
+        try {
+            const response = await fetch(`/api/${experienceId}/record`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    content: experienceText,
+                    emotion: emotions.find((e) => e.id === selectedEmotion)?.label,
+                }),
+            });
+
+            if (response.ok) {
+                setActiveStep(2);
+                setStep(2);
+            } else {
+                const data = await response.json();
+                alert(data.message || "에러가 발생했습니다.");
+            }
+        } catch (err) {
+            alert("서버와 연결할 수 없습니다.");
+        } finally {
+            setActiveStep(2); // 임시 이동
+            setStep(2); // 임시 이동
+
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="record-page">
@@ -26,11 +75,11 @@ const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: {
             <div className="title-container">
                 <div className="record-title">오늘의 경험을 작성해주세요</div>
                 <div className="button-container">
-                    <button className="back-button" onClick={() => setStep(0)}>
+                    <button className="back-button" onClick={() => setStep(0)} disabled={loading}>
                         <ArrowLeft size={32} />
                     </button>
-                    <button className="nav-button" onClick={() => setStep(2)}>
-                        <ArrowRight size={32} />
+                    <button className="nav-button" onClick={handleSubmit} disabled={loading}>
+                        {loading ? <ArrowRight color="gray" size={32} /> : <ArrowRight size={32} />}
                     </button>
                 </div>
             </div>
@@ -42,14 +91,15 @@ const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: {
             </div>
 
             <div className="record-container">
-
                 {/* 경험 기록 */}
                 <div className="experience-section">
-                    <textarea  
+                    <textarea
                         className="experience-textarea"
                         placeholder="오늘 어떤 경험을 했나요?"
+                        value={experienceText}
+                        onChange={(e) => setExperienceText(e.target.value)}
                     />
-                    <div 
+                    <div
                         className="info-icon"
                         onMouseEnter={() => setShowTip(true)}
                         onMouseLeave={() => setShowTip(false)}
@@ -81,12 +131,10 @@ const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: {
                 </div>
             </div>
 
-
-
             {/* 진행 상태 바 */}
             <div className="progress-bar-container">
                 <ProgressBar activeStep={activeStep} />
-            </div>  
+            </div>
         </div>
     );
 };

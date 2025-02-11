@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
@@ -9,8 +9,38 @@ import "@/style/record/loading.css"
 const RecordLoadingPage = ({ setStep, activeStep }: { 
     setStep: (step: number) => void;
     activeStep: number; //progressBar 단계 변경 X
+    
 }) => {
     const [showTip, setShowTip] = useState(false);
+
+    const experienceId = 123; // 🔴실제 경험 ID로 변경 필요
+
+    // 경험 분석 API 호출
+    useEffect(() => {
+        const analyzeExperience = async () => {
+            try {
+                const response = await fetch(`/api/${experienceId}/analysis`, {
+                    method: "PUT",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({}),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    setStep(3); // Step 4로 이동
+                } else {
+                    throw new Error(data.message || "경험 분석에 실패했습니다.");
+                }
+            } catch (err: any) {
+                alert(err.message || "분석 중 오류가 발생했습니다.");
+                setStep(1); // 🔹 Step 2(경험 기록)으로 돌아감
+            }
+
+        };
+
+        analyzeExperience();
+    }, [experienceId, setStep]);
 
     return (
         <div className="record-page">
