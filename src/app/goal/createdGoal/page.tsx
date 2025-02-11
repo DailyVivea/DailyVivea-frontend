@@ -2,10 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import GoalCard from "@/components/goal/GoalCard";
+import { useRouter } from "next/navigation";
 import '../../../style/goal/goalCreatedPage.css';
 
 const Page = () => {
   const [goalData, setGoalData] = useState<any>(null);
+
+  const router = useRouter();
 
   useEffect(() => {
     const savedGoal = localStorage.getItem("goal");
@@ -13,6 +16,10 @@ const Page = () => {
       setGoalData(JSON.parse(savedGoal)); // 로컬 스토리지에서 저장된 goal 데이터를 불러옴
     }
   }, []);
+
+  const ListButtonClick = () => {
+    router.push('/list');
+  };
 
   return (
     <div className="createdGoal__container">
@@ -35,7 +42,7 @@ const Page = () => {
       )}
 
       {/* 카드 보러가기 버튼 */}
-      <button className="createdGoal__button">
+      <button className="createdGoal__button" onClick={ListButtonClick}>
         카드 보러가기
         <span className="createdGoal__arrow">></span>
       </button>
