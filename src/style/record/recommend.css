@@ -73,7 +73,6 @@
     justify-content: space-between; /* 좌우 정렬 */
     align-items: flex-start; /* 상단 정렬 */
     gap: 24px;
-    margin-top: 24px;
 }
 
 /* 목표 목록 컨테이너 */

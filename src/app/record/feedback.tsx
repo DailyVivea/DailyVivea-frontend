@@ -1,10 +1,84 @@
 "use client";
 
+import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Tooltip, Legend } from "chart.js";
+import { Radar } from "react-chartjs-2";
 import React, { useState } from "react";
 import { ArrowLeft, ArrowRight, Download } from "lucide-react";
 import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
 import "@/style/record/feedback.css";
+
+ChartJS.register(RadialLinearScale, PointElement, LineElement, Tooltip, Legend);
+
+const emotionOptions = {
+    scales: {
+        r: {
+            grid: {
+                circular: true, // ✅ 그리드 모양을 원형으로 변경
+                color: "#E0E0E0",
+            },
+            pointLabels: {
+                font: {
+                    size: 14,
+                    weight: "bold" as "bold",
+                },
+                color: "#212121",
+            },
+            ticks: {
+                display: false, // ✅ 데이터 라벨 숨기기
+            },
+        },
+    },
+    plugins: {
+        legend: {
+            display: false, // ✅ "감정 점수" 라벨 제거
+        },
+    },
+    elements: {
+        line: {
+            borderWidth: 2, // 선 두께
+        },
+        point: {
+            radius: 0, // ✅ 포인트 제거
+            hoverRadius: 0,
+            borderWidth: 0,
+        },
+    },
+};
+
+const emotionData = {
+    labels: ["행복", "스트레스", "만족", "불안", "분노"],
+    datasets: [
+        {
+            data: [80, 40, 60, 30, 50], // 감정 점수 데이터
+            backgroundColor: "rgba(149, 231, 87, 0.5)", // ✅ 내부 색상 채우기 (불투명도 적용)
+            borderColor: "#95E757",
+            borderWidth: 2,
+            fill: true, // ✅ 내부 색상 채우기 활성화
+        },
+    ],
+};
+
+const GrowthProgressBar = ({ progress }: { progress: number }) => {
+    const totalBars = 20; // 전체 막대 개수
+    const filledBars = Math.round((progress / 100) * totalBars); // 채워질 막대 개수
+
+    return (
+        <div className="growth-progress-container">
+            <span className="progress-label">0</span>
+            <div className="growth-progress">
+                {Array.from({ length: totalBars }, (_, index) => (
+                    <div
+                        key={index}
+                        className={`progress-bar ${index < filledBars ? "filled" : "empty"}`}
+                    ></div>
+                ))}
+            </div>
+            <span className="progress-label">100</span>
+        </div>
+    );
+};
+
 
 const FeedbackPage = ({ setStep, activeStep, setActiveStep }: { 
     setStep: (step: number) => void;
@@ -66,11 +140,31 @@ const FeedbackPage = ({ setStep, activeStep, setActiveStep }: {
                     {/* 가장 많이 사용된 키워드 */}
                     <div className="feedback-card">
                         <h2>💬 가장 많이 사용된 키워드</h2>
-                        <ul>
-                            <li>🗣️ 떨림 <span>8회</span></li>
-                            <li>🎤 발표 <span>5회</span></li>
-                            <li>💭 망쳤다 <span>2회</span></li>
-                        </ul>
+                        <div className="keyword-list">
+                            <div className="keyword-item">
+                                <span className="keyword-text">떨림</span>
+                                <div className="keyword-progress">
+                                    <div className="keyword-fill" style={{ width: "80%" }}></div>
+                                </div>
+                                <span className="keyword-count">8회</span>
+                            </div>
+
+                            <div className="keyword-item">
+                                <span className="keyword-text">발표</span>
+                                <div className="keyword-progress">
+                                    <div className="keyword-fill" style={{ width: "50%" }}></div>
+                                </div>
+                                <span className="keyword-count">5회</span>
+                            </div>
+
+                            <div className="keyword-item">
+                                <span className="keyword-text">망쳤다</span>
+                                <div className="keyword-progress">
+                                    <div className="keyword-fill" style={{ width: "20%" }}></div>
+                                </div>
+                                <span className="keyword-count">2회</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -83,11 +177,13 @@ const FeedbackPage = ({ setStep, activeStep, setActiveStep }: {
                         다음 발표는 오늘의 경험 덕분에 더 나아질 거예요. 🌟
                         오늘의 경험을 나눠줘서 고마워요. 함께 성장해 나가요! 😊
                     </p>
-                    {/* <img src="/images/emotion-chart.png" alt="감정 분석 차트" className="feedback-image" /> */}
+                    <div className="emotion-chart-container">
+                        <Radar data={emotionData} options={emotionOptions} />
+                    </div>
                 </div>
 
-                {/* 성장 포인트 */}
-                <div className="feedback-card">
+                {/* 성장 포인트 박스 */}
+                <div className="growth-section">
                     <h2>성장 포인트</h2>
                     <p>
                         발표 내용 복기: 어떤 부분에서 어려움을 겪었는지 구체적으로 되돌아보세요. 
@@ -101,14 +197,13 @@ const FeedbackPage = ({ setStep, activeStep, setActiveStep }: {
                         자기 긍정 강화: 오늘의 발표가 당신의 모든 능력을 정의하는 것은 아니에요. 
                         당신은 이미 많은 능력과 가능성을 가지고 있어요.
                     </p>
-                    <div className="growth-bar">
-                        <span>성장 가능성</span>
-                        <div className="growth-progress">
-                            <div className="growth-fill" style={{ width: "80%" }}></div>
-                        </div>
-                        <span>80%</span>
-                    </div>
+
+                    {/* 성장 가능성 그래프 */}
+                    <h2>성장 가능성</h2>
+                    <GrowthProgressBar progress={80} />
                 </div>
+
+
             </div>
 
             {/* 진행 상태 바 */}

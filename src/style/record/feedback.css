@@ -46,7 +46,6 @@
     flex-wrap: wrap;
     justify-content: space-between; /* 좌우 정렬 */
     gap: 24px;
-    margin-top: 24px;
     align-items: flex-start; /* 상단 정렬 */
 }
 
@@ -55,7 +54,7 @@
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between; /* 좌우 정렬 */
     gap: 16px;
 }
 
@@ -64,84 +63,165 @@
     flex: 1;
     min-width: 280px;
     max-width: 400px;
-    background-color: #F8F8F8;
-    border-radius: 16px;
+    background-color: #ffffff;
+    border-radius: 28px;
     padding: 37px 33px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
     gap: 16px;
+    /* SHADOW */
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
 }
 
 /* 피드백 카드 제목 */
 .feedback-card h2 {
-    font-size: 18px;
-    font-weight: 700;
-    color: #333;
-    margin-bottom: 12px;
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+    margin-bottom: 19px;
 }
 
 /* 피드백 카드 내용 */
 .feedback-card p {
+    color: var(--systemGrey-700, #616161);
+    font-family: Pretendard;
     font-size: 14px;
-    color: #666;
-    line-height: 1.6;
-}
-
-/* 감정 분석 이미지 스타일 */
-.feedback-image {
-    width: 100%;
-    height: auto;
-    margin-top: 10px;
-    border-radius: 8px;
-}
-
-/* 키워드 리스트 */
-.feedback-card ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 12px;
-}
-
-.feedback-card ul li {
-    display: flex;
-    justify-content: space-between;
-    font-size: 14px;
+    font-style: normal;
     font-weight: 500;
-    color: #212121;
-    padding: 8px 0;
-    border-bottom: 1px solid #E0E0E0;
+    line-height: 24px; /* 171.429% */
+    text-transform: capitalize;
 }
 
-.feedback-card ul li span {
-    font-weight: 600;
-    color: #3A6B1F;
+/* 키워드 분석 카드 */
+/* 키워드 리스트 스타일 */
+.keyword-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-/* 성장 포인트 게이지 바 */
-.growth-bar {
+/* 개별 키워드 항목 */
+.keyword-item {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-top: 12px;
+    justify-content: space-between;
+    gap: 12px;
 }
 
-.growth-bar span {
-    font-size: 14px;
+/* 키워드 텍스트 */
+.keyword-text {
+    color: #545454;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+/* 키워드 빈도 막대 컨테이너 */
+.keyword-progress {
+    flex: 1;
+    height: 4px;
+    background: #E0E0E0;
+    border-radius: 999px;
+    position: relative;
+}
+
+/* 키워드 빈도 막대 색상 */
+.keyword-fill {
+    height: 100%;
+    background: #95E757;
+    border-radius: 999px;
+    transition: width 0.3s ease-in-out;
+}
+
+/* 키워드 빈도 숫자 */
+.keyword-count {
+    font-size: 16px;
     font-weight: 600;
     color: #212121;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* 감정 분포도 컨테이너 */
+.emotion-chart-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 250px; /* 크기 조정 */
+}
+
+
+/* 성장 포인트 박스 */
+.growth-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 37px 33px;
+    /* SHADOW */
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+    gap: 24px;
+}
+
+/* 성장 포인트 제목 */
+.growth-section h2 {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+/* 성장 포인트 내용 */
+.growth-section p {
+    color: var(--systemGrey-700, #616161);
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    text-transform: capitalize;
+    margin-bottom: 5px; /* 문단 간 14px 간격 */
+}
+
+/* 성장 가능성 그래프 */
+.growth-progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.progress-label {
+    font-size: 14px;
+    color: #BDBDBD;
 }
 
 .growth-progress {
-    flex: 1;
-    height: 10px;
-    background-color: #E0E0E0;
-    border-radius: 5px;
-    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 6px; /* 막대 사이 간격 */
 }
 
-.growth-fill {
-    height: 100%;
-    background-color: #A1E075;
+.progress-bar {
+    width: 10px; /* 개별 막대 너비 */
+    height: 30px; /* 개별 막대 높이 */
     border-radius: 5px;
-    transition: width 0.5s ease-in-out;
+    background-color: #E0E0E0; /* 기본 비활성 색상 */
+    transition: background-color 0.3s ease-in-out;
 }
 
+.progress-bar.filled {
+    background-color: #95E757; /* 활성화된 색상 */
+}
