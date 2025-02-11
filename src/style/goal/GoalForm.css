@@ -7,12 +7,7 @@
 
 }
 
-.goalForm__title,
-.goalForm__detail,
-.goalForm__interval,
-.goalForm__date {
 
-}
 
 .goalForm__title textarea,
 .goalForm__detail textarea,
@@ -58,9 +53,12 @@
   border: 1px solid #ccc;
   border-radius: 20px;
   padding: 5px 20px;
-  width: 300px;
   display: flex;
   justify-content: space-between;
+}
+
+.goalForm__interval__between {
+  margin: 0px 50px;
 }
 
 .goalForm__interval__week span,

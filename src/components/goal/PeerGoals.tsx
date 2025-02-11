@@ -52,7 +52,7 @@ const PeerGoals: React.FC<{ userId: string }> = ({ userId }) => {
         // 🔴 api 완성 전까지 임시 데이터 사용해 ui 수정중
         setPeerGoals(TEMP_PEER_GOALS); 
         // error 상태를 초기화하여 데이터가 화면에 표시되도록 함
-        setTimeout(() => setError(null), 1000);
+        setTimeout(() => setError(null));
       });
   }, [userId]);
   console.log("🟢 현재 peerGoals 상태:", peerGoals);
