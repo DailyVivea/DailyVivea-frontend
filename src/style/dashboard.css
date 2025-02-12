@@ -1,0 +1,143 @@
+/* 전체 페이지 스타일 */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ✅ 배경 이미지 컨테이너 */
+.background-container {
+    width: 100%;
+    height: 120vh; /* ✅ 배경을 더 크게 설정 */
+    background-image: url("/images/dashboard.png"); /* 배경 이미지 적용 */
+    background-size: cover; /* 화면을 꽉 채움 */
+    background-position: center; /* ✅ 배경을 더 위로 조정 */
+    background-repeat: no-repeat; /* 반복 방지 */
+}
+
+/* 타이틀 컨테이너 */
+.dashboard-text-container {
+    position: absolute;
+    top: 75%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 가운데 정렬 */
+    justify-content: center; /* 중앙 정렬 */
+
+    text-align: center;
+}
+
+/* 타이틀 이미지 */
+.title {
+    width: 100%;
+    max-width: 759px;
+    margin-bottom: 23px;
+}
+
+/* 서브 텍스트 */
+.dashboard-text-container h2 {
+    color: #545454;
+    font-family: Pretendard;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-bottom: 30px;
+}
+
+/* 오늘 기록 수 컨테이너 */
+.today-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+/* 프로필 이미지 */
+.profile {
+    width: 159x;
+    height: auto;
+}
+
+.today-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+}
+
+/* 기록 정보 */
+.today-info h1 {
+    color: #545454;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+.today-info h3 {
+    color: #545454;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-top: 3px;
+}
+
+/* 기록하러 가기 버튼 */
+.record-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px; /* 아이콘과 텍스트 사이 간격 */
+    padding: 8px 24px;
+    
+    background: #95E757; /* 버튼 배경색 */
+    color: #212121; /* 글자색 */
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Pretendard", sans-serif;
+    
+    border: none;
+    border-radius: 999px; /* 둥근 모서리 */
+    cursor: pointer;
+
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+
+/* 호버 효과 */
+.record-button:hover {
+    background: #7ed321;
+}
+
+/* 클릭 효과 */
+.record-button:active {
+    transform: scale(0.95);
+}
+
+/* 아이콘을 감싸는 원 */
+.icon-wrapper {
+    width: 32px;
+    height: 32px;
+    background-color: white;
+    border-radius: 50%; /* 원형 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 아이콘 스타일 */
+.record-icon {
+    color: #212121;
+    width: 24px;
+    height: 24px;
+}
