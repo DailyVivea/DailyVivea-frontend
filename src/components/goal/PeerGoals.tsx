@@ -22,7 +22,7 @@ interface ReportData {
   peerGoals: PeerGoal[];
 }
 
-const PeerGoals: React.FC<{ userId: string }> = ({ userId }) => {
+const PeerGoals: React.FC<{ userId: number }> = ({ userId }) => {
   const [peerGoals, setPeerGoals] = useState<PeerGoal[]>([]);
   const [error, setError] = useState<string | null>(null);
 

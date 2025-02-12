@@ -6,7 +6,7 @@ import Button from "./Button";
 import Calendar from "../Global/Calendar";
 import "../../style/goal/GoalForm.css";
 
-const GoalForm: React.FC = () => {
+const GoalForm: React.FC<{ userId: number }> = ({ userId }) => {
   const [title, setTitle] = useState<string>("");
   const [details, setDetails] = useState<string>("");
   const [weeks, setWeeks] = useState<number>(0);
@@ -20,6 +20,7 @@ const GoalForm: React.FC = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
 
   const router = useRouter();
+
 
   useEffect(() => {
     const savedGoal = localStorage.getItem("goal");
@@ -75,7 +76,7 @@ const GoalForm: React.FC = () => {
     }
 
     const goalData = {
-      title,
+      title: title,
       content: details,
       interval_weeks: weeks,
       interval_times: times,
@@ -85,7 +86,7 @@ const GoalForm: React.FC = () => {
     };
 
     try {
-      const response = await fetch("/api/goals", {
+      const response = await fetch(`/api/${userId}/goals`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(goalData),
@@ -98,22 +99,20 @@ const GoalForm: React.FC = () => {
         router.push("/goal/createdGoal");
       } else {
         const result = await response.json();
-        alert("서버 저장에 실패했습니다. 임시 저장합니다.");
+        alert("서버 저장에 실패했습니다.");
         const goalDataWithTemp = {
           ...goalData,
           isTemporary: true,
         };
         localStorage.setItem("goal", JSON.stringify(goalDataWithTemp));
-        router.push("/goal/createdGoal");
       }
     } catch (error) {
-      alert("서버 오류가 발생했습니다. 임시 저장합니다.");
+      alert("서버 오류가 발생했습니다.");
       const goalDataWithTemp = {
         ...goalData,
         isTemporary: true,
       };
       localStorage.setItem("goal", JSON.stringify(goalDataWithTemp));
-      router.push("/goal/createdGoal");
     }
   };
 

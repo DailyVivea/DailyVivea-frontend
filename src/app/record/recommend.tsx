@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Download, ChevronRight, Check } from "lucide-react";
+import { useRouter } from "next/navigation";
 import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
 import "@/style/record/recommend.css";
@@ -19,6 +20,8 @@ const RecommendPage = ({
   const [previewImages, setPreviewImages] = useState<{ [key: string]: string }>({});
   const [goals, setGoals] = useState<any[]>([]); // 서버에서 받아온 goals
   const [learningResources, setLearningResources] = useState<any[]>([]); // 서버에서 받아온 learning resources
+
+  const router = useRouter();
 
   const toggleGoal = async (id: number) => {
     // 목표 선택 상태 토글
@@ -138,12 +141,20 @@ const RecommendPage = ({
     fetchData();
   }, []);
 
+  const NewGoalButtonClick = () => {
+    router.push('/goal');
+  };
+
+  const CheckGoalButtonClick = () => {
+    router.push('/list');
+  };
+
   return (
     <div className="record-page">
       {/* 제목 & 네비게이션 */}
       <div className="title-container">
-        <h1 className="record-title">오늘 경험을 토대로 추천 목표를 알려드려요!</h1>
-        <button className="custom-goal-button">
+        <h1 className="record-title">[임시] 오늘 경험을 토대로 추천 목표를 알려드려요!</h1>
+        <button className="custom-goal-button" onClick={NewGoalButtonClick}>
           나만의 목표 설정하러 가기
           <div className="icon-wrapper">
             <ChevronRight size={18} strokeWidth={3} className="custom-goal-icon" />
@@ -179,7 +190,7 @@ const RecommendPage = ({
 
           {/* 저장된 목표 확인 버튼 */}
           <div className="goal-save-container">
-            <button className="goal-save-button">저장된 목표 확인하기</button>
+            <button className="goal-save-button" onClick={CheckGoalButtonClick}>저장된 목표 확인하기</button>
           </div>
         </div>
 
