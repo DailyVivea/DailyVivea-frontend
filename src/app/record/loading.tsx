@@ -6,16 +6,15 @@ import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
 import "@/style/record/loading.css"
 
-const LoadingPage = ({ setStep, activeStep, setActiveStep }: { 
+const LoadingPage = ({ setStep, activeStep, setActiveStep, experienceId }: { 
     setStep: (step: number) => void;
 
     activeStep: number; 
     setActiveStep: (step: number) => void;
     //progressBar 단계 변경 X
+    experienceId: number;
 
 }) => {
-
-    const experienceId = 123; // 🔴실제 경험 ID로 변경 필요
 
     // 경험 분석 API 호출
     useEffect(() => {
@@ -36,7 +35,7 @@ const LoadingPage = ({ setStep, activeStep, setActiveStep }: {
                 }
             } catch (err: any) {
                 alert(err.message || "분석 중 오류가 발생했습니다.");
-                setStep(1); // 🔹 Step 2(경험 기록)으로 돌아감
+                setStep(3); // 🔹 Step 2(경험 기록)으로 돌아감
             }
 
         };

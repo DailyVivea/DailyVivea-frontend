@@ -8,10 +8,11 @@ import { ArrowRight } from "lucide-react";
 import "@/style/record/recordLayout.css";
 import "@/style/record/progressBar.css";
 
-const RecordDatePage = ({ setStep, activeStep, setActiveStep }: { 
+const RecordDatePage = ({ setStep, activeStep, setActiveStep, setExperienceId }: { 
     setStep: (step: number) => void;
     activeStep: number;
     setActiveStep: (step: number) => void;
+    setExperienceId: (id: number) => void;
 }) => {
 
     const [currentDate, setCurrentDate] = useState(new Date());
@@ -20,7 +21,7 @@ const RecordDatePage = ({ setStep, activeStep, setActiveStep }: {
 
     const [loading, setLoading] = useState(false);
 
-    const userId = 123; // 🔴실제 로그인된 사용자의 ID로 변경 필요
+    const userId = 1; // 🔴실제 로그인된 사용자의 ID로 변경 필요
 
     const handleSubmit = async () => {
         if (!selectedDate) {
@@ -40,18 +41,21 @@ const RecordDatePage = ({ setStep, activeStep, setActiveStep }: {
             });
 
             if (response.status === 201) {
+                const data = await response.json();
+                setExperienceId(data.experience_id);
                 setActiveStep(1);
                 setStep(1);
             } else {
                 const data = await response.json();
                 alert(data.message || "에러가 발생했습니다.");
+                
             }
         } catch (err) {
             alert("서버와 연결할 수 없습니다.");
         } finally {
-            setActiveStep(1); // 임시 이동
-            setStep(1); // 임시 이동
-
+            setExperienceId(1); // 🔹 지우기
+            setActiveStep(1);
+                setStep(1);
             setLoading(false);
         }
     };

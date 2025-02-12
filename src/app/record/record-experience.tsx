@@ -16,17 +16,18 @@ const RecordExperiencePage = ({
     setStep,
     activeStep,
     setActiveStep,
+    experienceId
 }: {
     setStep: (step: number) => void;
     activeStep: number;
     setActiveStep: (step: number) => void;
+    experienceId: number;
 }) => {
     const [selectedEmotion, setSelectedEmotion] = useState<number | null>(null);
     const [showTip, setShowTip] = useState(false);
     const [experienceText, setExperienceText] = useState("");
     const [loading, setLoading] = useState(false);
 
-    const experienceId = 123; // 🔴실제 경험 ID로 변경 필요
 
     const handleSubmit = async () => {
         if (!experienceText.trim()) {
@@ -62,9 +63,6 @@ const RecordExperiencePage = ({
         } catch (err) {
             alert("서버와 연결할 수 없습니다.");
         } finally {
-            setActiveStep(2); // 임시 이동
-            setStep(2); // 임시 이동
-
             setLoading(false);
         }
     };
