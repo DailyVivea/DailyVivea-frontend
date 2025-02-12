@@ -75,11 +75,19 @@ const RecordExperiencePage = ({
             <div className="title-container">
                 <div className="record-title">오늘의 경험을 작성해주세요</div>
                 <div className="button-container">
-                    <button className="back-button" onClick={() => setStep(0)} disabled={loading}>
+                    <button className="back-button" 
+                        onClick={() => {
+                            setStep(0); 
+                            setActiveStep(0);
+                        }}>
                         <ArrowLeft size={32} />
                     </button>
-                    <button className="nav-button" onClick={handleSubmit} disabled={loading}>
-                        {loading ? <ArrowRight color="gray" size={32} /> : <ArrowRight size={32} />}
+                    <button className="nav-button"                     
+                        onClick={() => {
+                            setActiveStep(2); // ✅ ProgressBar 업데이트
+                            setStep(2); // ✅ 다음 페이지로 이동
+                        }}>
+                        <ArrowRight size={32} />
                     </button>
                 </div>
             </div>

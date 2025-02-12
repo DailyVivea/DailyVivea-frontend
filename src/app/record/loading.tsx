@@ -6,12 +6,14 @@ import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
 import "@/style/record/loading.css"
 
-const RecordLoadingPage = ({ setStep, activeStep }: { 
+const LoadingPage = ({ setStep, activeStep, setActiveStep }: { 
     setStep: (step: number) => void;
-    activeStep: number; //progressBar 단계 변경 X
-    
+
+    activeStep: number; 
+    setActiveStep: (step: number) => void;
+    //progressBar 단계 변경 X
+
 }) => {
-    const [showTip, setShowTip] = useState(false);
 
     const experienceId = 123; // 🔴실제 경험 ID로 변경 필요
 
@@ -48,10 +50,18 @@ const RecordLoadingPage = ({ setStep, activeStep }: {
             <div className="title-container">
                 <h1 className="record-title"></h1>
                 <div className="button-container">
-                    <button className="back-button" onClick={() => setStep(1)}>
+                    <button className="back-button" 
+                        onClick={() => {
+                            setStep(1); 
+                            setActiveStep(1);
+                        }}>
                         <ArrowLeft size={32} />
                     </button>
-                    <button className="nav-button" onClick={() => setStep(3)}>
+                    <button className="nav-button"                     
+                        onClick={() => {
+                            setActiveStep(2); // ✅ ProgressBar 이동 X
+                            setStep(3); // ✅ 다음 페이지로 이동
+                        }}>
                         <ArrowRight size={32} />
                     </button>
                 </div>
@@ -72,4 +82,4 @@ const RecordLoadingPage = ({ setStep, activeStep }: {
     );
 };
 
-export default RecordLoadingPage;
+export default LoadingPage;
