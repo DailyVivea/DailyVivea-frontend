@@ -1,0 +1,277 @@
+/* 목표 설정 이동 버튼 */
+.custom-goal-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px; /* 아이콘과 텍스트 사이 간격 */
+    padding: 12px 24px;
+    
+    background: #95E757; /* 버튼 배경색 */
+    color: #212121; /* 글자색 */
+    font-size: 20px;
+    font-weight: 600;
+    font-family: "Pretendard", sans-serif;
+    
+    border: none;
+    border-radius: 999px; /* 둥근 모서리 */
+    cursor: pointer;
+
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+
+/* 호버 효과 */
+.custom-goal-button:hover {
+    background: #7ed321;
+}
+
+/* 클릭 효과 */
+.custom-goal-button:active {
+    transform: scale(0.95);
+}
+
+/* 아이콘을 감싸는 원 */
+.icon-wrapper {
+    width: 32px;
+    height: 32px;
+    background-color: white;
+    border-radius: 50%; /* 원형 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* 아이콘 스타일 */
+.custom-goal-icon {
+    color: #212121;
+    width: 16px;
+    height: 16px;
+}
+
+/* 목표 저장 확인 */
+.goal-save-container {
+    text-align: right;
+}
+
+.goal-save-button {
+    padding: 8px 32px;
+    background-color: #95E757;
+    color: #212121;
+    font-weight: 600;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.goal-save-button:hover {
+    background-color: #7ed321;
+}
+
+.box-container {
+    display: flex;
+    flex-direction: row; /* 가로 정렬 */
+    justify-content: space-between; /* 좌우 정렬 */
+    align-items: flex-start; /* 상단 정렬 */
+    gap: 24px;
+}
+
+/* 목표 목록 컨테이너 */
+.goal-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex: 1;
+}
+
+/* 개별 목표 카드 */
+.goal-item {
+    display: flex;
+    width: 714px;
+    height: 116px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 21px 32px;
+    border-radius: 28px;
+    background: #FFF;
+    
+    /* SHADOW */
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+    cursor: pointer;
+}
+
+/* 목표 내용 */
+.goal-content {
+    display: flex;
+    align-items: center;
+    gap: 42px; /* 목표 번호와 텍스트 사이 간격 */
+}
+
+/* 목표 번호 */
+.goal-number {
+    color: var(--systemGrey-900, #212121);
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+    flex-shrink: 0; /* 크기 유지 */
+}
+
+/* 목표 텍스트 */
+.goal-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* 왼쪽 정렬 */
+    justify-content: center; /* 텍스트 상하 정렬 */
+    gap: 10px; /* 제목(h2)과 설명(p) 간격 */
+}
+
+/* 목표 제목 */
+.goal-text h2 {
+    color: var(--systemGrey-900, #212121);
+    font-family: Pretendard;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+/* 목표 설명 */
+.goal-text p {
+    color: var(--systemGrey-700, #616161);
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 150% */
+    text-transform: capitalize;
+}
+
+/* 목표 상태 아이콘 */
+.goal-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #e6e6e6;
+    transition: background 0.3s ease-in-out;
+}
+
+/* 선택된 목표 아이콘 */
+.goal-item.selected .goal-icon {
+    background: #95E757;
+}
+
+/* 아이콘 색상 */
+.goal-check, .goal-download {
+    color: #212121;
+}
+
+/* 학습 자료 추천 컨테이너 */
+.learning-section {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 464px;
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 37px 33px;
+    /* SHADOW */
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+    gap: 32px;
+}
+
+/* 학습 자료 리스트 (콘텐츠 간 간격 조정) */
+.learning-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px; /* 콘텐츠 간격 추가 */
+}
+
+/* 학습 자료 내용 (아이콘, 텍스트, 링크) 가로 정렬 */
+.learning-content {
+    display: flex;
+    align-items: flex-start;;
+    gap: 8px; /* 요소 간격 */
+}
+
+/* 학습 자료 아이콘 */
+.learning-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.learning-section h2 {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+/* 학습 자료 텍스트 */
+.learning-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px; /* 제목과 설명 간격 */
+}
+
+.learning-text h3 {
+    color: var(--systemGrey-900, #212121);
+    font-family: Pretendard;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+.learning-text p {
+    color: var(--systemGrey-700, #616161);
+    font-family: Pretendard;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 200% */
+    text-transform: capitalize;
+}
+
+/* 학습 자료 링크 (아이콘 + ChevronRight) */
+.learning-link-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #007AFF;
+}
+
+.learning-link {
+    display: flex;
+    align-items: center;
+}
+
+.learning-link img {
+    width: 18px;
+    height: 18px;
+}
+
+/* ChevronRight 아이콘 추가 */
+.chevron-icon {
+    width: 24px;
+    height: 24px;
+    color: #212121;
+}
+
+/* 유튜브 썸네일 이미지만 중앙 정렬 */
+.learning-image:first-of-type {
+    display: block;
+    margin: 0 auto;
+    border-radius: 16px;
+}

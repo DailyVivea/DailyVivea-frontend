@@ -1,0 +1,227 @@
+/* 키워드 및 다운로드 버튼 */
+
+.keyword-container {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.keyword-button {
+    display: inline-flex;
+    padding: 8px 24px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 999px;
+    background: #95E757;
+    color: #212121;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: capitalize;
+    width: auto;
+}
+
+.save-button {
+    display: inline-flex;
+    padding: 4px 16px;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    background-color: #f0f0f0;
+    color: #212121;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+
+.save-button:hover, .save-button:active {
+    background-color: #E0E0E0;
+}
+
+
+.box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between; /* 좌우 정렬 */
+    gap: 24px;
+    align-items: flex-start; /* 상단 정렬 */
+}
+
+/* 피드백 페이지 컨테이너 */
+.feedback-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between; /* 좌우 정렬 */
+    gap: 16px;
+}
+
+/* 개별 피드백 카드 */
+.feedback-card {
+    flex: 1;
+    min-width: 280px;
+    max-width: 400px;
+    background-color: #ffffff;
+    border-radius: 28px;
+    padding: 37px 33px;
+    gap: 16px;
+    /* SHADOW */
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+}
+
+/* 피드백 카드 제목 */
+.feedback-card h2 {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+    margin-bottom: 19px;
+}
+
+/* 피드백 카드 내용 */
+.feedback-card p {
+    color: var(--systemGrey-700, #616161);
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    text-transform: capitalize;
+}
+
+/* 키워드 분석 카드 */
+/* 키워드 리스트 스타일 */
+.keyword-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* 개별 키워드 항목 */
+.keyword-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+/* 키워드 텍스트 */
+.keyword-text {
+    color: #545454;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+/* 키워드 빈도 막대 컨테이너 */
+.keyword-progress {
+    flex: 1;
+    height: 4px;
+    background: #E0E0E0;
+    border-radius: 999px;
+    position: relative;
+}
+
+/* 키워드 빈도 막대 색상 */
+.keyword-fill {
+    height: 100%;
+    background: #95E757;
+    border-radius: 999px;
+    transition: width 0.3s ease-in-out;
+}
+
+/* 키워드 빈도 숫자 */
+.keyword-count {
+    font-size: 16px;
+    font-weight: 600;
+    color: #212121;
+    min-width: 40px;
+    text-align: right;
+}
+
+/* 감정 분포도 컨테이너 */
+.emotion-chart-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 250px; /* 크기 조정 */
+}
+
+
+/* 성장 포인트 박스 */
+.growth-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 37px 33px;
+    /* SHADOW */
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+    gap: 24px;
+}
+
+/* 성장 포인트 제목 */
+.growth-section h2 {
+    color: #000;
+    font-family: Pretendard;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+}
+
+/* 성장 포인트 내용 */
+.growth-section p {
+    color: var(--systemGrey-700, #616161);
+    font-family: Pretendard;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    text-transform: capitalize;
+    margin-bottom: 5px; /* 문단 간 14px 간격 */
+}
+
+/* 성장 가능성 그래프 */
+.growth-progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.progress-label {
+    font-size: 14px;
+    color: #BDBDBD;
+}
+
+.growth-progress {
+    display: flex;
+    align-items: center;
+    gap: 6px; /* 막대 사이 간격 */
+}
+
+.progress-bar {
+    width: 10px; /* 개별 막대 너비 */
+    height: 30px; /* 개별 막대 높이 */
+    border-radius: 5px;
+    background-color: #E0E0E0; /* 기본 비활성 색상 */
+    transition: background-color 0.3s ease-in-out;
+}
+
+.progress-bar.filled {
+    background-color: #95E757; /* 활성화된 색상 */
+}

@@ -1,17 +1,16 @@
 .progress-bar-container {
-    position: fixed;
+    position: flex;
     bottom: 99px;
     left: 0;
     width: 100%;
-    background-color: white;
     display: flex;
     flex-direction: column; 
     align-items: center;
-    z-index: 1000;
+    padding-top: 60px;
 }
 
 .progress-track {
-    width: 90%;
+    width: 100%;
     max-width: 1171px;
     background-color: #e6e6e6;
     height: 5px;
@@ -30,7 +29,7 @@
 }
 
 .progress-step-container {
-    width: 90%;
+    width: 100%;
     max-width: 1171px;
     display: flex;
     justify-content: space-between;
