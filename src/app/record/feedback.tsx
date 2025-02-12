@@ -102,7 +102,7 @@ const FeedbackPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch(`/api/feedback/${experienceId}`);
+                const response = await fetch(`https://gunanana.onrender.com/api/${experienceId}/feedbacks`);
                 if (!response.ok) throw new Error("Failed to fetch feedback data");
                 const result = await response.json();
                 setData(result);

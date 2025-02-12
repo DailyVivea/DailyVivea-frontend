@@ -86,7 +86,7 @@ const GoalForm: React.FC<{ userId: number }> = ({ userId }) => {
     };
 
     try {
-      const response = await fetch(`/api/${userId}/goals`, {
+      const response = await fetch(`https://gunanana.onrender.com/api/${userId}/setGoal`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(goalData),
@@ -94,8 +94,8 @@ const GoalForm: React.FC<{ userId: number }> = ({ userId }) => {
 
       if (response.ok) {
         const result = await response.json();
+        localStorage.setItem("goal", JSON.stringify(goalData));
         alert("목표가 성공적으로 저장되었습니다!");
-        localStorage.removeItem("goal");
         router.push("/goal/createdGoal");
       } else {
         const result = await response.json();

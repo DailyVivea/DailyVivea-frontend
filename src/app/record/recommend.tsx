@@ -10,11 +10,13 @@ import "@/style/record/recommend.css";
 const RecommendPage = ({
   setStep,
   activeStep,
-  setActiveStep,
+  setActiveStep, 
+  experienceId
 }: {
   setStep: (step: number) => void;
   activeStep: number;
   setActiveStep: (step: number) => void;
+  experienceId: number;
 }) => {
   const [selectedGoals, setSelectedGoals] = useState<number[]>([]);
   const [previewImages, setPreviewImages] = useState<{ [key: string]: string }>({});
@@ -34,7 +36,7 @@ const RecommendPage = ({
     setSelectedGoals(newSelectedGoals);
 
     try {
-      const response = await fetch(`/api/${id}/save`, {
+      const response = await fetch(`https://gunanana.onrender.com/api/${id}/save`, {
         method: "PUT",
       });
 
@@ -62,7 +64,7 @@ const RecommendPage = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/api/{experience}/recommends");
+        const response = await fetch(`https://gunanana.onrender.com/api/${experienceId}/recommends`);
         if (!response.ok) throw new Error("Failed to fetch data");
         const data = await response.json();
 

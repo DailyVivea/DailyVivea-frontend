@@ -26,11 +26,13 @@ const RecordPage = () => {
                 <LoadingPage setStep={setStep} activeStep={activeStep} setActiveStep={setActiveStep}
                 experienceId={experienceId}/>
             )}
-            {step === 3 && (
-                <FeedbackPage setStep={setStep} activeStep={activeStep} setActiveStep={setActiveStep} />
+            {step === 3 && experienceId !== null && (
+                <FeedbackPage setStep={setStep} activeStep={activeStep} setActiveStep={setActiveStep}
+                experienceId={experienceId} />
             )}
-            {step === 4 && (
-                <RecommendPage setStep={setStep} activeStep={activeStep} setActiveStep={setActiveStep}/>
+            {step === 4 && experienceId !== null && (
+                <RecommendPage setStep={setStep} activeStep={activeStep} setActiveStep={setActiveStep}
+                experienceId={experienceId} />
             )}
         </div>
     );

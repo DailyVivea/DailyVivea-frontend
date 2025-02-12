@@ -21,7 +21,7 @@ const RecordDatePage = ({ setStep, activeStep, setActiveStep, setExperienceId }:
 
     const [loading, setLoading] = useState(false);
 
-    const userId = 1; // 🔴실제 로그인된 사용자의 ID로 변경 필요
+    const userId = 2; // 🔴실제 로그인된 사용자의 ID로 변경 필요
 
     const handleSubmit = async () => {
         if (!selectedDate) {
@@ -32,7 +32,7 @@ const RecordDatePage = ({ setStep, activeStep, setActiveStep, setExperienceId }:
         setLoading(true);
 
         try {
-            const response = await fetch(`/api/${userId}/date`, {
+            const response = await fetch(`https://gunanana.onrender.com/api/${userId}/date`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -45,6 +45,7 @@ const RecordDatePage = ({ setStep, activeStep, setActiveStep, setExperienceId }:
                 setExperienceId(data.experience_id);
                 setActiveStep(1);
                 setStep(1);
+                console.log("날짜생성 성공 - 경험id:", data.experience_id)
             } else {
                 const data = await response.json();
                 alert(data.message || "에러가 발생했습니다.");
@@ -53,9 +54,6 @@ const RecordDatePage = ({ setStep, activeStep, setActiveStep, setExperienceId }:
         } catch (err) {
             alert("서버와 연결할 수 없습니다.");
         } finally {
-            setExperienceId(1); // 🔹 지우기
-            setActiveStep(1);
-                setStep(1);
             setLoading(false);
         }
     };

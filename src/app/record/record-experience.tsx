@@ -41,26 +41,40 @@ const RecordExperiencePage = ({
 
         setLoading(true);
 
+        console.log(
+            "experienceText:", experienceText, "Type:", typeof experienceText,
+            "selectedEmotion:", selectedEmotion, "Type:", typeof selectedEmotion,
+            "emotionLabel:", emotions.find((e) => e.id === selectedEmotion)?.label, "Type:", typeof emotions.find((e) => e.id === selectedEmotion)?.label
+        );
+
+        const emotionLabel = emotions.find((e) => e.id === selectedEmotion)?.label || "";
+
         try {
-            const response = await fetch(`/api/${experienceId}/record`, {
-                method: "POST",
+            const response = await fetch(`https://gunanana.onrender.com/api/${experienceId}/record`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     content: experienceText,
-                    emotion: emotions.find((e) => e.id === selectedEmotion)?.label,
+                    emotion: emotionLabel,
                 }),
             });
 
+
+            // 응답 상태와 내용 확인
+            const data = await response.json();
+
             if (response.ok) {
+                console.log("경험 기록 및 감정 선택 완료:", data.message, experienceId);
                 setActiveStep(2);
                 setStep(2);
+                
             } else {
-                const data = await response.json();
-                alert(data.message || "에러가 발생했습니다.");
+                alert(data.message || "알 수 없는 오류가 발생했습니다.");
             }
         } catch (err) {
+            console.error("서버 연결 실패:", err);
             alert("서버와 연결할 수 없습니다.");
         } finally {
             setLoading(false);
@@ -80,11 +94,8 @@ const RecordExperiencePage = ({
                         }}>
                         <ArrowLeft size={32} />
                     </button>
-                    <button className="nav-button"                     
-                        onClick={() => {
-                            setActiveStep(2); // ✅ ProgressBar 업데이트
-                            setStep(2); // ✅ 다음 페이지로 이동
-                        }}>
+                    <button className="nav-button"           
+                        onClick={handleSubmit}>
                         <ArrowRight size={32} />
                     </button>
                 </div>

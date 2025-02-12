@@ -14,13 +14,18 @@ const LoadingPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
     //progressBar 단계 변경 X
     experienceId: number;
 
+    
+
 }) => {
+
+    const [loading, setLoading] = useState(true);  // 로딩 상태 관리
 
     // 경험 분석 API 호출
     useEffect(() => {
         const analyzeExperience = async () => {
             try {
-                const response = await fetch(`/api/${experienceId}/analysis`, {
+                setLoading(true);
+                const response = await fetch(`https://gunanana.onrender.com/api/${experienceId}/analysis`, {
                     method: "PUT",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({}),
@@ -29,19 +34,25 @@ const LoadingPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
                 const data = await response.json();
 
                 if (response.ok) {
+                    console.log("경험 분석 완료")
+                    setActiveStep(2)
                     setStep(3); // Step 4로 이동
+                    
                 } else {
                     throw new Error(data.message || "경험 분석에 실패했습니다.");
                 }
             } catch (err: any) {
                 alert(err.message || "분석 중 오류가 발생했습니다.");
-                setStep(3); // 🔹 Step 2(경험 기록)으로 돌아감
+                setStep(0); // 🔹 Step 0(날짜 선택)으로 돌아감
+                setActiveStep(0);
+            } finally {
+                setLoading(false);
             }
 
         };
 
         analyzeExperience();
-    }, [experienceId, setStep]);
+    }, [experienceId, setStep, setActiveStep]);
 
     return (
         <div className="record-page">
