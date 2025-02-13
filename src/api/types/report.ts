@@ -19,10 +19,15 @@ export interface PeerGoal {
   owner: string;
 }
 
-export interface GetReportData {
+export interface GetReportResponse {
   records: Record[];
   feedback: Feedback;
   weeklyProgress: number;
   goals: Goal[];
   peerGoals: PeerGoal[];
+}
+
+export interface GetReportParams {
+  userId: number;
+  date: string;
 }
