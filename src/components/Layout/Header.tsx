@@ -32,7 +32,7 @@ const Header = () => {
         {navItems.map((item) => (
           <li
             key={item.path}
-            className={pathname === item.path ? "nav-item.active" : "nav-item"}
+            className={pathname === item.path ? "nav-item-active" : "nav-item"}
           >
             <Link href={item.path}>{item.name}</Link> {}
           </li>

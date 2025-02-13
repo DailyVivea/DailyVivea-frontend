@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Title,
@@ -21,57 +21,126 @@ import badSticker from "@/assets/badSticker.svg";
 import GoalListItem from "@/components/report/GoalListItem";
 import DiamondProgressBar from "@/components/report/DiamondProgressBar";
 import TextLinkItem from "@/components/report/TextLinkItem";
-import { Record } from "@/api/types/report";
+import {
+  Feedback,
+  GetReportDetailResponse,
+  GetReportResponse,
+} from "@/api/types/report";
 import StickerCalendar from "@/components/Global/StickerCalendar";
 import { Emotion } from "./data";
-import { formatDateMMdDDdDay } from "@/components/Global/calendar.data";
+import {
+  formatDateMMdDDdDay,
+  formatDateMMdDDdDay2,
+  formatDateYYYYbMMbDD,
+} from "@/components/Global/calendar.data";
+import useGetReport from "@/api/hooks/useGetReport";
+import { getReport, getReportDetail } from "@/api/reportAPI";
+import { ResponseType } from "@/api/axiosInstance";
 
 const ReportPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
 
-  // 임시
-  const recordList: Record[] = [
-    {
-      date: "2025-02-13",
-      emotion: "happy",
-    },
-    {
-      date: "2025-02-12",
-      emotion: "bad",
-    },
-    {
-      date: "2025-02-08",
-      emotion: "soso",
-    },
-    {
-      date: "2025-02-05",
-      emotion: "happy",
-    },
-    {
-      date: "2025-02-06",
-      emotion: "bad",
-    },
-    {
-      date: "2025-02-02",
-      emotion: "soso",
-    },
-  ];
+  const [isToggle, setToggle] = useState(false); // false:주간 / true: 월간
 
+  // API 데이터
+  const [reportData, setReportData] =
+    useState<ResponseType<GetReportResponse>>();
+  const [feedbackList, setFeedbackList] = useState<Feedback[]>();
+
+  const [reportDetailData, setReportDetailData] =
+    useState<GetReportDetailResponse>();
+  const [emotions, setEmotions] = useState<number[]>([25, 25, 25, 25, 25]);
+
+  // 임시
+  const userId = 2;
+
+  // 기록이 있는 날짜 가져오기
   const recordItemForDate = (date: Date) => {
-    const recordItem = recordList.find((item) => {
-      // Record(date, emotion)에서 date(0000-00-00 형식의 string) 값을 날짜 객체로 변환
-      const stickedDate = new Date(item.date);
+    if (!feedbackList) return null;
+
+    const feedbackItem = feedbackList.find((item) => {
+      // Feedback(date, emotion, feedback, summary, user_id)에서
+      // date(0000-00-00 형식의 string) 값을 날짜 객체로 변환
+      const stickedDate = new Date(item.date); // 해당 날짜에는 이모지 스티커가 붙여져있음
 
       // d가 date와 같은 지를 반환
       return stickedDate.toDateString() === date.toDateString();
     });
-    return recordItem || null;
+    return feedbackItem || null;
   };
 
+  // API 연동
+  useEffect(() => {
+    // 비동기 함수로 데이터를 가져와서 상태 업데이트
+    const fetchReportDetail = async () => {
+      const date = selectedDate ? selectedDate : currentDate;
+
+      try {
+        const reportData = await getReport({
+          userId,
+          date: formatDateYYYYbMMbDD(date),
+        });
+        const reportDetailData = await getReportDetail({
+          userId,
+          date: formatDateYYYYbMMbDD(date),
+        });
+
+        console.log(reportData);
+        console.log(reportDetailData);
+        // 확인
+        /*
+        console.log("API");
+        console.log(reportData);
+        console.log(reportDetailData);
+        console.log(reportData.feedbacks);
+        */
+
+        if (reportData) {
+          setReportData(reportData);
+          //setFeedbackList(reportData.result?.feedbacks);
+          setFeedbackList(reportData.feedbacks); // typescript라서 apiGet 함수의 <ResponseType<T>> 때문에 빨간줄 뜨는데 동작은 잘 됨 (나중에 해결하기)
+        }
+
+        if (reportDetailData) {
+          //setReportDetailData(reportDetailData.result);
+          setReportDetailData(reportDetailData); // typescript라서 apiGet 함수의 <ResponseType<T>> 때문에 빨간줄 뜨는데 동작은 잘 됨 (나중에 해결하기)
+        }
+      } catch (error) {
+        console.error("Error fetching report detail:", error);
+      }
+    };
+
+    fetchReportDetail(); // 데이터를 가져오는 함수 호출
+  }, [currentDate, selectedDate]);
+
+  useEffect(() => {
+    if (!reportDetailData) {
+      setEmotions([25, 25, 25, 25, 25]);
+      return;
+    }
+
+    let emotionalDistribution;
+    // 주간
+    if (!isToggle) {
+      emotionalDistribution = reportDetailData.weekly_emotions;
+      // 월간
+    } else {
+      emotionalDistribution = reportDetailData.monthly_emotions;
+    }
+
+    let anxiety = emotionalDistribution.anxiety;
+    let joy = emotionalDistribution.joy;
+    let sadness = emotionalDistribution.sadness;
+    let satisfaction = emotionalDistribution.satisfaction;
+    let anger = emotionalDistribution.anger;
+
+    setEmotions([anxiety, joy, sadness, satisfaction, anger]);
+  }, [reportDetailData, isToggle]);
+
   return (
-    <div className="bg-white h-screen h-full p-10 ">
+    <div className="bg-white p-10 ">
       <Title>나의 경험을 모았어요</Title>
       <StickerCalendar
         componentName="RecordDate"
@@ -81,10 +150,10 @@ const ReportPage = () => {
         setCurrentDate={setCurrentDate}
         setSelectedDate={setSelectedDate}
         setHoveredDate={setHoveredDate}
-        recordList={recordList}
+        feedbackList={feedbackList}
       />
 
-      <div className="flex justify-between gap-4 mb-[70px]">
+      <div className="flex justify-between gap-4 mb-[70px] mt-[30px]">
         <BlockComponent>
           <BlockTitle>
             {!selectedDate
@@ -150,30 +219,53 @@ const ReportPage = () => {
         <BlockComponent>
           <BlockTitle>피드백</BlockTitle>
           <BlockText className="mt-3">
-            먼저, 발표에서의 어려움은 누구나 겪을 수 있는 일이에요. 중요한 건 그
-            경험을 어떻게 받아들이고 성장의 기회로 삼느냐입니다. 당신이 오늘
-            속상함과 우울함을 느낀 건 그만큼 발표에 진지하게 임했고, 잘하고
-            싶었던 마음이 컸기 때문이에요.
+            {!selectedDate
+              ? "날짜를 선택해주세요!"
+              : !recordItemForDate(selectedDate)
+              ? "오늘은 피드백 기록이 없어요!"
+              : `${recordItemForDate(selectedDate)?.feedback}`}
           </BlockText>
         </BlockComponent>
       </div>
 
       <Title>이번 주 목표 달성률이 높아요! 계속해서 도전하세요!</Title>
       <div className="flex gap-2 mb-6">
-        <GreenButton>주간</GreenButton>
-        <GrayButton>월간</GrayButton>
+        {!isToggle ? (
+          <>
+            <GreenButton>주간</GreenButton>
+
+            <GrayButton>
+              <button onClick={() => setToggle(true)}>월간</button>
+            </GrayButton>
+          </>
+        ) : (
+          <>
+            <GrayButton>
+              <button onClick={() => setToggle(false)}>주간</button>
+            </GrayButton>
+            <GreenButton>월간</GreenButton>
+          </>
+        )}
       </div>
 
       <div className="flex justify-between gap-4 mb-[70px]">
         <div className="flex-1">
           <BlockComponent>
-            <BlockTitle className="mb-7">이번 주 목표 달성률</BlockTitle>
+            <BlockTitle className="mb-7">
+              이번 {!isToggle ? "주" : "달"} 목표 달성률
+            </BlockTitle>
             <div className="flex justify-center">
               <CircularProgressBar
                 size={200}
                 strokeWidth={20}
-                progress={75}
-                description="01 . 07 . 수요일"
+                progress={
+                  !reportDetailData
+                    ? 0
+                    : !isToggle
+                    ? reportDetailData?.total_monthly_progress
+                    : reportDetailData?.total_weekly_progress
+                }
+                description={formatDateMMdDDdDay2(currentDate)}
               />
             </div>
             <div>
@@ -191,36 +283,38 @@ const ReportPage = () => {
 
         <div className="flex-1">
           <BlockComponent className="mb-4">
-            <BlockTitle className="mt-5 mb-4">이번 주 감정 분포</BlockTitle>
+            <BlockTitle className="mt-5 mb-4">
+              이번 {!isToggle ? "주" : "달"} 감정 분포
+            </BlockTitle>
             <EmotionBar
               text="두려움"
               emotion="😨"
               barColor="bg-[#95E757]"
-              barState="w-[100%] "
+              barState={emotions[0]}
             />
             <EmotionBar
               text="행복함"
               emotion="😊"
               barColor="bg-[#FFDFFC]"
-              barState="w-[80%] "
+              barState={emotions[1]}
             />
             <EmotionBar
               text="우울함"
               emotion="😔"
               barColor="bg-[#DEFFFC]"
-              barState="w-[70%]"
+              barState={emotions[2]}
             />
             <EmotionBar
               text="무덤덤"
               emotion="😐"
               barColor="bg-[#FFFFAA]"
-              barState="w-[70%]"
+              barState={emotions[3]}
             />
             <EmotionBar
               text="분노"
               emotion="😡"
               barColor="bg-[#E6E6E6]"
-              barState="w-[50%]"
+              barState={emotions[4]}
             />
             <div className="mb-10" /> {/*컴포넌트크기임시조정*/}
           </BlockComponent>

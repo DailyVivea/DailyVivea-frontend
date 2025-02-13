@@ -46,7 +46,7 @@ const StickerCalendar = ({
   setCurrentDate,
   setSelectedDate,
   setHoveredDate,
-  recordList,
+  feedbackList,
 }: StickerCalendarProps) => {
   // 날짜 가져오기 -> 부모로부터 props로 받아야 부모가 날짜 데이터 접근 가능
   /*
@@ -61,24 +61,26 @@ const StickerCalendar = ({
   // 캘린더 전역 모듈
   const { getPrevMonthDate, getNextMonthDate } = useCalendar();
 
-  // date에 해당하는 recordData가 있는 지 여부
-  const recordItemForDate = (date: Date) => {
-    const recordItem = recordList.find((item) => {
-      // Record(date, emotion)에서 date(0000-00-00 형식의 string) 값을 날짜 객체로 변환
-      const stickedDate = new Date(item.date);
+  // date(params)에 해당하는 feedbackData가 있는 지 여부
+  const feedbackItemForDate = (date: Date) => {
+    if (!feedbackList) return null; // undefined or null이면 null 반환
+
+    const feedbackItem = feedbackList.find((item) => {
+      // Feedback(date, emotion, feedback, summary, user_id)에서
+      // date(0000-00-00 형식의 string) 값을 날짜 객체로 변환
+      const stickedDate = new Date(item.date); // 해당 날짜에는 이모지 스티커가 붙여져있음
 
       // d가 date와 같은 지를 반환
+      return stickedDate.toDateString() === date.toDateString();
+      /*
       return (
-        stickedDate.toDateString() === date.toDateString()
-        /*
         stickedDate.getFullYear() === date.getFullYear() &&
         stickedDate.getMonth() === date.getMonth() &&
         stickedDate.getDate() === date.getDate()
-        */
       );
+      */
     });
-
-    return recordItem || null;
+    return feedbackItem || null;
   };
 
   return (
@@ -178,33 +180,34 @@ const StickerCalendar = ({
           ) : null;
 
           // [2-3] 감정 이모지 렌더링 변수
-          // 해당 날짜에 스티커가 붙여져있으면 recordItem, 없으면 null
-          const record = recordItemForDate(date);
-          const emotionSticker = record ? (
-            record.emotion === Emotion.happy ? (
-              <Image
-                src={goodSticker}
-                alt="goodSticker"
-                className="w-[70px] h-[70px]"
-              />
-            ) : record.emotion === Emotion.soso ? (
-              <Image
-                src={sosoSticker}
-                alt="sosoSticker"
-                className="w-[70px] h-[70px]"
-              />
-            ) : record.emotion === Emotion.bad ? (
-              <Image
-                src={badSticker}
-                alt="badSticker"
-                className="w-[70px] h-[70px]"
-              />
+          // 해당 날짜에 스티커가 붙여져있으면 feedbackItem, 없으면 null
+          const feedback = feedbackItemForDate(date);
+          const emotionSticker =
+            feedback && isCurrentMonth ? ( // 스티커가 붙여진 현재 달의 날짜라면
+              feedback.emotion === Emotion.happy ? (
+                <Image
+                  src={goodSticker}
+                  alt="goodSticker"
+                  className="w-[70px] h-[70px]"
+                />
+              ) : feedback.emotion === Emotion.soso ? (
+                <Image
+                  src={sosoSticker}
+                  alt="sosoSticker"
+                  className="w-[70px] h-[70px]"
+                />
+              ) : feedback.emotion === Emotion.bad ? (
+                <Image
+                  src={badSticker}
+                  alt="badSticker"
+                  className="w-[70px] h-[70px]"
+                />
+              ) : (
+                <></>
+              )
             ) : (
               <></>
-            )
-          ) : (
-            <></>
-          );
+            );
 
           // [2-4] 최종 날짜 셀 렌더링 반환
           return (

@@ -1,4 +1,4 @@
-import { Record } from "@/api/types/report";
+import { Feedback } from "@/api/types/report";
 
 export interface CalendarProps {
   componentName: string; // 캘린더가 이곳 저곳에서 사용되면 key값 오류 발생 -> 해결법: 부모 컴포넌트명을 key로 사용
@@ -11,7 +11,7 @@ export interface CalendarProps {
 }
 
 export interface StickerCalendarProps extends CalendarProps {
-  recordList: Record[];
+  feedbackList: Feedback[] | undefined; // 백엔드 API 연동 데이터
 }
 
 // 달력 헤더에 표시할 컬럼명
@@ -75,9 +75,28 @@ export const calendarMonth = (date: Date) => {
 // 날짜 데이터를 MM.DD.Day 형식으로 변환환
 export function formatDateMMdDDdDay(date: Date) {
   const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // Add leading 0 if needed
-  const day = String(date.getDate()).padStart(2, "0"); // Add leading 0 if needed
-  const dayOfWeek = daysOfWeek[date.getDay()]; // Get the day of the week in Korean
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth(): index 0부터 시작하므로 1더하기, 두 자릿수
+  const day = String(date.getDate()).padStart(2, "0"); // 두 자릿수
+  const dayOfWeek = daysOfWeek[date.getDay()];
 
   return `${month}.${day}.${dayOfWeek}`;
+}
+
+// 날짜 데이터를 MM . DD . Day요일 형식으로 변환환
+export function formatDateMMdDDdDay2(date: Date) {
+  const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth(): index 0부터 시작하므로 1더하기, 두 자릿수
+  const day = String(date.getDate()).padStart(2, "0"); // 두 자릿수
+  const dayOfWeek = daysOfWeek[date.getDay()];
+
+  return `${month} . ${day} . ${dayOfWeek}요일`;
+}
+
+// 날짜 데이터를 YYYY-MM-DD 형식으로 변환환
+export function formatDateYYYYbMMbDD(date: Date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 }

@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"; // npm install @tanstack/react
 
 const useGetReport = ({ userId, date }: GetReportParams) => {
   return useQuery({
-    queryKey: ["report", date],
+    queryKey: ["reports", date],
     queryFn: () => getReport({ userId, date }),
     select: (data) => data.result,
   });

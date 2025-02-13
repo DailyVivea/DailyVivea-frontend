@@ -3,6 +3,7 @@
 import React, { useEffect } from "react";
 import { ChevronRight } from "lucide-react";
 import "@/style/dashboard.css";
+import Link from "next/link";
 
 const DashboardPage = () => {
   useEffect(() => {
@@ -31,12 +32,14 @@ const DashboardPage = () => {
             <h3>오늘 기록자 수</h3>
           </div>
         </div>
-        <button className="record-button">
-          기록하러 가기
-          <div className="icon-wrapper">
-            <ChevronRight size={18} strokeWidth={3} className="record-icon" />
-          </div>
-        </button>
+        <Link href="/record">
+          <button className="record-button">
+            기록하러 가기
+            <div className="icon-wrapper">
+              <ChevronRight size={18} strokeWidth={3} className="record-icon" />
+            </div>
+          </button>
+        </Link>
       </div>
     </div>
   );
