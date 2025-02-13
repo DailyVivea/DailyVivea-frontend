@@ -15,12 +15,15 @@ import CircularProgressBar from "@/components/report/CircleProgressBar";
 import EmotionBar from "@/components/report/EmotionBar";
 
 import Image from "next/image";
-import tempIcon from "@/assets/임시스티커.svg";
+import goodSticker from "@/assets/goodSticker.svg";
+import sosoSticker from "@/assets/sosoSticker.svg";
+import badSticker from "@/assets/badSticker.svg";
 import GoalListItem from "@/components/report/GoalListItem";
 import DiamondProgressBar from "@/components/report/DiamondProgressBar";
 import TextLinkItem from "@/components/report/TextLinkItem";
 import { Record } from "@/api/types/report";
 import StickerCalendar from "@/components/Global/StickerCalendar";
+import { Emotion } from "./data";
 
 const ReportPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -56,6 +59,17 @@ const ReportPage = () => {
     },
   ];
 
+  const recordItemForDate = (date: Date) => {
+    const recordItem = recordList.find((item) => {
+      // Record(date, emotion)에서 date(0000-00-00 형식의 string) 값을 날짜 객체로 변환
+      const stickedDate = new Date(item.date);
+
+      // d가 date와 같은 지를 반환
+      return stickedDate.toDateString() === date.toDateString();
+    });
+    return recordItem || null;
+  };
+
   return (
     <div className="bg-white h-screen h-full p-10 ">
       <Title>나의 경험을 모았어요</Title>
@@ -79,10 +93,20 @@ const ReportPage = () => {
 
           <div className="flex justify-between items-center">
             <BlockMiddleTitle>
-              발표가 마음에 들지 않아 우울했던 날
+              {!selectedDate
+                ? "선택된 날짜가 없습니다"
+                : !recordItemForDate(selectedDate)
+                ? "기록된 감정이 없는 날"
+                : recordItemForDate(selectedDate)?.emotion === Emotion.happy
+                ? "발표가 마음에 들어 햅삐했던 날 😍"
+                : recordItemForDate(selectedDate)?.emotion === Emotion.soso
+                ? "발표가 그럭저럭 굴러갔던 날 🙂"
+                : recordItemForDate(selectedDate)?.emotion === Emotion.bad
+                ? "발표가 마음에 들지 않아 우울했던 날 😭"
+                : ""}
             </BlockMiddleTitle>
             <Image
-              src={tempIcon}
+              src={goodSticker}
               alt="스티커"
               className="w-[213px] h-[213px]"
             ></Image>
