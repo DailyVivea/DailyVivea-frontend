@@ -1,5 +1,6 @@
 import { useRouter } from "next/navigation";
 import React from "react";
+import Image from "next/image";
 import {
   BodyText,
   CardContainer,
@@ -9,8 +10,10 @@ import {
   Section,
   SectionColumn,
   GrayButtonLine,
+  DeleteButtonWrapper,
 } from "./GoalCard.style";
 import CustomProgressBar from "./CustomProgressBar";
+import icon from "../../assets/trashcan.png"; // 아이콘 이미지 파일 경로
 
 interface GoalCardProps {
   id: number; // 고유 ID 추가
@@ -68,6 +71,15 @@ const GoalCard: React.FC<GoalCardProps> = ({
       {/* 진행률 섹션 */}
       <GrayButton>진행률</GrayButton>
       <CustomProgressBar progress={progress} />
+      <DeleteButtonWrapper>
+        <Image
+          src={icon}
+          alt="뒤로가기"
+          width={20}
+          height={20}
+          style={{ width: "44px", cursor: "pointer" }}
+        />
+      </DeleteButtonWrapper>
     </CardContainer>
   );
 };
