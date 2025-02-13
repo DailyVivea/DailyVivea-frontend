@@ -8,6 +8,8 @@ import {
   calendarMonth,
 } from "./calendar.data";
 
+import { Emotion } from "@/app/report/data";
+
 import useCalendar from "@/hooks/useCalendar";
 
 import Image from "next/image";
