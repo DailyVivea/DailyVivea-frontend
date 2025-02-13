@@ -1,9 +1,10 @@
 import React from "react";
+import DashboardPage from "./dashboard/page";
 
 const Home = () => {
     return (
       <div>
-        대쉬보드
+        <DashboardPage></DashboardPage>
       </div>
     );
 }

@@ -11,6 +11,16 @@
     transition: all 0.3s erase-in-out;
 }
 
+/* ✅ 특정 페이지에서만 적용할 투명 헤더 */
+.transparent-header {
+    background-color: transparent !important; /* ✅ 헤더 배경 투명화 */
+    position: absolute !important; /* ✅ 헤더를 배경 위에 띄우기 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 101; /* ✅ 가장 위에 위치하도록 */
+}
+
 .logo {
     display: flex;
     align-items: center;
