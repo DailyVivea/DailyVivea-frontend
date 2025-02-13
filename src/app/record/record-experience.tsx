@@ -9,16 +9,77 @@ import "@/style/record/experience.css";
 const emotions = [
     { id: 1, label: "행복했어요", image: "/images/happy.png", color: "#FFDFFC" },
     { id: 2, label: "우울했어요", image: "/images/sad.png", color: "#DEFFFC" },
-    { id: 3, label: "그냥 그랬어요", image: "/images/soso.png", color: "#FFFFAA" },
+    { id: 3, label: "그저 그랬어요", image: "/images/soso.png", color: "#FFFFAA" },
 ];
 
-const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: { 
+const RecordExperiencePage = ({
+    setStep,
+    activeStep,
+    setActiveStep,
+    experienceId
+}: {
     setStep: (step: number) => void;
     activeStep: number;
     setActiveStep: (step: number) => void;
+    experienceId: number;
 }) => {
     const [selectedEmotion, setSelectedEmotion] = useState<number | null>(null);
     const [showTip, setShowTip] = useState(false);
+    const [experienceText, setExperienceText] = useState("");
+    const [loading, setLoading] = useState(false);
+
+
+    const handleSubmit = async () => {
+        if (!experienceText.trim()) {
+            alert("경험 내용을 입력해주세요.");
+            return;
+        }
+        if (selectedEmotion === null) {
+            alert("감정을 선택해주세요.");
+            return;
+        }
+
+        setLoading(true);
+
+        console.log(
+            "experienceText:", experienceText, "Type:", typeof experienceText,
+            "selectedEmotion:", selectedEmotion, "Type:", typeof selectedEmotion,
+            "emotionLabel:", emotions.find((e) => e.id === selectedEmotion)?.label, "Type:", typeof emotions.find((e) => e.id === selectedEmotion)?.label
+        );
+
+        const emotionLabel = emotions.find((e) => e.id === selectedEmotion)?.label || "";
+
+        try {
+            const response = await fetch(`https://gunanana.onrender.com/api/${experienceId}/record`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    content: experienceText,
+                    emotion: emotionLabel,
+                }),
+            });
+
+
+            // 응답 상태와 내용 확인
+            const data = await response.json();
+
+            if (response.ok) {
+                console.log("경험 기록 및 감정 선택 완료:", data.message, experienceId);
+                setActiveStep(2);
+                setStep(2);
+                
+            } else {
+                alert(data.message || "알 수 없는 오류가 발생했습니다.");
+            }
+        } catch (err) {
+            console.error("서버 연결 실패:", err);
+            alert("서버와 연결할 수 없습니다.");
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="record-page">
@@ -33,11 +94,8 @@ const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: {
                         }}>
                         <ArrowLeft size={32} />
                     </button>
-                    <button className="nav-button"                     
-                        onClick={() => {
-                            setActiveStep(2); // ✅ ProgressBar 업데이트
-                            setStep(2); // ✅ 다음 페이지로 이동
-                        }}>
+                    <button className="nav-button"           
+                        onClick={handleSubmit}>
                         <ArrowRight size={32} />
                     </button>
                 </div>
@@ -50,14 +108,15 @@ const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: {
             </div>
 
             <div className="record-container">
-
                 {/* 경험 기록 */}
                 <div className="experience-section">
-                    <textarea  
+                    <textarea
                         className="experience-textarea"
                         placeholder="오늘 어떤 경험을 했나요?"
+                        value={experienceText}
+                        onChange={(e) => setExperienceText(e.target.value)}
                     />
-                    <div 
+                    <div
                         className="info-icon"
                         onMouseEnter={() => setShowTip(true)}
                         onMouseLeave={() => setShowTip(false)}
@@ -89,12 +148,10 @@ const RecordExperiencePage = ({ setStep, activeStep, setActiveStep }: {
                 </div>
             </div>
 
-
-
             {/* 진행 상태 바 */}
             <div className="progress-bar-container">
                 <ProgressBar activeStep={activeStep} />
-            </div>  
+            </div>
         </div>
     );
 };
