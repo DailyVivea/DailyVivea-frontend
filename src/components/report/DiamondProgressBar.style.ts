@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Wrapper = styled.div`
   display: flex;
@@ -11,9 +11,9 @@ export const Wrapper = styled.div`
 export const ProgressContainer = styled.div`
   position: relative;
   width: 100%;
-  max-width: 400px;
+  max-width: 1300px;
   height: 7px;
-  background-color: #E6E6E6;
+  background-color: #e6e6e6;
   border-radius: 15px;
 `;
 
@@ -24,7 +24,7 @@ export const ProgressBackground = styled.div`
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #E6E6E6;
+  background-color: #e6e6e6;
   border-radius: 15px;
 `;
 
@@ -34,11 +34,9 @@ export const ProgressBarFill = styled.div`
   top: 0;
   left: 0;
   height: 100%;
-  background-color: #95E757;
+  background-color: #95e757;
   border-radius: 15px;
 `;
-
-
 
 export const ProgressButtonWrapper = styled.div`
   position: absolute;
@@ -55,7 +53,7 @@ export const ProgressButtonWrapper = styled.div`
 export const ProgressButton = styled.div`
   width: 10px;
   height: 30px;
-  background-color: #95E757;
+  background-color: #95e757;
   border-radius: 50%;
   cursor: pointer;
   pointer-events: auto;
@@ -65,7 +63,7 @@ export const ProgressButton = styled.div`
 export const ProgressButtonAccessary = styled.div`
   width: 30px;
   height: 10px;
-  background-color: #95E757;
+  background-color: #95e757;
   border-radius: 50%;
   cursor: pointer;
   pointer-events: auto;

@@ -32,7 +32,6 @@ const DashboardPage = () => {
             <h3>오늘 기록자 수</h3>
           </div>
         </div>
-
         <Link href="/record">
           <button className="record-button">
             기록하러 가기
