@@ -24,6 +24,7 @@ import TextLinkItem from "@/components/report/TextLinkItem";
 import { Record } from "@/api/types/report";
 import StickerCalendar from "@/components/Global/StickerCalendar";
 import { Emotion } from "./data";
+import { formatDateMMdDDdDay } from "@/components/Global/calendar.data";
 
 const ReportPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -44,7 +45,6 @@ const ReportPage = () => {
       date: "2025-02-08",
       emotion: "soso",
     },
-
     {
       date: "2025-02-05",
       emotion: "happy",
@@ -86,9 +86,21 @@ const ReportPage = () => {
 
       <div className="flex justify-between gap-4 mb-[70px]">
         <BlockComponent>
-          <BlockTitle>오늘 발표가 좀 어려우셨던 것 같아요!</BlockTitle>
+          <BlockTitle>
+            {!selectedDate
+              ? "날짜를 선택해주세요!"
+              : !recordItemForDate(selectedDate)
+              ? "오늘은 감정 기록이 없어요!"
+              : recordItemForDate(selectedDate)?.emotion === Emotion.happy
+              ? "오늘 발표가 만족스러웠던 것 같아요!"
+              : recordItemForDate(selectedDate)?.emotion === Emotion.soso
+              ? "오늘 발표가 나쁘지 않았던 것 같아요!"
+              : recordItemForDate(selectedDate)?.emotion === Emotion.bad
+              ? "오늘 발표가 좀 어려우셨던 것 같아요!"
+              : ""}
+          </BlockTitle>
           <p className="text-[#B6B6B6] font-medium text-[16px] mt-3">
-            01.07.수요일
+            {!selectedDate ? "" : formatDateMMdDDdDay(selectedDate)}
           </p>
 
           <div className="flex justify-between items-center">
@@ -103,13 +115,35 @@ const ReportPage = () => {
                 ? "발표가 그럭저럭 굴러갔던 날 🙂"
                 : recordItemForDate(selectedDate)?.emotion === Emotion.bad
                 ? "발표가 마음에 들지 않아 우울했던 날 😭"
-                : ""}
+                : `백엔드로부터 알 수 없는 감정 데이터를 전달받았어요: ${
+                    recordItemForDate(selectedDate)?.emotion
+                  }`}
             </BlockMiddleTitle>
-            <Image
-              src={goodSticker}
-              alt="스티커"
-              className="w-[213px] h-[213px]"
-            ></Image>
+            {!selectedDate ? (
+              ""
+            ) : !recordItemForDate(selectedDate) ? (
+              ""
+            ) : recordItemForDate(selectedDate)?.emotion === Emotion.happy ? (
+              <Image
+                src={goodSticker}
+                alt="감정스티커"
+                className="w-[213px] h-[213px]"
+              />
+            ) : recordItemForDate(selectedDate)?.emotion === Emotion.soso ? (
+              <Image
+                src={sosoSticker}
+                alt="감정스티커"
+                className="w-[213px] h-[213px]"
+              />
+            ) : recordItemForDate(selectedDate)?.emotion === Emotion.bad ? (
+              <Image
+                src={badSticker}
+                alt="감정스티커"
+                className="w-[213px] h-[213px]"
+              />
+            ) : (
+              ""
+            )}
           </div>
         </BlockComponent>
 
