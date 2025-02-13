@@ -29,7 +29,7 @@ import {
   formatDateYYYYbMMbDD,
 } from "@/components/Global/calendar.data";
 import useGetReport from "@/api/hooks/useGetReport";
-import { getReport } from "@/api/reportAPI";
+import { getReport, getReportDetail } from "@/api/reportAPI";
 
 const ReportPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -75,11 +75,19 @@ const ReportPage = () => {
     });
     return recordItem || null;
   };
+
+  // API 연동
   useEffect(() => {
     const date = selectedDate ? selectedDate : currentDate;
-    const data = getReport({ userId, date: formatDateYYYYbMMbDD(date) });
+    const reportData = getReport({ userId, date: formatDateYYYYbMMbDD(date) });
+    const reportDetailData = getReportDetail({
+      userId,
+      date: formatDateYYYYbMMbDD(date),
+    });
+
     console.log("API");
-    console.log(data);
+    console.log(reportData);
+    console.log(reportDetailData);
   }, [currentDate, selectedDate]);
 
   return (
