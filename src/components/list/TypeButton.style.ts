@@ -31,4 +31,5 @@ export const ButtonContainer = styled.div`
   display: flex;
   gap: 8px;
   margin-left: 344px;
+  margin-bottom: 20px;
 `;

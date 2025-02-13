@@ -1,4 +1,4 @@
-import DiamondProgressBar from "@/components/report/DiamondProgressBar";
+import { useRouter } from "next/navigation";
 import React from "react";
 import {
   BodyText,
@@ -10,21 +10,44 @@ import {
   SectionColumn,
   GrayButtonLine,
 } from "./GoalCard.style";
+import CustomProgressBar from "./CustomProgressBar";
 
-const GoalCard = () => {
+interface GoalCardProps {
+  id: number; // 고유 ID 추가
+  title: string;
+  status: string;
+  goal: string;
+  frequency: string;
+  period: string;
+  progress: number;
+}
+
+const GoalCard: React.FC<GoalCardProps> = ({
+  id,
+  title,
+  status,
+  goal,
+  frequency,
+  period,
+  progress,
+}) => {
+  const router = useRouter(); // Next.js 라우터 사용
+
+  const handleClick = () => {
+    router.push(`/list/detail?id=${id}`);
+  };
+
   return (
     <CardContainer>
-      <Title>주 1회 발표 연습하기</Title>
-      <Status>진행 중</Status>
+      <Title onClick={handleClick} style={{ cursor: "pointer" }}>
+        {title}
+      </Title>
+      <Status>{status}</Status>
 
       {/* 목표 섹션 */}
       <GrayButton>목표</GrayButton>
       <Section>
-        <SectionColumn>
-          <BodyText>
-            4주동안 간단한 주제를 정해 매주 1회 5분 이상 발표 연습을 완료하기
-          </BodyText>
-        </SectionColumn>
+        <BodyText>{goal}</BodyText>
       </Section>
 
       {/* 실행 간격 및 기간 섹션 */}
@@ -34,17 +57,17 @@ const GoalCard = () => {
       </GrayButtonLine>
       <Section>
         <SectionColumn>
-          <BodyText>1주마다 1회 이상</BodyText>
+          <BodyText>{frequency}</BodyText>
         </SectionColumn>
 
         <SectionColumn>
-          <BodyText>2025.01.07~2025.02.04</BodyText>
+          <BodyText>{period}</BodyText>
         </SectionColumn>
       </Section>
 
       {/* 진행률 섹션 */}
       <GrayButton>진행률</GrayButton>
-      <DiamondProgressBar />
+      <CustomProgressBar progress={progress} />
     </CardContainer>
   );
 };
