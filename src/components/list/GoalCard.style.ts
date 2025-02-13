@@ -61,3 +61,8 @@ export const BodyText = styled.div`
   margin-bottom: 8px;
   margin-left: 3px;
 `;
+
+export const DeleteButtonWrapper = styled.div`
+  display: flex;
+  justify-content: right;
+`;
