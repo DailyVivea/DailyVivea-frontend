@@ -10,33 +10,13 @@ import "@/style/record/feedback.css";
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Tooltip, Legend);
 
-interface Keyword {
-    keyword: string;
-    times: number;
-}
 
-interface EmotionData {
-    joy: number;
-    sadness: number;
-    anger: number;
-    anxiety: number;
-    satisfaction: number;
-}
-
-interface FeedbackData {
-    title: string;
-    feedback: string;
-    keywords: Keyword[];
-    emotions: EmotionData;
-    point: { title: string; content: string }[];
-    potential: number;
-}
 
 const emotionOptions = {
     scales: {
         r: {
             grid: {
-                circular: true, // ✅ 그리드 모양을 원형으로 변경
+                circular: true,
                 color: "#E0E0E0",
             },
             pointLabels: {
@@ -47,41 +27,37 @@ const emotionOptions = {
                 color: "#212121",
             },
             ticks: {
-                display: false, // ✅ 데이터 라벨 숨기기
+                display: false,
             },
         },
     },
     plugins: {
         legend: {
-            display: false, // ✅ "감정 점수" 라벨 제거
+            display: false,
         },
     },
     elements: {
         line: {
-            borderWidth: 2, // 선 두께
+            borderWidth: 2,
         },
         point: {
-            radius: 0, // ✅ 포인트 제거
+            radius: 0,
             hoverRadius: 0,
             borderWidth: 0,
         },
     },
 };
 
-
 const GrowthProgressBar = ({ progress }: { progress: number }) => {
-    const totalBars = 20; // 전체 막대 개수
-    const filledBars = Math.round((progress / 100) * totalBars); // 채워질 막대 개수
+    const totalBars = 20;
+    const filledBars = Math.round((progress / 100) * totalBars);
 
     return (
         <div className="growth-progress-container">
             <span className="progress-label">0</span>
             <div className="growth-progress">
                 {Array.from({ length: totalBars }, (_, index) => (
-                    <div
-                        key={index}
-                        className={`progress-bar ${index < filledBars ? "filled" : "empty"}`}
-                    ></div>
+                    <div key={index} className={`progress-bar ${index < filledBars ? "filled" : "empty"}`}></div>
                 ))}
             </div>
             <span className="progress-label">100</span>
@@ -89,33 +65,33 @@ const GrowthProgressBar = ({ progress }: { progress: number }) => {
     );
 };
 
-
 const FeedbackPage = ({ setStep, activeStep, setActiveStep, experienceId }: { 
     setStep: (step: number) => void;
     activeStep: number;
     setActiveStep: (step: number) => void;
     experienceId: number;
 }) => {
-
     const [data, setData] = useState<any>(null);
 
     useEffect(() => {
+        if (!experienceId) return;
+
         const fetchData = async () => {
             try {
                 const response = await fetch(`https://gunanana.onrender.com/api/${experienceId}/feedbacks`);
                 if (!response.ok) throw new Error("Failed to fetch feedback data");
                 const result = await response.json();
                 setData(result);
+                console.log(result);
             } catch (error) {
                 console.error("Error fetching feedback data:", error);
-
                 setData({
                     title: "[임시] 오늘 발표가 좀 어려우셨던 것 같아요",
                     feedback: "발표에서 어려움을 느꼈지만, 이런 경험이 결국 성장의 밑거름이 됩니다.",
                     keywords: [
-                        { "keyword": "발표", "times": 3 },
-                        { "keyword": "긴장", "times": 2 },
-                        { "keyword": "성장", "times": 1 }
+                        { keyword: "발표", times: 3 },
+                        { keyword: "긴장", times: 2 },
+                        { keyword: "성장", times: 1 }
                     ],
                     emotions: {
                         joy: 0.2,
@@ -126,16 +102,16 @@ const FeedbackPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
                     },
                     point: [
                         {
-                            "title": "발표 내용 복기",
-                            "content": "어떤 부분에서 어려움을 겪었는지 구체적으로 되돌아보세요."
+                            title: "발표 내용 복기",
+                            content: "어떤 부분에서 어려움을 겪었는지 구체적으로 되돌아보세요."
                         },
                         {
-                            "title": "작은 성공 경험 쌓기",
-                            "content": "사람들 앞에서 이야기할 기회를 만들어보세요."
+                            title: "작은 성공 경험 쌓기",
+                            content: "사람들 앞에서 이야기할 기회를 만들어보세요."
                         },
                         {
-                            "title": "자기 긍정 강화",
-                            "content": "오늘 발표가 당신의 모든 능력을 정의하는 것은 아니에요."
+                            title: "자기 긍정 강화",
+                            content: "오늘 발표가 당신의 모든 능력을 정의하는 것은 아니에요."
                         }
                     ],
                     potential: 75,
@@ -151,11 +127,17 @@ const FeedbackPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
         labels: ["행복", "우울", "분노", "불안", "만족"],
         datasets: [
             {
-                data: [data.emotions.joy * 100, data.emotions.sadness * 100, data.emotions.anger * 100, data.emotions.anxiety * 100, data.emotions.satisfaction * 100], // 감정 점수 데이터
-                backgroundColor: "rgba(149, 231, 87, 0.5)", // ✅ 내부 색상 채우기 (불투명도 적용)
+                data: [
+                    (data.emotions?.joy ?? 0) * 100,
+                    (data.emotions?.sadness ?? 0) * 100,
+                    (data.emotions?.anger ?? 0) * 100,
+                    (data.emotions?.anxiety ?? 0) * 100,
+                    (data.emotions?.satisfaction ?? 0) * 100
+                ],
+                backgroundColor: "rgba(149, 231, 87, 0.5)",
                 borderColor: "#95E757",
                 borderWidth: 2,
-                fill: true, // ✅ 내부 색상 채우기 활성화
+                fill: true,
             },
         ],
     };
@@ -176,7 +158,7 @@ const FeedbackPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
 
             <div className="title-container">
                 <div className="keyword-container">
-                    {data.keywords.map((kw: any, index: number) => (
+                    {data?.keywords?.map((kw: any, index: number) => (
                         <button key={index} className="keyword-button">{kw.keyword}</button>
                     ))}
                 </div>
@@ -187,13 +169,13 @@ const FeedbackPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
                 <div className="feedback-container">
                     <div className="feedback-card">
                         <h2>🪴 오늘의 경험에 대한 피드백</h2>
-                        <p>{data.feedback}</p>
+                        <p>{data.emotions.feedback}</p>
                     </div>
 
                     <div className="feedback-card">
                         <h2>💬 가장 많이 사용된 키워드</h2>
                         <div className="keyword-list">
-                            {data.keywords.map((kw: any, index: number) => (
+                            {data?.keywords?.map((kw: any, index: number) => (
                                 <div key={index} className="keyword-item">
                                     <span className="keyword-text">{kw.keyword}</span>
                                     <div className="keyword-progress">
@@ -208,24 +190,31 @@ const FeedbackPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
 
                 <div className="feedback-card">
                     <h2>오늘 감정 분포도</h2>
-                    {/* <p>
-                        오늘의 발표가 마음에 들지 않았을 수도 있지만, 그 경험 자체가 이미 성장의 한 
-                        걸음이에요. 낯설었던 일일수록 당신이 많이 있어요. 조금씩 나아가는 당신을 믿어요.
-                        다음 발표는 오늘의 경험 덕분에 더 나아질 거예요. 🌟
-                        오늘의 경험을 나눠줘서 고마워요. 함께 성장해 나가요! 😊
-                    </p> */}
                     <div className="emotion-chart-container">
                         <Radar data={emotionData} options={emotionOptions} />
                     </div>
                 </div>
 
                 <div className="growth-section">
+
                     <h2>성장 포인트</h2>
-                    {data.point.map((p: any, index: number) => (
-                        <p key={index}><strong>{p.title}:</strong> {p.content}</p>
-                    ))}
+                    {data.growth_points && Object.entries(data.growth_points).map(([title, content], index) => (
+    <div key={index} className="growth-point">
+        <h3>{title}</h3>
+        <p>
+            {String(content).split('\n').map((line, i) => (
+                <span key={i}>
+                    {line}
+                    <br />
+                </span>
+            ))}
+        </p>
+    </div>
+))}
+
                     <h2>성장 가능성</h2>
-                    <GrowthProgressBar progress={data.potential} />
+                    <p className="growth-potential-number">{data.growth_potential ?? 0}%</p>
+                    <GrowthProgressBar progress={data.growth_potential ?? 0} />
                 </div>
             </div>
 

@@ -6,9 +6,9 @@ import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
 import "@/style/record/loading.css"
 
-const LoadingPage = ({ setStep, activeStep, setActiveStep, experienceId }: { 
+const LoadingPage = ({ step, setStep, activeStep, setActiveStep, experienceId }: { 
     setStep: (step: number) => void;
-
+    step: number;
     activeStep: number; 
     setActiveStep: (step: number) => void;
     //progressBar 단계 변경 X
@@ -22,6 +22,10 @@ const LoadingPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
 
     // 경험 분석 API 호출
     useEffect(() => {
+
+        if (experienceId === null || experienceId === undefined) return;
+        if (step !== 2 || experienceId === null) return;
+
         const analyzeExperience = async () => {
             try {
                 setLoading(true);
@@ -35,7 +39,7 @@ const LoadingPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
 
                 if (response.ok) {
                     console.log("경험 분석 완료")
-                    setActiveStep(2)
+                    
                     setStep(3); // Step 4로 이동
                     
                 } else {
@@ -52,7 +56,7 @@ const LoadingPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
         };
 
         analyzeExperience();
-    }, [experienceId, setStep, setActiveStep]);
+    }, [experienceId]);
 
     return (
         <div className="record-page">

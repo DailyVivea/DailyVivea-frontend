@@ -23,7 +23,10 @@ const RecordPage = () => {
                 experienceId={experienceId} />
             )}
             {step === 2 && experienceId !== null && (
-                <LoadingPage setStep={setStep} activeStep={activeStep} setActiveStep={setActiveStep}
+                <LoadingPage
+                step = {step}
+                setStep={setStep} 
+                activeStep={activeStep} setActiveStep={setActiveStep}
                 experienceId={experienceId}/>
             )}
             {step === 3 && experienceId !== null && (

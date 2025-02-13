@@ -225,3 +225,10 @@
 .progress-bar.filled {
     background-color: #95E757; /* 활성화된 색상 */
 }
+
+.growth-potential-number {
+    font-weight: bold;
+    text-align: center;
+    font-size: 20px !important;
+    color: #000 !important;
+}
