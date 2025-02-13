@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
+  position: relative;
   width: 372px;
   padding: 32px 28px;
   border: 1px solid #e6e6e6;
@@ -63,6 +64,7 @@ export const BodyText = styled.div`
 `;
 
 export const DeleteButtonWrapper = styled.div`
-  display: flex;
-  justify-content: right;
+  position: absolute;
+  right: 20px;
+  bottom: 20px;
 `;
