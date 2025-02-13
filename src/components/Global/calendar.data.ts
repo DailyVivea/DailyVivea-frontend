@@ -1,4 +1,4 @@
-import { Record } from "@/api/types/report";
+import { Feedback } from "@/api/types/report";
 
 export interface CalendarProps {
   componentName: string; // 캘린더가 이곳 저곳에서 사용되면 key값 오류 발생 -> 해결법: 부모 컴포넌트명을 key로 사용
@@ -11,7 +11,7 @@ export interface CalendarProps {
 }
 
 export interface StickerCalendarProps extends CalendarProps {
-  recordList: Record[];
+  feedbackList: Feedback[]; // 백엔드 API 연동 데이터
 }
 
 // 달력 헤더에 표시할 컬럼명

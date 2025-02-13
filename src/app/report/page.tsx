@@ -21,7 +21,7 @@ import badSticker from "@/assets/badSticker.svg";
 import GoalListItem from "@/components/report/GoalListItem";
 import DiamondProgressBar from "@/components/report/DiamondProgressBar";
 import TextLinkItem from "@/components/report/TextLinkItem";
-import { Record } from "@/api/types/report";
+import { Feedback } from "@/api/types/report";
 import StickerCalendar from "@/components/Global/StickerCalendar";
 import { Emotion } from "./data";
 import {
@@ -38,42 +38,40 @@ const ReportPage = () => {
 
   // 임시
   const userId = 2;
-  const recordList: Record[] = [
+  const feedbackList: Feedback[] = [
     {
       date: "2025-02-13",
       emotion: "happy",
+      feedback: "",
+      summary: "",
+      user_id: 2,
     },
     {
       date: "2025-02-12",
       emotion: "bad",
+      feedback: "",
+      summary: "",
+      user_id: 2,
     },
     {
       date: "2025-02-08",
       emotion: "soso",
-    },
-    {
-      date: "2025-02-05",
-      emotion: "happy",
-    },
-    {
-      date: "2025-02-06",
-      emotion: "bad",
-    },
-    {
-      date: "2025-02-02",
-      emotion: "soso",
+      feedback: "",
+      summary: "",
+      user_id: 2,
     },
   ];
 
   const recordItemForDate = (date: Date) => {
-    const recordItem = recordList.find((item) => {
-      // Record(date, emotion)에서 date(0000-00-00 형식의 string) 값을 날짜 객체로 변환
-      const stickedDate = new Date(item.date);
+    const feedbackItem = feedbackList.find((item) => {
+      // Feedback(date, emotion, feedback, summary, user_id)에서
+      // date(0000-00-00 형식의 string) 값을 날짜 객체로 변환
+      const stickedDate = new Date(item.date); // 해당 날짜에는 이모지 스티커가 붙여져있음
 
       // d가 date와 같은 지를 반환
       return stickedDate.toDateString() === date.toDateString();
     });
-    return recordItem || null;
+    return feedbackItem || null;
   };
 
   // API 연동
@@ -101,7 +99,7 @@ const ReportPage = () => {
         setCurrentDate={setCurrentDate}
         setSelectedDate={setSelectedDate}
         setHoveredDate={setHoveredDate}
-        recordList={recordList}
+        feedbackList={feedbackList}
       />
 
       <div className="flex justify-between gap-4 mb-[70px]">

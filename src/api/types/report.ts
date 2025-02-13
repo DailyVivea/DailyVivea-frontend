@@ -1,22 +1,9 @@
-export interface Record {
+export interface Feedback {
   date: string;
   emotion: string;
-}
-
-export interface Feedback {
-  title: string;
-  subtitle: string;
-  detail: string;
-}
-
-export interface Goal {
-  goal: string;
-  ratio: number;
-}
-
-export interface PeerGoal {
-  title: string;
-  owner: string;
+  feedback: string;
+  summary: string;
+  user_id: number;
 }
 
 export interface EmotionalDistribution {
@@ -28,11 +15,8 @@ export interface EmotionalDistribution {
 }
 
 export interface GetReportResponse {
-  records: Record[];
-  feedback: Feedback;
-  weeklyProgress: number;
-  goals: Goal[];
-  peerGoals: PeerGoal[];
+  userId: number;
+  feedbacks: Feedback[];
 }
 
 export interface GetReportDetailResponse {
