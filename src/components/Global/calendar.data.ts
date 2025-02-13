@@ -71,3 +71,13 @@ export const calendarMonth = (date: Date) => {
 
   return formattedMonth;
 };
+
+// 날짜 데이터를 MM.DD.Day 형식으로 변환환
+export function formatDateMMdDDdDay(date: Date) {
+  const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Add leading 0 if needed
+  const day = String(date.getDate()).padStart(2, "0"); // Add leading 0 if needed
+  const dayOfWeek = daysOfWeek[date.getDay()]; // Get the day of the week in Korean
+
+  return `${month}.${day}.${dayOfWeek}`;
+}
