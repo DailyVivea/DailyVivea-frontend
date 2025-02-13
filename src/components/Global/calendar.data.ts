@@ -11,7 +11,7 @@ export interface CalendarProps {
 }
 
 export interface StickerCalendarProps extends CalendarProps {
-  feedbackList: Feedback[]; // 백엔드 API 연동 데이터
+  feedbackList: Feedback[] | undefined; // 백엔드 API 연동 데이터
 }
 
 // 달력 헤더에 표시할 컬럼명

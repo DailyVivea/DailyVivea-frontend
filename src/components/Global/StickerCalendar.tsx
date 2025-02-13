@@ -63,6 +63,8 @@ const StickerCalendar = ({
 
   // date(params)에 해당하는 feedbackData가 있는 지 여부
   const feedbackItemForDate = (date: Date) => {
+    if (!feedbackList) return null; // undefined or null이면 null 반환
+
     const feedbackItem = feedbackList.find((item) => {
       // Feedback(date, emotion, feedback, summary, user_id)에서
       // date(0000-00-00 형식의 string) 값을 날짜 객체로 변환
