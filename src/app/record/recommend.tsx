@@ -67,36 +67,20 @@ const RecommendPage = ({
         const response = await fetch(`https://gunanana.onrender.com/api/${experienceId}/recommends`);
         if (!response.ok) throw new Error("Failed to fetch data");
         const data = await response.json();
-
+        console.log("추천목표 생성 완료:", data.goals);
         // 서버로부터 받은 목표 데이터와 학습 자료 설정
         setGoals(data.goals);
         setLearningResources(data.learnings);
-
-        // 서버에서 제공하지 않는 경우 미리보기 이미지 설정
-        data.learnings.forEach(async (resource: any) => {
-          if (!resource.image) {
-            try {
-              const response = await fetch(
-                `https://api.linkpreview.net/?key=YOUR_API_KEY&q=${resource.url}`
-              );
-              const data = await response.json();
-              setPreviewImages((prev) => ({
-                ...prev,
-                [resource.url]: data.image,
-              }));
-            } catch (error) {
-              console.error("미리보기 이미지를 불러오는 중 오류 발생:", error);
-            }
-          }
-        });
       } catch (error) {
-        console.error("서버에서 데이터를 가져오는 중 오류 발생:", error);
+        console.log("서버에서 데이터를 가져오는 중 오류 발생:", error);
+      
+        
 
         // 서버 오류 발생 시 임시 데이터 설정
         setGoals([
           {
             goal_id: 3,
-            title: "청중과의 소통 연습",
+            title: "[임시] 청중과의 소통 연습",
             content: "4주 동안 매주 1회 친구나 가족 앞에서 발표하며 질문과 답변 연습을 해보세요!",
           },
           {
@@ -143,6 +127,24 @@ const RecommendPage = ({
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const fetchThumbnails = () => {
+      const newPreviewImages: { [key: string]: string } = {};
+
+      learningResources.forEach((resource) => {
+        const youtubeMatch = resource.url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/);
+        if (youtubeMatch) {
+          const videoId = youtubeMatch[1];
+          newPreviewImages[resource.url] = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+        }
+      });
+
+      setPreviewImages(newPreviewImages);
+    };
+
+    fetchThumbnails();
+  }, [learningResources]);
+
   const NewGoalButtonClick = () => {
     router.push('/goal');
   };
@@ -155,7 +157,7 @@ const RecommendPage = ({
     <div className="record-page">
       {/* 제목 & 네비게이션 */}
       <div className="title-container">
-        <h1 className="record-title">[임시] 오늘 경험을 토대로 추천 목표를 알려드려요!</h1>
+        <h1 className="record-title">오늘 경험을 토대로 추천 목표를 알려드려요!</h1>
         <button className="custom-goal-button" onClick={NewGoalButtonClick}>
           나만의 목표 설정하러 가기
           <div className="icon-wrapper">
@@ -203,7 +205,7 @@ const RecommendPage = ({
             {learningResources.map((resource: any, index: number) => (
               <div key={resource.url} className="learning-card">
                 <div className="learning-content">
-                  <img src={resource.icon} alt="icon" className="learning-icon" />
+                  <img src={"/icons/youtube.svg"} alt="icon" className="learning-icon" />
                   <div className="learning-text">
                     <h3>{resource.title}</h3>
                     <p>{resource.description}</p>

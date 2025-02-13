@@ -200,9 +200,8 @@ const FeedbackPage = ({ setStep, activeStep, setActiveStep, experienceId }: {
                     <h2>성장 포인트</h2>
                     {data.growth_points && Object.entries(data.growth_points).map(([title, content], index) => (
     <div key={index} className="growth-point">
-        <h3>{title}</h3>
         <p>
-            {String(content).split('\n').map((line, i) => (
+        {title}: {String(content).split('\n').map((line, i) => (
                 <span key={i}>
                     {line}
                     <br />

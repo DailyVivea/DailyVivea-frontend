@@ -80,14 +80,13 @@
     display: flex;
     flex-direction: column;
     gap: 16px;
-    flex: 1;
+    flex: 2;
 }
 
 /* 개별 목표 카드 */
 .goal-item {
     display: flex;
-    width: 714px;
-    height: 116px;
+    width: 100%;
     align-items: center;
     justify-content: space-between;
     padding: 21px 32px;
@@ -102,6 +101,7 @@
 /* 목표 내용 */
 .goal-content {
     display: flex;
+    width: 90%;
     align-items: center;
     gap: 42px; /* 목표 번호와 텍스트 사이 간격 */
 }
@@ -196,7 +196,7 @@
 /* 학습 자료 내용 (아이콘, 텍스트, 링크) 가로 정렬 */
 .learning-content {
     display: flex;
-    align-items: flex-start;;
+    align-items: flex-start;
     gap: 8px; /* 요소 간격 */
 }
 
@@ -227,7 +227,7 @@
 .learning-text h3 {
     color: var(--systemGrey-900, #212121);
     font-family: Pretendard;
-    font-size: 15px;
+    font-size: 16px;
     font-style: normal;
     font-weight: 600;
     line-height: normal;
