@@ -41,16 +41,21 @@ const ReportPage = () => {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
 
+  const [isToggle, setToggle] = useState(false); // false:주간 / true: 월간
+
   // API 데이터
   const [reportData, setReportData] =
     useState<ResponseType<GetReportResponse>>();
+  const [feedbackList, setFeedbackList] = useState<Feedback[]>();
+
   const [reportDetailData, setReportDetailData] =
     useState<GetReportDetailResponse>();
-  const [feedbackList, setFeedbackList] = useState<Feedback[]>();
+  const [emotions, setEmotions] = useState<number[]>([25, 25, 25, 25, 25]);
 
   // 임시
   const userId = 2;
 
+  // 기록이 있는 날짜 가져오기
   const recordItemForDate = (date: Date) => {
     if (!feedbackList) return null;
 
@@ -81,6 +86,8 @@ const ReportPage = () => {
           date: formatDateYYYYbMMbDD(date),
         });
 
+        console.log(reportData);
+        console.log(reportDetailData);
         // 확인
         /*
         console.log("API");
@@ -106,6 +113,30 @@ const ReportPage = () => {
 
     fetchReportDetail(); // 데이터를 가져오는 함수 호출
   }, [currentDate, selectedDate]);
+
+  useEffect(() => {
+    if (!reportDetailData) {
+      setEmotions([25, 25, 25, 25, 25]);
+      return;
+    }
+
+    let emotionalDistribution;
+    // 주간
+    if (!isToggle) {
+      emotionalDistribution = reportDetailData.weekly_emotions;
+      // 월간
+    } else {
+      emotionalDistribution = reportDetailData.monthly_emotions;
+    }
+
+    let anxiety = emotionalDistribution.anxiety;
+    let joy = emotionalDistribution.joy;
+    let sadness = emotionalDistribution.sadness;
+    let satisfaction = emotionalDistribution.satisfaction;
+    let anger = emotionalDistribution.anger;
+
+    setEmotions([anxiety, joy, sadness, satisfaction, anger]);
+  }, [reportDetailData, isToggle]);
 
   return (
     <div className="bg-white p-10 ">
@@ -198,19 +229,41 @@ const ReportPage = () => {
 
       <Title>이번 주 목표 달성률이 높아요! 계속해서 도전하세요!</Title>
       <div className="flex gap-2 mb-6">
-        <GreenButton>주간</GreenButton>
-        <GrayButton>월간</GrayButton>
+        {!isToggle ? (
+          <>
+            <GreenButton>주간</GreenButton>
+
+            <GrayButton>
+              <button onClick={() => setToggle(false)}>월간</button>
+            </GrayButton>
+          </>
+        ) : (
+          <>
+            <GrayButton>
+              <button onClick={() => setToggle(true)}>주간</button>
+            </GrayButton>
+            <GreenButton>월간</GreenButton>
+          </>
+        )}
       </div>
 
       <div className="flex justify-between gap-4 mb-[70px]">
         <div className="flex-1">
           <BlockComponent>
-            <BlockTitle className="mb-7">이번 주 목표 달성률</BlockTitle>
+            <BlockTitle className="mb-7">
+              이번 {!isToggle ? "주" : "달"} 목표 달성률
+            </BlockTitle>
             <div className="flex justify-center">
               <CircularProgressBar
                 size={200}
                 strokeWidth={20}
-                progress={75}
+                progress={
+                  !reportDetailData
+                    ? 0
+                    : !isToggle
+                    ? reportDetailData?.total_monthly_progress
+                    : reportDetailData?.total_weekly_progress
+                }
                 description="01 . 07 . 수요일"
               />
             </div>
@@ -229,36 +282,38 @@ const ReportPage = () => {
 
         <div className="flex-1">
           <BlockComponent className="mb-4">
-            <BlockTitle className="mt-5 mb-4">이번 주 감정 분포</BlockTitle>
+            <BlockTitle className="mt-5 mb-4">
+              이번 {!isToggle ? "주" : "달"} 감정 분포
+            </BlockTitle>
             <EmotionBar
               text="두려움"
               emotion="😨"
               barColor="bg-[#95E757]"
-              barState="w-[100%] "
+              barState={emotions[0]}
             />
             <EmotionBar
               text="행복함"
               emotion="😊"
               barColor="bg-[#FFDFFC]"
-              barState="w-[80%] "
+              barState={emotions[1]}
             />
             <EmotionBar
               text="우울함"
               emotion="😔"
               barColor="bg-[#DEFFFC]"
-              barState="w-[70%]"
+              barState={emotions[2]}
             />
             <EmotionBar
               text="무덤덤"
               emotion="😐"
               barColor="bg-[#FFFFAA]"
-              barState="w-[70%]"
+              barState={emotions[3]}
             />
             <EmotionBar
               text="분노"
               emotion="😡"
               barColor="bg-[#E6E6E6]"
-              barState="w-[50%]"
+              barState={emotions[4]}
             />
             <div className="mb-10" /> {/*컴포넌트크기임시조정*/}
           </BlockComponent>
