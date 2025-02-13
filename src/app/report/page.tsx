@@ -228,7 +228,19 @@ const ReportPage = () => {
         </BlockComponent>
       </div>
 
-      <Title>이번 주 목표 달성률이 높아요! 계속해서 도전하세요!</Title>
+      <Title>
+        이번 {!isToggle ? "주" : "달"} 목표 달성률이{" "}
+        {!reportDetailData
+          ? "없네요!"
+          : !isToggle
+          ? reportDetailData?.total_weekly_progress >= 50
+            ? "높아요!"
+            : "낮아요!"
+          : reportDetailData?.total_monthly_progress >= 50
+          ? "높아요!"
+          : "낮아요!"}{" "}
+        계속해서 도전하세요!
+      </Title>
       <div className="flex gap-2 mb-6">
         {!isToggle ? (
           <>
@@ -321,7 +333,7 @@ const ReportPage = () => {
 
           <BlockComponent>
             <BlockTitle className="mt-5 mb-5">
-              이번 주의 내 또래 친구들의 목표에요
+              이번 {!isToggle ? "주" : "달"}의 내 또래 친구들의 목표에요
             </BlockTitle>
             <GoalListItem
               goal="일주일에 5개 단어씩 외국어 단어장에 추가 후 복습"
