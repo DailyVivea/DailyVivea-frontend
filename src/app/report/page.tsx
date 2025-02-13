@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Title,
@@ -24,7 +24,12 @@ import TextLinkItem from "@/components/report/TextLinkItem";
 import { Record } from "@/api/types/report";
 import StickerCalendar from "@/components/Global/StickerCalendar";
 import { Emotion } from "./data";
-import { formatDateMMdDDdDay } from "@/components/Global/calendar.data";
+import {
+  formatDateMMdDDdDay,
+  formatDateYYYYbMMbDD,
+} from "@/components/Global/calendar.data";
+import useGetReport from "@/api/hooks/useGetReport";
+import { getReport } from "@/api/reportAPI";
 
 const ReportPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
@@ -32,6 +37,7 @@ const ReportPage = () => {
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
 
   // 임시
+  const userId = 2;
   const recordList: Record[] = [
     {
       date: "2025-02-13",
@@ -69,6 +75,12 @@ const ReportPage = () => {
     });
     return recordItem || null;
   };
+  useEffect(() => {
+    const date = selectedDate ? selectedDate : currentDate;
+    const data = getReport({ userId, date: formatDateYYYYbMMbDD(date) });
+    console.log("API");
+    console.log(data);
+  }, [currentDate, selectedDate]);
 
   return (
     <div className="bg-white h-screen h-full p-10 ">
