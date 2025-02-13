@@ -41,6 +41,10 @@ const Page = () => {
     fetchGoals();
   }, []);
 
+  const handleDeleteGoal = (id: number) => {
+    setGoals((prevGoals) => prevGoals.filter((goal) => goal.goalId !== id));
+  };
+
   return (
     <div>
       <ListHeader />
@@ -59,6 +63,7 @@ const Page = () => {
                 goal.term.end.split("T")[0]
               }`}
               progress={goal.progress}
+              onDelete={handleDeleteGoal}
             />
           ))}
         </CardGrid>

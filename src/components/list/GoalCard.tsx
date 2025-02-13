@@ -1,6 +1,7 @@
 import { useRouter } from "next/navigation";
 import React from "react";
 import Image from "next/image";
+import axios from "axios"; // axios 추가
 import {
   BodyText,
   CardContainer,
@@ -23,6 +24,7 @@ interface GoalCardProps {
   frequency: string;
   period: string;
   progress: number;
+  onDelete: (id: number) => void; // 삭제 후 부모 컴포넌트에서 리스트 업데이트
 }
 
 const GoalCard: React.FC<GoalCardProps> = ({
@@ -33,11 +35,22 @@ const GoalCard: React.FC<GoalCardProps> = ({
   frequency,
   period,
   progress,
+  onDelete,
 }) => {
   const router = useRouter(); // Next.js 라우터 사용
 
   const handleClick = () => {
     router.push(`/list/detail?id=${id}`);
+  };
+
+  const handleDelete = async () => {
+    try {
+      const apiUrl = `https://gunanana.onrender.com/api/${id}/deleteGoal`;
+      await axios.delete(apiUrl); // DELETE 요청
+      onDelete(id); // 삭제 후 부모 컴포넌트에서 리스트 업데이트
+    } catch (error) {
+      console.error("삭제 실패:", error);
+    }
   };
 
   return (
@@ -71,13 +84,15 @@ const GoalCard: React.FC<GoalCardProps> = ({
       {/* 진행률 섹션 */}
       <GrayButton>진행률</GrayButton>
       <CustomProgressBar progress={progress} />
-      <DeleteButtonWrapper>
+
+      {/* 삭제 버튼 */}
+      <DeleteButtonWrapper onClick={handleDelete}>
         <Image
           src={icon}
-          alt="뒤로가기"
+          alt="삭제"
           width={20}
           height={20}
-          style={{ width: "44px", cursor: "pointer" }}
+          style={{ width: "22px", cursor: "pointer" }}
         />
       </DeleteButtonWrapper>
     </CardContainer>
