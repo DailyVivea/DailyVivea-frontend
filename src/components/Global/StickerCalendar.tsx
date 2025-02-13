@@ -16,18 +16,23 @@ import Image from "next/image";
 import prevButtonIcon from "@/assets/이전달화살표.svg";
 import nextButtonIcon from "@/assets/다음달화살표.svg";
 import datePickerIcon from "@/assets/datePicker.svg";
+import goodSticker from "@/assets/goodSticker.svg";
+import sosoSticker from "@/assets/sosoSticker.svg";
+import badSticker from "@/assets/badSticker.svg";
 
 import {
   basicHeaderStyle,
   weekdaysHeaderStyle,
   weekendsHeaderStyle,
   basicDateCellStyle,
+  basicStickerDateCellStyle,
   hoveredDateCellStyle,
   selectedDateCellStyle,
   basicDateTextStyle,
   defaultDateCellStyle,
   currentMonthDateTextStyle,
   otherMonthsDateTextStyle,
+  basicStickerHeaderStyle,
 } from "./calendar.style";
 
 const StickerCalendar = ({
@@ -52,6 +57,23 @@ const StickerCalendar = ({
 
   // 캘린더 전역 모듈
   const { getPrevMonthDate, getNextMonthDate } = useCalendar();
+
+  // date에 해당하는 recordData가 있는 지 여부
+  const recordItemForDate = (date: Date) => {
+    const recordItem = recordList.find((item) => {
+      // Record(date, emotion)에서 date(0000-00-00 형식의 string) 값을 날짜 객체로 변환
+      const stickedDate = new Date(item.date);
+
+      // d가 date와 같은 지를 반환
+      return (
+        stickedDate.getFullYear() === date.getFullYear() &&
+        stickedDate.getMonth() === date.getMonth() &&
+        stickedDate.getDate() === date.getDate()
+      );
+    });
+
+    return recordItem || null;
+  };
 
   return (
     <div className="bg-white rounded-[28px] border-[2.5px] border-[#E6E6E6]">
@@ -83,13 +105,13 @@ const StickerCalendar = ({
 
       {/* 달력 내부 */}
       <div className="grid grid-cols-7">
-        {/**요일 */}
+        {/** [1] 요일 */}
         {calendarHeader.map((day) => (
           <div
             key={`${componentName}-calendarHeader-${day}`}
             //key={day} // SUN ~ SAT 고윳값 맞음
             className={`
-              ${basicHeaderStyle}
+              ${basicStickerHeaderStyle}
               ${
                 day === calendarHeader[0] ||
                 day === calendarHeader[calendarHeader.length - 1]
@@ -102,8 +124,14 @@ const StickerCalendar = ({
           </div>
         ))}
 
-        {/**날짜 */}
+        {/** [2] 날짜 */}
         {dates.map((date, index) => {
+          // [2-1] 날짜 셀 key값
+          const key = date
+            ? `${componentName}-dateCell-${date}`
+            : `${componentName}-dateCell-${index}`;
+
+          // [2-2] 상태 이벤트 변수
           const isSelected =
             date &&
             selectedDate &&
@@ -115,11 +143,9 @@ const StickerCalendar = ({
           const isCurrentMonth =
             date && date.getMonth() === currentDate.getMonth();
 
-          {
-            /** 특정 날짜 셀 '텍스트 데이터' 디자인 퍼블리싱 */
-          }
+          // [2-3] 날짜 렌더링 변수
           const dateContent = date ? (
-            /* 호버 상태인 셀에 동그라미 표시 */
+            // 호버 상태인 셀에 동그라미 표시
             <span
               className={`
                   ${
@@ -131,6 +157,9 @@ const StickerCalendar = ({
                   }
             `}
             >
+              {
+                // 날짜 텍스트 데이터
+              }
               <p
                 className={`
                 ${basicDateTextStyle}
@@ -146,21 +175,50 @@ const StickerCalendar = ({
             </span>
           ) : null;
 
-          {
-            /** 날짜 셀에 이벤트 달기 + 출력할 내용 작성 */
-          }
-          const key = date
-            ? `${componentName}-dateCell-${date}`
-            : `${componentName}-dateCell-${index}`;
+          // [2-3] 감정 이모지 렌더링 변수
+          // 해당 날짜에 스티커가 붙여져있으면 recordItem, 없으면 null
+          const record = recordItemForDate(date);
+          const emotionSticker = record ? (
+            record.emotion === Emotion.happy ? (
+              <Image
+                src={goodSticker}
+                alt="goodSticker"
+                className="w-[70px] h-[70px]"
+              />
+            ) : record.emotion === Emotion.soso ? (
+              <Image
+                src={sosoSticker}
+                alt="sosoSticker"
+                className="w-[70px] h-[70px]"
+              />
+            ) : record.emotion === Emotion.bad ? (
+              <Image
+                src={badSticker}
+                alt="badSticker"
+                className="w-[70px] h-[70px]"
+              />
+            ) : (
+              <></>
+            )
+          ) : (
+            <></>
+          );
+
+          // [2-4] 최종 날짜 셀 렌더링 반환
           return (
             <div
               key={key}
-              className={basicDateCellStyle}
+              className={basicStickerDateCellStyle}
               onClick={() => setSelectedDate(date)}
               onMouseOver={() => setHoveredDate(date)}
               onMouseOut={() => setHoveredDate(null)}
             >
-              {dateContent}
+              <div className="flex-1 justify-start items-center">
+                {dateContent}
+              </div>
+              <div className="flex-1 justify-end items-center">
+                {emotionSticker}
+              </div>
             </div>
           );
         })}

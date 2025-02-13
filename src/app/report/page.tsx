@@ -1,5 +1,4 @@
 "use client";
-import Calendar from "@/components/Global/Calendar";
 import React, { useState } from "react";
 
 import {
@@ -20,16 +19,34 @@ import tempIcon from "@/assets/임시스티커.svg";
 import GoalListItem from "@/components/report/GoalListItem";
 import DiamondProgressBar from "@/components/report/DiamondProgressBar";
 import TextLinkItem from "@/components/report/TextLinkItem";
+import { Record } from "@/api/types/report";
+import StickerCalendar from "@/components/Global/StickerCalendar";
 
 const ReportPage = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [hoveredDate, setHoveredDate] = useState<Date | null>(null);
 
+  // 임시
+  const recordList: Record[] = [
+    {
+      date: "2025-02-13",
+      emotion: "happy",
+    },
+    {
+      date: "2025-02-12",
+      emotion: "bad",
+    },
+    {
+      date: "2025-02-11",
+      emotion: "soso",
+    },
+  ];
+
   return (
     <div className="bg-white h-screen h-full p-10 ">
       <Title>나의 경험을 모았어요</Title>
-      <Calendar
+      <StickerCalendar
         componentName="RecordDate"
         currentDate={currentDate}
         selectedDate={selectedDate}
@@ -37,6 +54,7 @@ const ReportPage = () => {
         setCurrentDate={setCurrentDate}
         setSelectedDate={setSelectedDate}
         setHoveredDate={setHoveredDate}
+        recordList={recordList}
       />
 
       <div className="flex justify-between gap-4 mb-[70px]">
