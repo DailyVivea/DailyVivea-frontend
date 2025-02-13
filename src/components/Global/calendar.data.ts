@@ -1,3 +1,5 @@
+import { Record } from "@/api/types/report";
+
 export interface CalendarProps {
   componentName: string; // 캘린더가 이곳 저곳에서 사용되면 key값 오류 발생 -> 해결법: 부모 컴포넌트명을 key로 사용
   currentDate: Date; // 현재 날짜
@@ -6,6 +8,10 @@ export interface CalendarProps {
   setCurrentDate: (date: Date) => void; // 현재 날짜를 설정하는 함수
   setSelectedDate: (date: Date | null) => void; // 선택된 날짜를 설정하는 함수
   setHoveredDate: (date: Date | null) => void; // 호버된 날짜를 설정하는 함수
+}
+
+export interface StickerCalendarProps extends CalendarProps {
+  recordList: Record[];
 }
 
 // 달력 헤더에 표시할 컬럼명

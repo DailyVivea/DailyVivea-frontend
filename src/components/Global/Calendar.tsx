@@ -61,7 +61,7 @@ const Calendar = ({
           <Image src={prevButtonIcon} alt="이전 달" className="w-5 h-5" />
         </button>
         <div className="flex items-center">
-          <p className="text-[#212121] text-24 font-semibold mx-4">
+          <p className="text-[#212121] text-[20px] font-semibold mx-4">
             {currentDate.getFullYear()}. {calendarMonth(currentDate)}
           </p>
           <Image

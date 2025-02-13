@@ -70,7 +70,8 @@ const RecordDatePage = ({ setStep, activeStep, setActiveStep, setExperienceId }:
                 </button>
             </div>
 
-            <div>
+
+            <div className="px-[20%]">
                 <Calendar 
                     componentName="RecordDate"
                     currentDate={currentDate}
