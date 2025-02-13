@@ -15,6 +15,13 @@ const DashboardPage = () => {
         };
     }, []);
 
+<<<<<<< HEAD
+const Page = () => {
+  return <div></div>;
+};
+
+export default Page;
+=======
     return (
         <div className="background-container">
             <div className="dashboard-text-container">
@@ -39,3 +46,4 @@ const DashboardPage = () => {
 }
 
 export default DashboardPage;
+>>>>>>> 4d02fd76f9863b1011d0db757eac54fecd5095ea

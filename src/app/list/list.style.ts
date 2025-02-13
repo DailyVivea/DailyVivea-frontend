@@ -13,6 +13,5 @@ export const CardGrid = styled.div`
   grid-template-columns: repeat(3, 1fr); /* 3열 배치 */
   gap: 50px;
   justify-content: center; /* 가운데 정렬 */
-  margin-top: 16px;
   max-width: 1200px; /* 그리드의 최대 너비 설정 */
 `;
