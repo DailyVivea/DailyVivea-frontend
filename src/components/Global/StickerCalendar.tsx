@@ -33,6 +33,9 @@ import {
   currentMonthDateTextStyle,
   otherMonthsDateTextStyle,
   basicStickerHeaderStyle,
+  defaultStickerDateCellStyle,
+  hoveredStickerDateCellStyle,
+  selectedStickerDateCellStyle,
 } from "./calendar.style";
 
 const StickerCalendar = ({
@@ -66,9 +69,12 @@ const StickerCalendar = ({
 
       // d가 date와 같은 지를 반환
       return (
+        stickedDate.toDateString() === date.toDateString()
+        /*
         stickedDate.getFullYear() === date.getFullYear() &&
         stickedDate.getMonth() === date.getMonth() &&
         stickedDate.getDate() === date.getDate()
+        */
       );
     });
 
@@ -143,23 +149,19 @@ const StickerCalendar = ({
           const isCurrentMonth =
             date && date.getMonth() === currentDate.getMonth();
 
-          // [2-3] 날짜 렌더링 변수
+          // [2-3] 날짜 텍스트 변수
           const dateContent = date ? (
-            // 호버 상태인 셀에 동그라미 표시
-            <span
+            <span // 호버상태인 셀에 동그라미 표시
               className={`
                   ${
                     isCurrentMonth && isSelected
-                      ? selectedDateCellStyle
+                      ? selectedStickerDateCellStyle
                       : isCurrentMonth && isHovered
-                      ? hoveredDateCellStyle
-                      : defaultDateCellStyle
+                      ? hoveredStickerDateCellStyle
+                      : defaultStickerDateCellStyle
                   }
             `}
             >
-              {
-                // 날짜 텍스트 데이터
-              }
               <p
                 className={`
                 ${basicDateTextStyle}
@@ -213,12 +215,10 @@ const StickerCalendar = ({
               onMouseOver={() => setHoveredDate(date)}
               onMouseOut={() => setHoveredDate(null)}
             >
-              <div className="flex-1 justify-start items-center">
+              <div className="flex justify-start items-center ml-10">
                 {dateContent}
               </div>
-              <div className="flex-1 justify-end items-center">
-                {emotionSticker}
-              </div>
+              <div className="">{emotionSticker}</div>
             </div>
           );
         })}

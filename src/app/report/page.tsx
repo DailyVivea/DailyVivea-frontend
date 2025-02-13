@@ -38,7 +38,20 @@ const ReportPage = () => {
       emotion: "bad",
     },
     {
-      date: "2025-02-11",
+      date: "2025-02-08",
+      emotion: "soso",
+    },
+
+    {
+      date: "2025-02-05",
+      emotion: "happy",
+    },
+    {
+      date: "2025-02-06",
+      emotion: "bad",
+    },
+    {
+      date: "2025-02-02",
       emotion: "soso",
     },
   ];
