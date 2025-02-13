@@ -82,6 +82,16 @@ export function formatDateMMdDDdDay(date: Date) {
   return `${month}.${day}.${dayOfWeek}`;
 }
 
+// 날짜 데이터를 MM . DD . Day요일 형식으로 변환환
+export function formatDateMMdDDdDay2(date: Date) {
+  const daysOfWeek = ["일", "월", "화", "수", "목", "금", "토"];
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth(): index 0부터 시작하므로 1더하기, 두 자릿수
+  const day = String(date.getDate()).padStart(2, "0"); // 두 자릿수
+  const dayOfWeek = daysOfWeek[date.getDay()];
+
+  return `${month} . ${day} . ${dayOfWeek}요일`;
+}
+
 // 날짜 데이터를 YYYY-MM-DD 형식으로 변환환
 export function formatDateYYYYbMMbDD(date: Date) {
   const year = date.getFullYear();

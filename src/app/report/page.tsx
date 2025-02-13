@@ -30,6 +30,7 @@ import StickerCalendar from "@/components/Global/StickerCalendar";
 import { Emotion } from "./data";
 import {
   formatDateMMdDDdDay,
+  formatDateMMdDDdDay2,
   formatDateYYYYbMMbDD,
 } from "@/components/Global/calendar.data";
 import useGetReport from "@/api/hooks/useGetReport";
@@ -234,13 +235,13 @@ const ReportPage = () => {
             <GreenButton>주간</GreenButton>
 
             <GrayButton>
-              <button onClick={() => setToggle(false)}>월간</button>
+              <button onClick={() => setToggle(true)}>월간</button>
             </GrayButton>
           </>
         ) : (
           <>
             <GrayButton>
-              <button onClick={() => setToggle(true)}>주간</button>
+              <button onClick={() => setToggle(false)}>주간</button>
             </GrayButton>
             <GreenButton>월간</GreenButton>
           </>
@@ -264,7 +265,7 @@ const ReportPage = () => {
                     ? reportDetailData?.total_monthly_progress
                     : reportDetailData?.total_weekly_progress
                 }
-                description="01 . 07 . 수요일"
+                description={formatDateMMdDDdDay2(currentDate)}
               />
             </div>
             <div>
