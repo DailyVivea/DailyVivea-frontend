@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   BodyText,
   CardContainer,
@@ -10,12 +10,25 @@ import {
   DateText,
   RecordWrapper,
   GreenButton,
+  RecordFormWrapper,
+  GoalRecordContainer,
+  GoalRecordItem,
+  GoalRecordWeek,
+  GoalRecordContent,
+  GoalRecordDate,
+  RecordWeekAndImageWrapper,
 } from "./ListDetail.style";
 import CustomProgressBar from "../CustomProgressBar";
 import Image from "next/image";
 
 import icon from "../../../assets/recordicon.png";
-import DiamondProgressBar from "@/components/report/DiamondProgressBar";
+import ListRecordForm from "./ListRecordForm";
+
+interface GoalRecord {
+  week: number;
+  content: string;
+  date: string;
+}
 
 interface GoalDetail {
   goalId: string;
@@ -30,6 +43,7 @@ interface GoalDetail {
     end: string;
   };
   progress: number;
+  progressRecord: GoalRecord[];
 }
 
 interface ListDetailProps {
@@ -37,12 +51,17 @@ interface ListDetailProps {
 }
 
 const ListDetail: React.FC<ListDetailProps> = ({ goalDetail }) => {
+  const [isFormVisible, setIsFormVisible] = useState(false);
+
+  const toggleForm = () => {
+    setIsFormVisible((prev) => !prev);
+  };
+
   return (
     <CardContainer>
       <DateText>{goalDetail.date.split("T")[0]}</DateText>
       <Title>{goalDetail.title}</Title>
 
-      {/* 실행 간격 및 기간 섹션 */}
       <GrayButtonLine>
         <GrayButton>실행 간격</GrayButton>
         <GrayButton>기간</GrayButton>
@@ -63,20 +82,46 @@ const ListDetail: React.FC<ListDetailProps> = ({ goalDetail }) => {
         </SectionColumn>
       </Section>
 
-      {/* 진행률 섹션 */}
       <GrayButton>진행률</GrayButton>
-      <DiamondProgressBar />
+      <CustomProgressBar progress={goalDetail.progress} />
+
       <RecordWrapper>
         <GrayButton>진행률</GrayButton>
-        <GreenButton>+ 기록 추가하기</GreenButton>
+        <GreenButton onClick={toggleForm}>
+          {isFormVisible ? "X 취소" : "+ 기록 추가하기"}
+        </GreenButton>
       </RecordWrapper>
-      <Image
-        src={icon}
-        alt="레코드"
-        width={24}
-        height={24}
-        style={{ width: "24px", cursor: "pointer" }}
-      />
+
+      {isFormVisible ? (
+        <RecordFormWrapper>
+          <ListRecordForm goalId={goalDetail.goalId} />
+        </RecordFormWrapper>
+      ) : (
+        <GoalRecordContainer>
+          {goalDetail.progressRecord.map((record, index) => (
+            <GoalRecordItem key={index}>
+              <RecordWeekAndImageWrapper>
+                <Image
+                  src={icon}
+                  alt="레코드"
+                  width={10}
+                  height={10}
+                  style={{
+                    width: "22px",
+                    cursor: "pointer",
+                    height: "22px",
+                    marginTop: "5px",
+                  }}
+                />
+                <GoalRecordWeek> {record.week}주차</GoalRecordWeek>
+              </RecordWeekAndImageWrapper>
+
+              <GoalRecordContent>{record.content}</GoalRecordContent>
+              <GoalRecordDate>{record.date.split("T")[0]}</GoalRecordDate>
+            </GoalRecordItem>
+          ))}
+        </GoalRecordContainer>
+      )}
     </CardContainer>
   );
 };

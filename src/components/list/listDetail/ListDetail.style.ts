@@ -97,3 +97,49 @@ export const RecordTitle = styled.div`
 
   display: flex;
 `;
+
+export const GoalRecordContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  border-top: 1px solid #e6e6e6;
+  padding-top: 12px;
+`;
+
+export const GoalRecordItem = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+`;
+
+export const GoalRecordWeek = styled.div`
+  font-size: 24px;
+  font-weight: bold;
+  color: #212121;
+`;
+
+export const GoalRecordContent = styled.div`
+  font-size: 20px;
+  color: #757575;
+  font-weight: bold;
+`;
+
+export const GoalRecordDate = styled.div`
+  font-size: 14px;
+  color: #757575;
+`;
+
+export const RecordFormWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: 12px;
+`;
+
+export const RecordWeekAndImageWrapper = styled.div`
+  display: flex;
+  gap: 5px;
+`;
