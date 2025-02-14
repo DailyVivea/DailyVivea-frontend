@@ -10,7 +10,6 @@ import {
   DateText,
   RecordWrapper,
   GreenButton,
-  RecordTitle,
 } from "./ListDetail.style";
 import CustomProgressBar from "../CustomProgressBar";
 import Image from "next/image";
