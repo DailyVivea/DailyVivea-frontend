@@ -45,8 +45,7 @@ const ReportPage = () => {
   const [isToggle, setToggle] = useState(false); // false:주간 / true: 월간
 
   // API 데이터
-  const [reportData, setReportData] =
-    useState<ResponseType<GetReportResponse>>();
+  //const [reportData, setReportData] = useState<ResponseType<GetReportResponse>>();
   const [feedbackList, setFeedbackList] = useState<Feedback[]>();
 
   const [reportDetailData, setReportDetailData] =
@@ -98,14 +97,14 @@ const ReportPage = () => {
         */
 
         if (reportData) {
-          setReportData(reportData);
+          //setReportData(reportData);
           //setFeedbackList(reportData.result?.feedbacks);
-          setFeedbackList(reportData.feedbacks); // typescript라서 apiGet 함수의 <ResponseType<T>> 때문에 빨간줄 뜨는데 동작은 잘 됨 (나중에 해결하기)
+          setFeedbackList(reportData.feedbacks);
         }
 
         if (reportDetailData) {
           //setReportDetailData(reportDetailData.result);
-          setReportDetailData(reportDetailData); // typescript라서 apiGet 함수의 <ResponseType<T>> 때문에 빨간줄 뜨는데 동작은 잘 됨 (나중에 해결하기)
+          setReportDetailData(reportDetailData);
         }
       } catch (error) {
         console.error("Error fetching report detail:", error);
