@@ -2,12 +2,18 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useSearchParams } from "next/navigation"; // URL에서 id 가져오기
+import { useSearchParams } from "next/navigation";
 import ListDetail from "@/components/list/listDetail/ListDetail";
 import ListDetailHeader from "@/components/list/listDetail/ListDetailHeader";
 import ListDetailTypeButton from "@/components/list/listDetail/ListDetailTypeButton";
 
 const API_BASE_URL = "https://gunanana.onrender.com/api/goal/2";
+
+interface GoalRecord {
+  week: number;
+  content: string;
+  date: string;
+}
 
 interface GoalDetail {
   goalId: string;
@@ -22,21 +28,31 @@ interface GoalDetail {
     end: string;
   };
   progress: number;
-  progressRecord: string[];
+  progressRecord: GoalRecord[];
 }
 
 const Page = () => {
   const searchParams = useSearchParams();
-  const id = searchParams.get("id"); // URL에서 id 값을 가져옴
+  const id = searchParams.get("id");
   const [goalDetail, setGoalDetail] = useState<GoalDetail | null>(null);
 
   useEffect(() => {
-    if (!id) return; // id가 없으면 API 요청을 보내지 않음
+    if (!id) return;
 
     const fetchGoalDetail = async () => {
       try {
         const response = await axios.get<GoalDetail>(`${API_BASE_URL}/${id}`);
-        setGoalDetail(response.data);
+
+        const formattedGoalDetail: GoalDetail = {
+          ...response.data,
+          progressRecord: response.data.progressRecord.map((record: any) => ({
+            week: record.week,
+            content: record.content,
+            date: record.date.split("T")[0], // 날짜 포맷 수정
+          })),
+        };
+
+        setGoalDetail(formattedGoalDetail);
       } catch (error) {
         console.error("목표 상세 데이터 가져오기 실패:", error);
       }
