@@ -67,3 +67,33 @@ export const BodyText = styled.div`
   overflow-wrap: break-word;
   white-space: normal;
 `;
+
+export const RecordWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
+`;
+
+export const GreenButton = styled.div`
+  display: inline-block;
+  background-color: #95e757;
+  border-radius: 28px;
+  padding: 4px 16px;
+
+  color: #212121;
+  font-weight: bold;
+  font-size: 15px;
+  text-align: center;
+  margin-bottom: 12px;
+`;
+
+export const RecordTitle = styled.div`
+  margin-top: 20px;
+  margin-left: 10px;
+
+  font-size: 24px;
+  font-weight: bold;
+  color: #000000;
+
+  display: flex;
+`;
