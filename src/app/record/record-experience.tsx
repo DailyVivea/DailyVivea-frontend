@@ -5,11 +5,15 @@ import { ArrowLeft, ArrowRight, Info } from "lucide-react";
 import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
 import "@/style/record/experience.css";
+import Image from "next/image";  // Image import 추가
+import Happy from "@/assets/images/happy.png"
+import Sad from "@/assets/images/sad.png"
+import Soso from "@/assets/images/sosofull.png"
 
 const emotions = [
-    { id: 1, label: "행복했어요", image: "@/assets/images/happy.png", color: "#FFDFFC" },
-    { id: 2, label: "우울했어요", image: "@/assets/images/sad.png", color: "#DEFFFC" },
-    { id: 3, label: "그저 그랬어요", image: "@/assets/images/soso.png", color: "#FFFFAA" },
+    { id: 1, label: "행복했어요", image: Happy, color: "#FFDFFC" },
+    { id: 2, label: "우울했어요", image: Sad, color: "#DEFFFC" },
+    { id: 3, label: "그저 그랬어요", image: Soso, color: "#FFFFAA" },
 ];
 
 const RecordExperiencePage = ({
@@ -140,7 +144,7 @@ const RecordExperiencePage = ({
                                 style={{ backgroundColor: emotion.color }}
                                 onClick={() => setSelectedEmotion(emotion.id)}
                             >
-                                <img src={emotion.image} alt={emotion.label} className="emotion-image" />
+                                <Image src={emotion.image} alt={emotion.label} className="emotion-image" />
                                 <span className="emotion-label">{emotion.label}</span>
                             </div>
                         ))}

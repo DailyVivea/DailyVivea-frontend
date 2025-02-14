@@ -5,6 +5,8 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
 import "@/style/record/loading.css"
+import Image from "next/image";
+import Loading from "@/assets/images/loading.png"
 
 const LoadingPage = ({ step, setStep, activeStep, setActiveStep, experienceId }: { 
     setStep: (step: number) => void;
@@ -85,7 +87,7 @@ const LoadingPage = ({ step, setStep, activeStep, setActiveStep, experienceId }:
             <div className="content-container">
                 <h1 className="record-title">오늘의 경험을 분석하고 있어요</h1>
                 <p className="record-subtitle">AI가 꼼꼼히 분석 중이에요</p>
-                <img src="@/assets/images/loading.png" alt="AI 분석 중" className="loading-image" />
+                <Image src={Loading} alt="AI 분석 중" className="loading-image" />
             </div>
 
             {/* 진행 상태 바 */}

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Bell, User } from "lucide-react";
 import "@/style/header.css";
+import LogoIcon from "@/assets/images/logo-icon.png"
 
 const navItems = [
   { name: "Home", path: "/dashboard" },
@@ -20,7 +21,7 @@ const Header = () => {
     <nav className="header-container">
       <div className="logo">
         <Image
-          src="@/assets//images/logo-icon.png"
+          src={LogoIcon}
           alt="DailyVivea 로고"
           width={53}
           height={32}
