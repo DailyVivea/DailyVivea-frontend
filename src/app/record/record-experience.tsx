@@ -7,9 +7,9 @@ import "@/style/record/recordLayout.css";
 import "@/style/record/experience.css";
 
 const emotions = [
-    { id: 1, label: "행복했어요", image: "/images/happy.png", color: "#FFDFFC" },
-    { id: 2, label: "우울했어요", image: "/images/sad.png", color: "#DEFFFC" },
-    { id: 3, label: "그저 그랬어요", image: "/images/soso.png", color: "#FFFFAA" },
+    { id: 1, label: "행복했어요", image: "@/assets/images/happy.png", color: "#FFDFFC" },
+    { id: 2, label: "우울했어요", image: "@/assets/images/sad.png", color: "#DEFFFC" },
+    { id: 3, label: "그저 그랬어요", image: "@/assets/images/soso.png", color: "#FFFFAA" },
 ];
 
 const RecordExperiencePage = ({
