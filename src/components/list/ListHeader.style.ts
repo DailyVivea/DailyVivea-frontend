@@ -3,10 +3,8 @@ import styled from "styled-components";
 export const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 10%;
-  margin-bottom: 36px;
-  margin-top: 36px;
+  justify-content: space-between;
+  margin-bottom: 32px;
 `;
 
 export const Title = styled.h1`

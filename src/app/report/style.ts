@@ -1,17 +1,17 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Title = styled.p`
   color: black;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 36px;
   padding-bottom: 16px;
 `;
 
 export const BlockComponent = styled.div`
-  flex:1;       // 모든 자식 요소의 너비를 동일하게
+  flex: 1; // 모든 자식 요소의 너비를 동일하게
   background-color: white;
   border-radius: 28px;
-  border: 2.5px solid #E6E6E6;
+  border: 2.5px solid #e6e6e6;
   padding: 22px;
 `;
 export const BlockTitle = styled.p`
@@ -30,9 +30,8 @@ export const BlockText = styled.p`
   font-size: 16px;
 `;
 
-
 export const GreenButton = styled.div`
-  background-color: #95E757;
+  background-color: #95e757;
   border-radius: 28px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -44,7 +43,7 @@ export const GreenButton = styled.div`
   font-size: 18px;
 `;
 export const GrayButton = styled.div`
-  background-color: #E6E6E6;
+  background-color: #e6e6e6;
   border-radius: 28px;
   padding-top: 8px;
   padding-bottom: 8px;
