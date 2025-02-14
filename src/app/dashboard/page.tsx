@@ -18,10 +18,10 @@ const DashboardPage = () => {
     return (
         <div className="background-container">
             <div className="dashboard-text-container">
-                <img src="/images/title.png" alt="타이틀" className="title" />
+                <img src="@/assets/images/title.png" alt="타이틀" className="title" />
                 <h2>DailyVivea에서 오늘 하루의 경험을 기록하고 함께 성장해요</h2>
                 <div className="today-container">
-                    <img src="/images/profile.png" alt="프로필" className="profile" />
+                    <img src="@assets/images/profile.png" alt="프로필" className="profile" />
                     <div className="today-info">
                         <h1>6,228+</h1>
                         <h3>오늘 기록자 수</h3>

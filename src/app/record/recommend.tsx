@@ -19,7 +19,7 @@ const learningResources = [
         title: "TED 연사처럼 발표하기: 발표 기술의 핵심 팁", 
         description: "발표 불안 극복과 청중의 주목을 끄는 방법에 대한 강연", 
         link: "https://www.ted.com/talks/example", 
-        image: "/images/ted-presentation.png",
+        image: "@/assets/images/ted-presentation.png",
         icon: "/icons/youtube.svg"
     },
     { 
@@ -126,7 +126,7 @@ const RecommendPage = ({ setStep, activeStep, setActiveStep }: {
                                     </div>
                                     <div className="learning-link-container">
                                         <a href={resource.link} target="_blank" rel="noopener noreferrer" className="learning-link">
-                                            <img src="/icons/link.svg" alt="link icon"/>
+                                            <img src="@/assets/icons/link.svg" alt="link icon"/>
                                         </a>
                                         <ChevronRight className="chevron-icon" />
                                     </div>

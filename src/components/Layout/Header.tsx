@@ -20,7 +20,7 @@ const Header = () => {
     <nav className="header-container">
       <div className="logo">
         <Image
-          src="/images/logo-icon.png"
+          src="@/assets/images/logo-icon.png"
           alt="DailyVivea 로고"
           width={53}
           height={32}
