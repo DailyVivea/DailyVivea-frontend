@@ -19,10 +19,12 @@ const Header = () => {
 
   return (
     <nav className="header-container">
-      <div className="logo">
-        <Image src={LogoIcon} alt="DailyVivea 로고" width={53} height={32} />
-        <span className="logo-text">DailyVivea</span>
-      </div>
+      <Link href={"/dashboard"}>
+        <div className="logo">
+          <Image src={LogoIcon} alt="DailyVivea 로고" width={53} height={32} />
+          <span className="logo-text">DailyVivea</span>
+        </div>
+      </Link>
 
       <ul className="nav-list">
         {navItems.map((item) => (
