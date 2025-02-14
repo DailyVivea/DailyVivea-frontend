@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
 import ListDetail from "@/components/list/listDetail/ListDetail";
@@ -70,4 +70,10 @@ const Page = () => {
   );
 };
 
-export default Page;
+const PageWithSuspense = () => (
+  <Suspense fallback={<div>로딩 중...</div>}>
+    <Page />
+  </Suspense>
+);
+
+export default PageWithSuspense;
