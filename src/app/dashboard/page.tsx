@@ -4,11 +4,11 @@ import React, { useEffect } from "react";
 import { ChevronRight } from "lucide-react";
 import "@/style/dashboard.css";
 import Link from "next/link";
-import Title from "@/assets/images/title.png"
-import Profile from "@/assets/images/profile.png"
-import Image from "next/image";  // Image import 추가
-import Background from "@/assets/images/dashboard.png"
-
+import Title from "@/assets/images/title.png";
+import Profile from "@/assets/images/profile.png";
+import Image from "next/image"; // Image import 추가
+//import Background from "@/assets/images/dashboard.png";
+import Background from "@/assets/images/dashboard.webp";
 
 const DashboardPage = () => {
   useEffect(() => {
@@ -27,14 +27,8 @@ const DashboardPage = () => {
 
   return (
     <div className="background-container">
-
-        <Image 
-        src={Background}
-        alt="Dashboard Background"
-        layout="fill" // 전체 화면을 채움
-        objectFit="cover" // 비율을 유지하면서 채우기
-        className="background-image"
-        />
+      <div className="h-[50px] w-full bg-white" />
+      <Image src={Background} alt="Dashboard Background" />
 
       <div className="dashboard-text-container">
         <Image src={Title} alt="타이틀" className="title" />
