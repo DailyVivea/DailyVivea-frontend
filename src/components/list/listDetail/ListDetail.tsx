@@ -8,8 +8,15 @@ import {
   SectionColumn,
   GrayButtonLine,
   DateText,
+  RecordWrapper,
+  GreenButton,
+  RecordTitle,
 } from "./ListDetail.style";
 import CustomProgressBar from "../CustomProgressBar";
+import Image from "next/image";
+
+import icon from "../../../assets/recordicon.png";
+import DiamondProgressBar from "@/components/report/DiamondProgressBar";
 
 interface GoalDetail {
   goalId: string;
@@ -59,7 +66,18 @@ const ListDetail: React.FC<ListDetailProps> = ({ goalDetail }) => {
 
       {/* 진행률 섹션 */}
       <GrayButton>진행률</GrayButton>
-      <CustomProgressBar progress={goalDetail.progress} />
+      <DiamondProgressBar />
+      <RecordWrapper>
+        <GrayButton>진행률</GrayButton>
+        <GreenButton>+ 기록 추가하기</GreenButton>
+      </RecordWrapper>
+      <Image
+        src={icon}
+        alt="레코드"
+        width={24}
+        height={24}
+        style={{ width: "24px", cursor: "pointer" }}
+      />
     </CardContainer>
   );
 };
