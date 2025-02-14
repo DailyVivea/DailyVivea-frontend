@@ -139,219 +139,221 @@ const ReportPage = () => {
   }, [reportDetailData, isToggle]);
 
   return (
-    <div className="bg-white p-10 mx-20 ">
-      <Title>나의 경험을 모았어요</Title>
-      <StickerCalendar
-        componentName="RecordDate"
-        currentDate={currentDate}
-        selectedDate={selectedDate}
-        hoveredDate={hoveredDate}
-        setCurrentDate={setCurrentDate}
-        setSelectedDate={setSelectedDate}
-        setHoveredDate={setHoveredDate}
-        feedbackList={feedbackList}
-      />
+    <div className="bg-white ">
+      <div className="p-10 mx-20 ">
+        <Title>나의 경험을 모았어요</Title>
+        <StickerCalendar
+          componentName="RecordDate"
+          currentDate={currentDate}
+          selectedDate={selectedDate}
+          hoveredDate={hoveredDate}
+          setCurrentDate={setCurrentDate}
+          setSelectedDate={setSelectedDate}
+          setHoveredDate={setHoveredDate}
+          feedbackList={feedbackList}
+        />
 
-      <div className="flex justify-between gap-4 mb-[70px] mt-[30px]">
-        <BlockComponent>
-          <BlockTitle>
-            {!selectedDate
-              ? "날짜를 선택해주세요!"
-              : !recordItemForDate(selectedDate)
-              ? "오늘은 감정 기록이 없어요!"
-              : recordItemForDate(selectedDate)?.emotion === Emotion.happy
-              ? "오늘 발표가 만족스러웠던 것 같아요!"
-              : recordItemForDate(selectedDate)?.emotion === Emotion.soso
-              ? "오늘 발표가 나쁘지 않았던 것 같아요!"
-              : recordItemForDate(selectedDate)?.emotion === Emotion.bad
-              ? "오늘 발표가 좀 어려우셨던 것 같아요!"
-              : ""}
-          </BlockTitle>
-          <p className="text-[#B6B6B6] font-medium text-[16px] mt-3">
-            {!selectedDate ? "" : formatDateMMdDDdDay(selectedDate)}
-          </p>
-
-          <div className="flex justify-between items-center">
-            <BlockMiddleTitle>
-              {!selectedDate
-                ? "선택된 날짜가 없습니다"
-                : !recordItemForDate(selectedDate)
-                ? "기록된 감정이 없는 날"
-                : recordItemForDate(selectedDate)?.emotion === Emotion.happy
-                ? "발표가 마음에 들어 햅삐했던 날 😍"
-                : recordItemForDate(selectedDate)?.emotion === Emotion.soso
-                ? "발표가 그럭저럭 굴러갔던 날 🙂"
-                : recordItemForDate(selectedDate)?.emotion === Emotion.bad
-                ? "발표가 마음에 들지 않아 우울했던 날 😭"
-                : `백엔드로부터 알 수 없는 감정 데이터를 전달받았어요: ${
-                    recordItemForDate(selectedDate)?.emotion
-                  }`}
-            </BlockMiddleTitle>
-            {!selectedDate ? (
-              ""
-            ) : !recordItemForDate(selectedDate) ? (
-              ""
-            ) : recordItemForDate(selectedDate)?.emotion === Emotion.happy ? (
-              <Image
-                src={goodSticker}
-                alt="감정스티커"
-                className="w-[213px] h-[213px]"
-              />
-            ) : recordItemForDate(selectedDate)?.emotion === Emotion.soso ? (
-              <Image
-                src={sosoSticker}
-                alt="감정스티커"
-                className="w-[213px] h-[213px]"
-              />
-            ) : recordItemForDate(selectedDate)?.emotion === Emotion.bad ? (
-              <Image
-                src={badSticker}
-                alt="감정스티커"
-                className="w-[213px] h-[213px]"
-              />
-            ) : (
-              ""
-            )}
-          </div>
-        </BlockComponent>
-
-        <BlockComponent>
-          <BlockTitle>피드백</BlockTitle>
-          <BlockText className="mt-3">
-            {!selectedDate
-              ? "날짜를 선택해주세요!"
-              : !recordItemForDate(selectedDate)
-              ? "오늘은 피드백 기록이 없어요!"
-              : `${recordItemForDate(selectedDate)?.feedback}`}
-          </BlockText>
-        </BlockComponent>
-      </div>
-
-      <Title>
-        이번 {!isToggle ? "주" : "달"} 목표 달성률이{" "}
-        {!reportDetailData
-          ? "없네요!"
-          : !isToggle
-          ? reportDetailData?.total_weekly_progress >= 50
-            ? "높아요!"
-            : "낮아요!"
-          : reportDetailData?.total_monthly_progress >= 50
-          ? "높아요!"
-          : "낮아요!"}{" "}
-        계속해서 도전하세요!
-      </Title>
-      <div className="flex gap-2 mb-6">
-        {!isToggle ? (
-          <>
-            <GreenButton>주간</GreenButton>
-
-            <GrayButton>
-              <button onClick={() => setToggle(true)}>월간</button>
-            </GrayButton>
-          </>
-        ) : (
-          <>
-            <GrayButton>
-              <button onClick={() => setToggle(false)}>주간</button>
-            </GrayButton>
-            <GreenButton>월간</GreenButton>
-          </>
-        )}
-      </div>
-
-      <div className="flex justify-between gap-4 mb-[70px]">
-        <div className="flex-1">
+        <div className="flex justify-between gap-4 mb-[70px] mt-[30px]">
           <BlockComponent>
-            <BlockTitle className="mb-7">
-              이번 {!isToggle ? "주" : "달"} 목표 달성률
+            <BlockTitle>
+              {!selectedDate
+                ? "날짜를 선택해주세요!"
+                : !recordItemForDate(selectedDate)
+                ? "오늘은 감정 기록이 없어요!"
+                : recordItemForDate(selectedDate)?.emotion === Emotion.happy
+                ? "오늘 발표가 만족스러웠던 것 같아요!"
+                : recordItemForDate(selectedDate)?.emotion === Emotion.soso
+                ? "오늘 발표가 나쁘지 않았던 것 같아요!"
+                : recordItemForDate(selectedDate)?.emotion === Emotion.bad
+                ? "오늘 발표가 좀 어려우셨던 것 같아요!"
+                : ""}
             </BlockTitle>
-            <div className="flex justify-center">
-              <CircularProgressBar
-                size={200}
-                strokeWidth={20}
-                progress={
-                  !reportDetailData
-                    ? 0
-                    : !isToggle
-                    ? reportDetailData?.total_monthly_progress
-                    : reportDetailData?.total_weekly_progress
-                }
-                description={formatDateMMdDDdDay2(currentDate)}
-              />
-            </div>
-            <div>
-              <TextLinkItem text="주 3회, 하루 30분 이상 걷기 또는 조깅하기" />
-              <DiamondProgressBar />
+            <p className="text-[#B6B6B6] font-medium text-[16px] mt-3">
+              {!selectedDate ? "" : formatDateMMdDDdDay(selectedDate)}
+            </p>
 
-              <TextLinkItem text="주 1회 발표 연습하기" />
-              <DiamondProgressBar />
-
-              <TextLinkItem text="Python 강의 수료 후 간단한 프로젝트 완성" />
-              <DiamondProgressBar />
+            <div className="flex justify-between items-center">
+              <BlockMiddleTitle>
+                {!selectedDate
+                  ? "선택된 날짜가 없습니다"
+                  : !recordItemForDate(selectedDate)
+                  ? "기록된 감정이 없는 날"
+                  : recordItemForDate(selectedDate)?.emotion === Emotion.happy
+                  ? "발표가 마음에 들어 햅삐했던 날 😍"
+                  : recordItemForDate(selectedDate)?.emotion === Emotion.soso
+                  ? "발표가 그럭저럭 굴러갔던 날 🙂"
+                  : recordItemForDate(selectedDate)?.emotion === Emotion.bad
+                  ? "발표가 마음에 들지 않아 우울했던 날 😭"
+                  : `백엔드로부터 알 수 없는 감정 데이터를 전달받았어요: ${
+                      recordItemForDate(selectedDate)?.emotion
+                    }`}
+              </BlockMiddleTitle>
+              {!selectedDate ? (
+                ""
+              ) : !recordItemForDate(selectedDate) ? (
+                ""
+              ) : recordItemForDate(selectedDate)?.emotion === Emotion.happy ? (
+                <Image
+                  src={goodSticker}
+                  alt="감정스티커"
+                  className="w-[213px] h-[213px]"
+                />
+              ) : recordItemForDate(selectedDate)?.emotion === Emotion.soso ? (
+                <Image
+                  src={sosoSticker}
+                  alt="감정스티커"
+                  className="w-[213px] h-[213px]"
+                />
+              ) : recordItemForDate(selectedDate)?.emotion === Emotion.bad ? (
+                <Image
+                  src={badSticker}
+                  alt="감정스티커"
+                  className="w-[213px] h-[213px]"
+                />
+              ) : (
+                ""
+              )}
             </div>
+          </BlockComponent>
+
+          <BlockComponent>
+            <BlockTitle>피드백</BlockTitle>
+            <BlockText className="mt-3">
+              {!selectedDate
+                ? "날짜를 선택해주세요!"
+                : !recordItemForDate(selectedDate)
+                ? "오늘은 피드백 기록이 없어요!"
+                : `${recordItemForDate(selectedDate)?.feedback}`}
+            </BlockText>
           </BlockComponent>
         </div>
 
-        <div className="flex-1">
-          <BlockComponent className="mb-4">
-            <BlockTitle className="mt-5 mb-4">
-              이번 {!isToggle ? "주" : "달"} 감정 분포
-            </BlockTitle>
-            <EmotionBar
-              text="두려움"
-              emotion="😨"
-              barColor="bg-[#95E757]"
-              barState={emotions[0]}
-            />
-            <EmotionBar
-              text="행복함"
-              emotion="😊"
-              barColor="bg-[#FFDFFC]"
-              barState={emotions[1]}
-            />
-            <EmotionBar
-              text="우울함"
-              emotion="😔"
-              barColor="bg-[#DEFFFC]"
-              barState={emotions[2]}
-            />
-            <EmotionBar
-              text="무덤덤"
-              emotion="😐"
-              barColor="bg-[#FFFFAA]"
-              barState={emotions[3]}
-            />
-            <EmotionBar
-              text="분노"
-              emotion="😡"
-              barColor="bg-[#E6E6E6]"
-              barState={emotions[4]}
-            />
-            <div className="mb-10" /> {/*컴포넌트크기임시조정*/}
-          </BlockComponent>
+        <Title>
+          이번 {!isToggle ? "주" : "달"} 목표 달성률이{" "}
+          {!reportDetailData
+            ? "없네요!"
+            : !isToggle
+            ? reportDetailData?.total_weekly_progress >= 50
+              ? "높아요!"
+              : "낮아요!"
+            : reportDetailData?.total_monthly_progress >= 50
+            ? "높아요!"
+            : "낮아요!"}{" "}
+          계속해서 도전하세요!
+        </Title>
+        <div className="flex gap-2 mb-6">
+          {!isToggle ? (
+            <>
+              <GreenButton>주간</GreenButton>
 
-          <BlockComponent>
-            <BlockTitle className="mt-5 mb-5">
-              이번 {!isToggle ? "주" : "달"}의 내 또래 친구들의 목표에요
-            </BlockTitle>
-            <GoalListItem
-              goal="일주일에 5개 단어씩 외국어 단어장에 추가 후 복습"
-              name="안OO"
-            ></GoalListItem>
-            <GoalListItem
-              goal="월 1회 지역 봉사활동 참여하기"
-              name="박OO"
-            ></GoalListItem>
-            <GoalListItem
-              goal="주 1회, 외식비 5만 원 이하로 제한하기"
-              name="최OO"
-            ></GoalListItem>
-            <GoalListItem
-              goal="매일 자기계발 서적 10페이지 읽기"
-              name="김OO"
-            ></GoalListItem>
-            <div className="mb-7" /> {/*컴포넌트크기임시조정*/}
-          </BlockComponent>
+              <GrayButton>
+                <button onClick={() => setToggle(true)}>월간</button>
+              </GrayButton>
+            </>
+          ) : (
+            <>
+              <GrayButton>
+                <button onClick={() => setToggle(false)}>주간</button>
+              </GrayButton>
+              <GreenButton>월간</GreenButton>
+            </>
+          )}
+        </div>
+
+        <div className="flex justify-between gap-4 mb-[70px]">
+          <div className="flex-1">
+            <BlockComponent>
+              <BlockTitle className="mb-7">
+                이번 {!isToggle ? "주" : "달"} 목표 달성률
+              </BlockTitle>
+              <div className="flex justify-center">
+                <CircularProgressBar
+                  size={200}
+                  strokeWidth={20}
+                  progress={
+                    !reportDetailData
+                      ? 0
+                      : !isToggle
+                      ? reportDetailData?.total_monthly_progress
+                      : reportDetailData?.total_weekly_progress
+                  }
+                  description={formatDateMMdDDdDay2(currentDate)}
+                />
+              </div>
+              <div>
+                <TextLinkItem text="주 3회, 하루 30분 이상 걷기 또는 조깅하기" />
+                <DiamondProgressBar />
+
+                <TextLinkItem text="주 1회 발표 연습하기" />
+                <DiamondProgressBar />
+
+                <TextLinkItem text="Python 강의 수료 후 간단한 프로젝트 완성" />
+                <DiamondProgressBar />
+              </div>
+            </BlockComponent>
+          </div>
+
+          <div className="flex-1">
+            <BlockComponent className="mb-4">
+              <BlockTitle className="mt-5 mb-4">
+                이번 {!isToggle ? "주" : "달"} 감정 분포
+              </BlockTitle>
+              <EmotionBar
+                text="두려움"
+                emotion="😨"
+                barColor="bg-[#95E757]"
+                barState={emotions[0]}
+              />
+              <EmotionBar
+                text="행복함"
+                emotion="😊"
+                barColor="bg-[#FFDFFC]"
+                barState={emotions[1]}
+              />
+              <EmotionBar
+                text="우울함"
+                emotion="😔"
+                barColor="bg-[#DEFFFC]"
+                barState={emotions[2]}
+              />
+              <EmotionBar
+                text="무덤덤"
+                emotion="😐"
+                barColor="bg-[#FFFFAA]"
+                barState={emotions[3]}
+              />
+              <EmotionBar
+                text="분노"
+                emotion="😡"
+                barColor="bg-[#E6E6E6]"
+                barState={emotions[4]}
+              />
+              <div className="mb-10" /> {/*컴포넌트크기임시조정*/}
+            </BlockComponent>
+
+            <BlockComponent>
+              <BlockTitle className="mt-5 mb-5">
+                이번 {!isToggle ? "주" : "달"}의 내 또래 친구들의 목표에요
+              </BlockTitle>
+              <GoalListItem
+                goal="일주일에 5개 단어씩 외국어 단어장에 추가 후 복습"
+                name="안OO"
+              ></GoalListItem>
+              <GoalListItem
+                goal="월 1회 지역 봉사활동 참여하기"
+                name="박OO"
+              ></GoalListItem>
+              <GoalListItem
+                goal="주 1회, 외식비 5만 원 이하로 제한하기"
+                name="최OO"
+              ></GoalListItem>
+              <GoalListItem
+                goal="매일 자기계발 서적 10페이지 읽기"
+                name="김OO"
+              ></GoalListItem>
+              <div className="mb-7" /> {/*컴포넌트크기임시조정*/}
+            </BlockComponent>
+          </div>
         </div>
       </div>
     </div>
