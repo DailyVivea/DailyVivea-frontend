@@ -8,8 +8,8 @@ export const weekendsHeaderStyle = "text-[#BBEB96]";
 export const basicDateCellStyle =
   "bg-transparent flex justify-center items-center text-center cursor-pointer h-[100px]";
 export const defaultDateCellStyle = "py-2";
-export const hoveredDateCellStyle = "w-10 py-2 rounded-full bg-[#D4F9B8]";
-export const selectedDateCellStyle = "w-10 py-2 rounded-full bg-[#95E757]";
+export const hoveredDateCellStyle = "w-12 py-2 rounded-full bg-[#D4F9B8]";
+export const selectedDateCellStyle = "w-12 py-2 rounded-full bg-[#95E757]";
 
 export const basicStickerDateCellStyle =
   "bg-transparent flex justify-between items-center text-center cursor-pointer h-[100px]";
