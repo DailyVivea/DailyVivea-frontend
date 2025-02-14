@@ -1,52 +1,71 @@
-import React from 'react';
+import React from "react";
 
-import { 
-    Wrapper, CircleBackground, CircleProgress, 
-    TextWrapper, ProgressText, DescriptionText
-} from './CircleProgressBar.style';
+import {
+  Wrapper,
+  CircleBackground,
+  CircleProgress,
+  TextWrapper,
+  ProgressText,
+  DescriptionText,
+} from "./CircleProgressBar.style";
 
 interface CircularProgressBarProps {
-    size: number;
-    strokeWidth: number;
-    progress: number;
-    description: string;
+  size: number;
+  strokeWidth: number;
+  progress: number;
+  description: string;
 }
 
-const CircularProgressBar = ({ size, strokeWidth, progress, description }: CircularProgressBarProps) => {
-    const radius = (size - strokeWidth) / 2;  // 원의 반지름
-    const circumference = 2 * Math.PI * radius;  // 원 둘레
-        
-    // 원형의 진행 상태를 나타내는 오프셋 계산
-    const strokeDashoffset = circumference - (progress / 100) * circumference;
+const CircularProgressBar = ({
+  size,
+  strokeWidth,
+  progress,
+  description,
+}: CircularProgressBarProps) => {
+  const radius = (size - strokeWidth) / 2; // 원의 반지름
+  const circumference = 2 * Math.PI * radius; // 원 둘레
 
-    return (
-        <Wrapper style={{ width: size, height: size }}>
-            <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} style={{ transform: 'rotate(-90deg)' }}>
-                {/* 배경 원 */}
-                <CircleBackground
-                cx={size / 2}
-                cy={size / 2}
-                r={radius}
-                strokeWidth={strokeWidth}
-                />
-                
-                {/* 진행 상태를 나타내는 원 */}
-                <CircleProgress
-                cx={size / 2}
-                cy={size / 2}
-                r={radius}
-                strokeWidth={strokeWidth}
-                strokeDasharray={circumference}
-                strokeDashoffset={strokeDashoffset}
-                />
-            </svg>
+  // progress 값이 유효한지 체크
+  if (isNaN(progress) || progress < 0 || progress > 100) {
+    progress = 0; // 기본값으로 설정
+  }
 
-            <TextWrapper>
-                <ProgressText>{progress}%</ProgressText>
-                <DescriptionText>{description}</DescriptionText>
-            </TextWrapper>
-        </Wrapper>
-    );
+  // 원형의 진행 상태를 나타내는 오프셋 계산
+  const strokeDashoffset = circumference - (progress / 100) * circumference;
+
+  return (
+    <Wrapper style={{ width: size, height: size }}>
+      <svg
+        width={size}
+        height={size}
+        viewBox={`0 0 ${size} ${size}`}
+        style={{ transform: "rotate(-90deg)" }}
+      >
+        {/* 배경 원 */}
+        <CircleBackground
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          strokeWidth={strokeWidth}
+        />
+
+        {/* 진행 상태를 나타내는 원 */}
+        <CircleProgress
+          cx={size / 2}
+          cy={size / 2}
+          r={radius}
+          strokeWidth={strokeWidth}
+          strokeDasharray={circumference}
+          strokeDashoffset={strokeDashoffset}
+        />
+      </svg>
+
+      <TextWrapper>
+        <ProgressText>{progress}%</ProgressText>
+        <DescriptionText>{description}</DescriptionText>
+      </TextWrapper>
+    </Wrapper>
+  );
 };
 
 export default CircularProgressBar;
