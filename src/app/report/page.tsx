@@ -139,7 +139,7 @@ const ReportPage = () => {
   }, [reportDetailData, isToggle]);
 
   return (
-    <div className="bg-white p-10 ">
+    <div className="bg-white p-10 mx-20 ">
       <Title>나의 경험을 모았어요</Title>
       <StickerCalendar
         componentName="RecordDate"

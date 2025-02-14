@@ -29,7 +29,8 @@ export const GrayButton = styled.div`
 
 export const ButtonContainer = styled.div`
   display: flex;
-  gap: 8px;
-  margin-left: 344px;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
   margin-bottom: 20px;
 `;

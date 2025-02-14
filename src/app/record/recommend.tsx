@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import ProgressBar from "@/components/record/ProgressBar";
 import "@/style/record/recordLayout.css";
 import "@/style/record/recommend.css";
+import Image from "next/image";
+import Ted from "@/assets/images/ted-presentation.png"
 
 const RecommendPage = ({
   setStep,

@@ -46,7 +46,7 @@ const Page = () => {
   };
 
   return (
-    <div>
+    <div className="bg-white p-10 mx-20">
       <ListHeader />
       <TypeButton />
       <CardGridContainer>
