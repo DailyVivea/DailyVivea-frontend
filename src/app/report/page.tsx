@@ -277,7 +277,9 @@ const ReportPage = () => {
                       ? reportDetailData?.total_monthly_progress
                       : reportDetailData?.total_weekly_progress
                   }
-                  description={formatDateMMdDDdDay2(currentDate)}
+                  description={formatDateMMdDDdDay2(
+                    selectedDate ? selectedDate : currentDate
+                  )}
                 />
               </div>
               <div>
