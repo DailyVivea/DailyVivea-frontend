@@ -46,28 +46,30 @@ const Page = () => {
   };
 
   return (
-    <div className="bg-white p-10 mx-20">
-      <ListHeader />
-      <TypeButton />
-      <CardGridContainer>
-        <CardGrid>
-          {goals.map((goal) => (
-            <GoalCard
-              key={goal.goalId}
-              id={goal.goalId}
-              title={goal.title}
-              status={goal.status === "IN_PROGRESS" ? "진행 중" : "완료"}
-              goal={goal.content}
-              frequency={`주 ${goal.interval.week}회 ${goal.interval.times}번`}
-              period={`${goal.term.start.split("T")[0]} ~ ${
-                goal.term.end.split("T")[0]
-              }`}
-              progress={goal.progress}
-              onDelete={handleDeleteGoal}
-            />
-          ))}
-        </CardGrid>
-      </CardGridContainer>
+    <div className="bg-white">
+      <div className="p-10 mx-20">
+        <ListHeader />
+        <TypeButton />
+        <CardGridContainer>
+          <CardGrid>
+            {goals.map((goal) => (
+              <GoalCard
+                key={goal.goalId}
+                id={goal.goalId}
+                title={goal.title}
+                status={goal.status === "IN_PROGRESS" ? "진행 중" : "완료"}
+                goal={goal.content}
+                frequency={`주 ${goal.interval.week}회 ${goal.interval.times}번`}
+                period={`${goal.term.start.split("T")[0]} ~ ${
+                  goal.term.end.split("T")[0]
+                }`}
+                progress={goal.progress}
+                onDelete={handleDeleteGoal}
+              />
+            ))}
+          </CardGrid>
+        </CardGridContainer>
+      </div>
     </div>
   );
 };

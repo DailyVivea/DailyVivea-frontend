@@ -4,8 +4,8 @@ export const HeaderContainer = styled.div`
   display: flex;
   align-items: center;
   margin-bottom: 36px;
-  margin-top: 36px;
-  margin-left: 333px;
+  padding-top: 42px;
+  margin-left: 100px;
 `;
 
 export const Title = styled.h1`
